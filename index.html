@@ -10,12 +10,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
   <script src="./curriculum.js"></script>
+  <script>
+    if (!window.DATAFORGE_CURRICULUM) {
+      document.write('<script src="./curriculum_2.js"><\/script>');
+    }
+  </script>
   <style>
-    /* ==================== iPHONE 18 PRO LIQUID GLASS DESIGN TOKENS ==================== */
+    /* ==================== LIQUID GLASS DESIGN TOKENS & SMOOTH MOTION ==================== */
     :root {
       --spring: cubic-bezier(0.22, 1, 0.36, 1);
-      --radius-outer: 26px;
-      --radius-inner: 18px;
+      --spring-snappy: cubic-bezier(0.2, 0.9, 0.3, 1);
+      --radius-outer: 24px;
+      --radius-inner: 16px;
       --radius-pill: 999px;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
@@ -82,7 +88,7 @@
       --console-text: #f5ebd9;
     }
 
-    /* iPhone 18 Pro Titanium Finishes */
+    /* Titanium Accent Finishes */
     [data-finish="glacier"] {
       --accent: #0071e3;
       --accent-soft: rgba(0, 113, 227, 0.13);
@@ -125,15 +131,16 @@
       font-family: var(--font-sans);
       background: var(--bg-gradient);
       color: var(--text-primary);
-      transition: background 0.45s var(--spring), color 0.3s ease;
+      transition: color 0.28s ease;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Ambient Focus Lock Dimming */
     body.focus-locked .top-capsule-bar,
     body.focus-locked .bottom-dock {
-      opacity: 0.32;
-      transition: opacity 0.35s ease;
+      opacity: 0.34;
+      transition: opacity 0.32s var(--spring);
     }
     body.focus-locked .top-capsule-bar:hover,
     body.focus-locked .bottom-dock:hover {
@@ -148,18 +155,23 @@
       margin: 0 auto;
       padding: 12px 16px 16px;
       gap: 12px;
+      animation: shellFadeIn 0.42s var(--spring) both;
+    }
+    @keyframes shellFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ==================== LIQUID GLASS SURFACES & CAPSULES ==================== */
     .liquid-card {
       background: var(--glass-surface);
-      backdrop-filter: blur(26px) saturate(165%);
-      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
       border: 1px solid var(--glass-border);
       outline: 1px solid var(--glass-outline);
       border-radius: var(--radius-outer);
       box-shadow: var(--specular);
-      transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring), background 0.35s ease;
+      transition: background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.32s var(--spring), opacity 0.28s ease;
     }
 
     .capsule-group {
@@ -170,7 +182,8 @@
       background: var(--pill-bg);
       border: 1px solid var(--glass-outline);
       border-radius: var(--radius-pill);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .capsule-btn {
@@ -187,11 +200,15 @@
       align-items: center;
       gap: 6px;
       white-space: nowrap;
-      transition: all 0.28s var(--spring);
+      will-change: transform;
+      transition: transform 0.22s var(--spring-snappy), background-color 0.22s ease, color 0.22s ease, box-shadow 0.25s var(--spring);
     }
     .capsule-btn:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.24);
+    }
+    .capsule-btn:active {
+      transform: scale(0.96);
     }
     .capsule-btn.active {
       background: var(--pill-active-bg);
@@ -213,10 +230,11 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 14px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      transition: transform 0.22s var(--spring), filter 0.2s ease;
+      will-change: transform;
+      transition: transform 0.22s var(--spring-snappy), filter 0.2s ease, box-shadow 0.25s ease;
     }
     .primary-pill:hover { transform: translateY(-1px); filter: brightness(1.06); }
-    .primary-pill:active { transform: scale(0.97); }
+    .primary-pill:active { transform: scale(0.96); }
 
     .ghost-pill {
       border: 1px solid var(--glass-outline);
@@ -231,9 +249,12 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.22s var(--spring);
+      will-change: transform;
+      transition: transform 0.22s var(--spring-snappy), border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
     }
     .ghost-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .ghost-pill:active { transform: scale(0.96); }
+    .ghost-pill.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
 
     /* ==================== ZONE 1: TOP CAPSULE BAR ==================== */
     .top-capsule-bar {
@@ -264,7 +285,9 @@
       place-items: center;
       box-shadow: 0 4px 12px var(--accent-glow);
       flex-shrink: 0;
+      transition: transform 0.28s var(--spring);
     }
+    .app-logo:hover { transform: scale(1.05); }
 
     .day-meta {
       display: flex;
@@ -298,6 +321,7 @@
       border-radius: var(--radius-pill);
       background: var(--accent-soft);
       color: var(--accent);
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
     .badge-tag.boss { background: rgba(245, 158, 11, 0.16); color: #d97706; }
     .badge-tag.handson { background: rgba(16, 185, 129, 0.16); color: #059669; }
@@ -312,8 +336,8 @@
     .stat-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
+      gap: 6px;
+      padding: 5px 11px;
       border-radius: var(--radius-pill);
       background: var(--pill-bg);
       border: 1px solid var(--glass-outline);
@@ -328,6 +352,7 @@
       border-radius: 50%;
       background: var(--success);
       box-shadow: 0 0 8px var(--success);
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
     }
     .sync-dot.syncing { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
 
@@ -338,7 +363,7 @@
       gap: 12px;
       flex: 1;
       min-height: 490px;
-      transition: grid-template-columns 0.35s var(--spring);
+      transition: grid-template-columns 0.34s var(--spring);
     }
     .split-workspace.wide-video { grid-template-columns: 1.55fr 0.75fr; }
     .split-workspace.wide-code { grid-template-columns: 0.75fr 1.55fr; }
@@ -389,7 +414,7 @@
       font-family: var(--font-sans);
       color: var(--text-primary);
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
     .glass-input:focus {
       border-color: var(--accent);
@@ -420,6 +445,7 @@
       justify-content: center;
       gap: 14px;
       background: var(--glass-subtle);
+      animation: paneReveal 0.28s var(--spring) both;
     }
     .lab-brief-stage h3 {
       font-size: 18px;
@@ -440,7 +466,14 @@
       flex-direction: column;
       gap: 12px;
     }
-    .takeaways-panel.active { display: flex; }
+    .takeaways-panel.active {
+      display: flex;
+      animation: paneReveal 0.28s var(--spring) both;
+    }
+    @keyframes paneReveal {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .takeaway-item {
       display: flex;
@@ -453,6 +486,11 @@
       font-size: 13px;
       line-height: 1.55;
       color: var(--text-primary);
+      transition: transform 0.22s var(--spring), border-color 0.2s ease;
+    }
+    .takeaway-item:hover {
+      transform: translateX(2px);
+      border-color: var(--accent);
     }
     .takeaway-num {
       width: 22px;
@@ -479,7 +517,10 @@
       font-size: 12.5px;
       line-height: 1.5;
     }
-    .challenge-drawer.open { display: flex; }
+    .challenge-drawer.open {
+      display: flex;
+      animation: paneReveal 0.24s var(--spring) both;
+    }
 
     .dataset-strip {
       display: none;
@@ -492,7 +533,10 @@
       font-size: 11.5px;
       color: var(--text-secondary);
     }
-    .dataset-strip.open { display: flex; }
+    .dataset-strip.open {
+      display: flex;
+      animation: paneReveal 0.24s var(--spring) both;
+    }
 
     .code-textarea {
       flex: 1;
@@ -508,6 +552,7 @@
       font-size: 13px;
       line-height: 1.6;
       tab-size: 4;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .console-box {
@@ -537,6 +582,7 @@
       border-radius: 10px;
       margin-top: 8px;
       background: #fff;
+      animation: paneReveal 0.28s var(--spring) both;
     }
 
     /* ==================== ZONE 3: UNIFIED BOTTOM DOCK (NOTES | AI) ==================== */
@@ -562,7 +608,12 @@
     .bottom-dock.minimized .dock-body { display: none; }
 
     .dock-pane { display: none; }
-    .dock-pane.active { display: flex; flex-direction: column; gap: 10px; }
+    .dock-pane.active {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: paneReveal 0.24s var(--spring) both;
+    }
 
     /* Smart Notes Grid */
     .notes-composer {
@@ -586,6 +637,11 @@
       flex-direction: column;
       gap: 5px;
       font-size: 12.5px;
+      transition: transform 0.2s var(--spring), border-color 0.2s ease;
+    }
+    .note-card:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
     }
     .note-meta {
       display: flex;
@@ -611,6 +667,7 @@
       font-size: 12.5px;
       line-height: 1.55;
       max-width: 92%;
+      animation: paneReveal 0.24s var(--spring) both;
     }
     .ai-msg.bot {
       background: var(--glass-elevated);
@@ -635,10 +692,16 @@
       inset: 0;
       background: rgba(10, 15, 28, 0.42);
       backdrop-filter: blur(8px);
-      display: none;
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--spring);
       z-index: 90;
     }
-    .drawer-backdrop.open { display: block; }
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .roadmap-drawer {
       position: fixed;
@@ -647,13 +710,14 @@
       bottom: 12px;
       width: min(410px, calc(100vw - 24px));
       z-index: 100;
-      transform: translateX(-110%);
-      transition: transform 0.38s var(--spring);
+      transform: translate3d(-112%, 0, 0);
+      will-change: transform;
+      transition: transform 0.36s var(--spring);
       display: flex;
       flex-direction: column;
       overflow: hidden;
     }
-    .roadmap-drawer.open { transform: translateX(0); }
+    .roadmap-drawer.open { transform: translate3d(0, 0, 0); }
 
     .roadmap-list {
       flex: 1;
@@ -674,9 +738,12 @@
       border: 1px solid var(--glass-outline);
       cursor: pointer;
       font-size: 12.5px;
-      transition: all 0.2s ease;
+      transition: transform 0.18s var(--spring), border-color 0.2s ease, background-color 0.2s ease;
     }
-    .day-row:hover { border-color: var(--accent); }
+    .day-row:hover {
+      border-color: var(--accent);
+      transform: translateX(2px);
+    }
     .day-row.active {
       background: var(--accent-soft);
       border-color: var(--accent);
@@ -696,21 +763,29 @@
       place-items: center;
       font-size: 11px;
       flex-shrink: 0;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
-    /* Modals (Login, Themes, Floating Video) */
+    /* Modals (Login, Themes) */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(10, 15, 28, 0.48);
       backdrop-filter: blur(12px);
-      display: none;
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
       z-index: 120;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.26s var(--spring);
     }
-    .modal-overlay.open { display: flex; }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .modal-sheet {
       width: min(460px, 100%);
@@ -718,11 +793,12 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      animation: popIn 0.32s var(--spring);
+      transform: scale(0.96) translateY(8px);
+      will-change: transform;
+      transition: transform 0.3s var(--spring);
     }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.95) translateY(8px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+    .modal-overlay.open .modal-sheet {
+      transform: scale(1) translateY(0);
     }
 
     .theme-grid {
@@ -735,10 +811,12 @@
       border-radius: var(--radius-inner);
       border: 1.5px solid var(--glass-outline);
       background: var(--glass-elevated);
+      color: var(--text-primary);
       cursor: pointer;
       text-align: left;
-      transition: all 0.22s var(--spring);
+      transition: transform 0.2s var(--spring), border-color 0.2s ease, box-shadow 0.2s ease;
     }
+    .theme-tile:hover { transform: translateY(-1px); }
     .theme-tile.selected {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-soft);
@@ -764,7 +842,9 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: transform 0.2s var(--spring), border-color 0.2s ease, background-color 0.2s ease;
     }
+    .finish-swatch:hover { transform: translateY(-1px); }
     .finish-swatch.selected {
       border-color: var(--accent);
       background: var(--accent-soft);
@@ -782,12 +862,28 @@
       bottom: 18px;
       width: min(360px, calc(100vw - 36px));
       z-index: 115;
-      display: none;
+      display: flex;
       flex-direction: column;
       overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.96);
+      transition: opacity 0.26s var(--spring), transform 0.3s var(--spring);
     }
-    .floating-pip.open { display: flex; }
+    .floating-pip.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
     .floating-pip iframe { width: 100%; height: 205px; border: 0; }
+
+    /* Respect Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
     /* Responsive Mobile Portrait Ergonomics */
     @media (max-width: 920px) {
@@ -835,7 +931,8 @@
         <!-- 60-Min Focus Timer + Ambient Dimmer -->
         <div class="stat-pill">
           <span id="timerDisplay" style="font-family:var(--font-mono);">60:00</span>
-          <button class="capsule-btn" id="timerToggleBtn" onclick="toggleTimer()" style="padding:3px 9px;">▶</button>
+          <button class="capsule-btn" id="timerToggleBtn" onclick="toggleTimer()" title="Start/Pause Timer" style="padding:3px 9px;">▶</button>
+          <button class="capsule-btn" onclick="resetTimer()" title="Reset 60-Min Timer" style="padding:3px 7px;">↺</button>
           <button class="capsule-btn" id="focusLockBtn" onclick="toggleFocusLock()" title="Dim peripheral panels" style="padding:3px 9px;">Focus</button>
         </div>
 
@@ -937,7 +1034,7 @@
           </div>
         </div>
 
-        <!-- On-Demand Day's Challenge Drawer (Collapsed by default so workspace stays uncluttered) -->
+        <!-- On-Demand Day's Challenge Drawer -->
         <div id="challengeDrawer" class="challenge-drawer">
           <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
             <strong style="color:var(--accent);">Today's Exercise (<span id="challengeModeLabel">Core</span>)</strong>
@@ -1059,7 +1156,7 @@
   </aside>
 
   <!-- ==================== MODAL 1: MULTI-STUDENT LOGIN & CLOUD SYNC ==================== -->
-  <div class="modal-overlay" id="accountModal">
+  <div class="modal-overlay" id="accountModal" onclick="if(event.target===this) closeModal('accountModal')">
     <div class="liquid-card modal-sheet">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <h2 style="font-size:17px;font-weight:700;">Student Login & Cross-Device Sync</h2>
@@ -1094,19 +1191,19 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL 2: iPHONE 18 PRO THEMES & FINISHES ==================== -->
-  <div class="modal-overlay" id="themesModal">
+  <!-- ==================== MODAL 2: LIQUID GLASS THEMES & FINISHES ==================== -->
+  <div class="modal-overlay" id="themesModal" onclick="if(event.target===this) closeModal('themesModal')">
     <div class="liquid-card modal-sheet">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <h2 style="font-size:17px;font-weight:700;">iPhone 18 Pro Appearance & Glass</h2>
+        <h2 style="font-size:17px;font-weight:700;">Liquid Glass Appearance & Finishes</h2>
         <button class="ghost-pill" onclick="closeModal('themesModal')">✕</button>
       </div>
 
-      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);">Liquid Glass Surface Mode</div>
+      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);">Surface Theme</div>
       <div class="theme-grid" id="themeTiles">
         <button class="theme-tile" data-theme-opt="daylight" onclick="setTheme('daylight')">
           <strong style="font-size:13px;display:block;">☀️ Daylight Glass</strong>
-          <span style="font-size:11px;color:var(--text-muted);">Bright macOS/iOS frosted mist</span>
+          <span style="font-size:11px;color:var(--text-muted);">Bright frosted mist</span>
         </button>
         <button class="theme-tile" data-theme-opt="midnight" onclick="setTheme('midnight')">
           <strong style="font-size:13px;display:block;">🌙 Midnight Dark</strong>
@@ -1122,7 +1219,7 @@
         </button>
       </div>
 
-      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-top:4px;">iPhone 18 Pro Titanium Accent Finish</div>
+      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-top:4px;">Titanium Accent Finish</div>
       <div class="finish-row" id="finishSwatches">
         <button class="finish-swatch" data-finish-opt="glacier" onclick="setFinish('glacier')">
           <span class="swatch-dot" style="background:#0071e3;"></span> Glacier Blue
@@ -1155,6 +1252,13 @@
     const DATASETS = window.DATAFORGE_DATASETS || {};
     const STORAGE_KEY = "dataforge_os_v6_state";
 
+    function getLocalDateKey(dateObj = new Date()) {
+      const y = dateObj.getFullYear();
+      const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const d = String(dateObj.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
     let state = {
       handle: "",
       pin: "",
@@ -1162,11 +1266,12 @@
       completedDays: [],
       xp: 0,
       streak: 1,
-      lastStudyDate: new Date().toISOString().slice(0, 10),
+      lastStudyDate: getLocalDateKey(),
       theme: "daylight",
       finish: "glacier",
       track: "General Tech & AI",
       notes: [],
+      drafts: {},
       geminiKey: "",
       updatedAt: Date.now()
     };
@@ -1180,12 +1285,13 @@
     let timerSeconds = 3600;
     let timerInterval = null;
     let customVideoId = null;
+    let cloudPushTimer = null;
 
     /* ==================== INITIALIZATION ==================== */
     window.addEventListener("DOMContentLoaded", async () => {
       loadLocalState();
       applyThemeAndFinish();
-      renderDay(state.currentDay);
+      renderDay(state.currentDay, true);
       renderRoadmap();
       renderNotes();
       initGreeting();
@@ -1210,8 +1316,17 @@
         if (state.handle && state.pin) syncFromCloud(true);
       });
 
-      // Ctrl/Cmd + Enter runs code
-      document.getElementById("codeEditor").addEventListener("keydown", (e) => {
+      // Live system theme listener when set to "auto"
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        if (state.theme === "auto") applyThemeAndFinish();
+      });
+
+      // Persist per-day draft code on input & run on Ctrl/Cmd + Enter
+      const editorEl = document.getElementById("codeEditor");
+      editorEl.addEventListener("input", () => {
+        saveCurrentDraft();
+      });
+      editorEl.addEventListener("keydown", (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
           e.preventDefault();
           runUserCode();
@@ -1224,7 +1339,7 @@
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
-          state = { ...state, ...parsed };
+          state = { ...state, ...parsed, drafts: parsed.drafts || {} };
         }
       } catch (e) {
         console.warn("State load fallback", e);
@@ -1232,13 +1347,36 @@
       updateTopMetrics();
     }
 
+    function saveCurrentDraft() {
+      const key = `d${state.currentDay}_${editorLang}`;
+      const val = document.getElementById("codeEditor").value;
+      if (val) {
+        state.drafts[key] = val;
+      } else {
+        delete state.drafts[key];
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function restoreCurrentDraft() {
+      const key = `d${state.currentDay}_${editorLang}`;
+      document.getElementById("codeEditor").value = state.drafts[key] || "";
+    }
+
     function saveLocalState(pushCloud = true) {
       state.updatedAt = Date.now();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       updateTopMetrics();
       if (pushCloud && state.handle && state.pin) {
-        pushToCloud();
+        scheduleCloudPush();
       }
+    }
+
+    function scheduleCloudPush() {
+      clearTimeout(cloudPushTimer);
+      cloudPushTimer = setTimeout(() => {
+        pushToCloud();
+      }, 800);
     }
 
     function updateTopMetrics() {
@@ -1318,7 +1456,8 @@
         }
 
         if (latestRemote) {
-          // Merge completed days & notes cleanly so progress is never lost
+          const prevCompletedCount = state.completedDays.length;
+          const prevDay = state.currentDay;
           const mergedCompleted = Array.from(new Set([...state.completedDays, ...(latestRemote.completedDays || [])])).sort((a, b) => a - b);
           const noteMap = new Map();
           [...(latestRemote.notes || []), ...state.notes].forEach(n => noteMap.set(n.id, n));
@@ -1340,12 +1479,21 @@
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
           applyThemeAndFinish();
           updateTopMetrics();
-          renderDay(state.currentDay);
-          renderRoadmap();
+
+          // Only re-render day if the active day actually changed remotely, preserving current editor buffer
+          if (state.currentDay !== prevDay) {
+            renderDay(state.currentDay, true);
+          } else {
+            renderRoadmap();
+          }
           renderNotes();
           setSyncIndicator("ok", `Synced ✓ (@${state.handle})`);
+
+          // Push merged updates back if local device contributed new completed days
+          if (mergedCompleted.length > (latestRemote.completedDays || []).length || mergedCompleted.length > prevCompletedCount) {
+            scheduleCloudPush();
+          }
         } else {
-          // First time for this handle+PIN -> initialize vault
           await pushToCloud();
         }
       } catch (err) {
@@ -1364,8 +1512,8 @@
       state.pin = p;
       document.getElementById("activeHandleLabel").textContent = "@" + h;
       saveLocalState(false);
-      await syncFromCloud(false);
       closeModal("accountModal");
+      await syncFromCloud(false);
     }
 
     async function forcePullCloud() {
@@ -1373,19 +1521,20 @@
     }
 
     function lockWorkstation() {
+      clearTimeout(cloudPushTimer);
       localStorage.removeItem(STORAGE_KEY);
       state = {
         handle: "", pin: "", currentDay: 1, completedDays: [], xp: 0, streak: 1,
-        lastStudyDate: new Date().toISOString().slice(0, 10),
+        lastStudyDate: getLocalDateKey(),
         theme: "daylight", finish: "glacier", track: "General Tech & AI",
-        notes: [], geminiKey: "", updatedAt: Date.now()
+        notes: [], drafts: {}, geminiKey: "", updatedAt: Date.now()
       };
       document.getElementById("loginHandleInput").value = "";
       document.getElementById("loginPinInput").value = "";
       document.getElementById("activeHandleLabel").textContent = "@guest";
       applyThemeAndFinish();
       updateTopMetrics();
-      renderDay(1);
+      renderDay(1, true);
       renderRoadmap();
       renderNotes();
       setSyncIndicator("ok", "Workstation locked & local cache cleared");
@@ -1396,7 +1545,7 @@
       saveLocalState(false);
     }
 
-    /* ==================== iPHONE 18 PRO THEMES & FINISHES ==================== */
+    /* ==================== LIQUID GLASS THEMES & FINISHES ==================== */
     function setTheme(themeName) {
       state.theme = themeName;
       applyThemeAndFinish();
@@ -1430,7 +1579,7 @@
       return CURRICULUM.find(d => d.day === state.currentDay) || CURRICULUM[0];
     }
 
-    function renderDay(dayNum) {
+    function renderDay(dayNum, restoreDraft = true) {
       if (!CURRICULUM.length) return;
       state.currentDay = Math.max(1, Math.min(168, dayNum));
       customVideoId = null;
@@ -1447,7 +1596,6 @@
       document.getElementById("instructorLabel").textContent = lesson.instructor;
       document.getElementById("durationLabel").textContent = lesson.duration;
 
-      // Render Video or Hands-On Lab Stage
       const videoStage = document.getElementById("videoStage");
       const labStage = document.getElementById("labBriefStage");
       const ytFrame = document.getElementById("ytPlayerFrame");
@@ -1468,7 +1616,6 @@
         extLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(lesson.topic + " data science tutorial")}`;
       }
 
-      // Render Key Takeaways
       const tList = document.getElementById("takeawaysList");
       tList.innerHTML = (lesson.takeaways || []).map((t, i) => `
         <div class="takeaway-item">
@@ -1477,19 +1624,18 @@
         </div>
       `).join("");
 
-      // Update Exercise & Language Mode
       stretchMode = false;
       document.getElementById("stretchToggleBtn").classList.remove("active");
       document.getElementById("challengeModeLabel").textContent = "Core";
       document.getElementById("exerciseText").textContent = lesson.exercise;
 
-      setEditorLang(lesson.lang === "sql" ? "sql" : "python", true);
+      setEditorLang(lesson.lang === "sql" ? "sql" : "python", restoreDraft);
       switchLeftPane("video");
       renderRoadmap();
     }
 
     function changeDay(delta) {
-      renderDay(state.currentDay + delta);
+      renderDay(state.currentDay + delta, true);
       saveLocalState(true);
     }
 
@@ -1532,7 +1678,7 @@
 
     function resetDefaultVideo() {
       document.getElementById("customYtInput").value = "";
-      renderDay(state.currentDay);
+      renderDay(state.currentDay, false);
     }
 
     function openFloatingPip() {
@@ -1592,7 +1738,7 @@
     }
 
     function selectRoadmapDay(day) {
-      renderDay(day);
+      renderDay(day, true);
       toggleRoadmap(false);
       saveLocalState(true);
     }
@@ -1606,6 +1752,12 @@
       if (btn) btn.classList.add("active");
     }
 
+    function formatTimer(secs) {
+      const m = String(Math.floor(secs / 60)).padStart(2, "0");
+      const s = String(secs % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
     function toggleTimer() {
       const btn = document.getElementById("timerToggleBtn");
       if (timerInterval) {
@@ -1613,16 +1765,28 @@
         timerInterval = null;
         btn.textContent = "▶";
       } else {
+        if (timerSeconds <= 0) timerSeconds = 3600;
         btn.textContent = "❚❚";
         timerInterval = setInterval(() => {
           if (timerSeconds > 0) {
             timerSeconds--;
-            const m = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
-            const s = String(timerSeconds % 60).padStart(2, "0");
-            document.getElementById("timerDisplay").textContent = `${m}:${s}`;
+            document.getElementById("timerDisplay").textContent = formatTimer(timerSeconds);
+          } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            btn.textContent = "▶";
+            document.getElementById("consoleOutput").textContent = "⏱️ 60-minute deep-focus block complete! Take a 5-minute break.";
           }
         }, 1000);
       }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSeconds = 3600;
+      document.getElementById("timerToggleBtn").textContent = "▶";
+      document.getElementById("timerDisplay").textContent = "60:00";
     }
 
     function toggleFocusLock() {
@@ -1637,15 +1801,17 @@
         pyodide = await loadPyodide();
         await pyodide.loadPackage(["numpy", "pandas", "scipy", "scikit-learn", "matplotlib"]);
 
-        // Write domain-neutral datasets into virtual FS & seed SQLite DB
         for (const [fname, csvText] of Object.entries(DATASETS)) {
           pyodide.FS.writeFile(fname, csvText);
         }
 
         await pyodide.runPythonAsync(`
 import sqlite3, os, io, base64
+import numpy as np
+import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 __df_sql_conn = sqlite3.connect(':memory:')
 __cur = __df_sql_conn.cursor()
@@ -1686,7 +1852,7 @@ __df_sql_conn.commit()
       }
     }
 
-    function setEditorLang(lang, keepBlank = false) {
+    function setEditorLang(lang, restoreDraft = true) {
       editorLang = lang;
       document.getElementById("langPyBtn").classList.toggle("active", lang === "python");
       document.getElementById("langSqlBtn").classList.toggle("active", lang === "sql");
@@ -1694,7 +1860,7 @@ __df_sql_conn.commit()
       editor.placeholder = lang === "sql"
         ? "Blank SQLite SQL editor ready — query employees, departments, or weather_logs..."
         : "Blank Python 3.11 editor ready — code along with the video in real time...";
-      if (keepBlank) editor.value = "";
+      if (restoreDraft) restoreCurrentDraft();
     }
 
     function toggleChallengeDrawer(forceOpen) {
@@ -1717,10 +1883,12 @@ __df_sql_conn.commit()
     function insertSnippet(snip) {
       const ed = document.getElementById("codeEditor");
       ed.value = ed.value ? ed.value + "\n\n" + snip : snip;
+      saveCurrentDraft();
     }
 
     function clearEditor() {
       document.getElementById("codeEditor").value = "";
+      saveCurrentDraft();
     }
 
     function clearConsole() {
@@ -1757,6 +1925,9 @@ __df_sql_conn.commit()
 
         const rawResult = await pyodide.runPythonAsync(`
 import sys, io, os, json, base64
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 __stdout = io.StringIO()
 __old_stdout = sys.stdout
@@ -1787,7 +1958,7 @@ try:
 
     __out_str = __stdout.getvalue()
     if __test_assertion:
-        __test_ctx = {"env": __env, "out": __out_str, "os": os}
+        __test_ctx = {"env": __env, "out": __out_str, "os": os, "pd": pd, "np": np, "plt": plt}
         exec(__test_assertion, __test_ctx)
 except AssertionError as __ae:
     __test_passed = False
@@ -1805,6 +1976,13 @@ for __img_name in ["chart.png", "subplots.png", "output.png"]:
             __plot_b64 = base64.b64encode(__f.read()).decode("ascii")
         os.remove(__img_name)
         break
+
+if not __plot_b64 and plt.get_fignums():
+    __fig_buf = io.BytesIO()
+    plt.savefig(__fig_buf, format="png", bbox_inches="tight", dpi=110)
+    __plot_b64 = base64.b64encode(__fig_buf.getvalue()).decode("ascii")
+
+plt.close("all")
 
 json.dumps({
     "stdout": __stdout.getvalue(),
@@ -1851,11 +2029,14 @@ json.dumps({
         if (!state.completedDays.includes(day)) {
           state.completedDays.push(day);
           state.xp += 25;
-          const today = new Date().toISOString().slice(0, 10);
-          if (state.lastStudyDate !== today) {
+          const today = getLocalDateKey();
+          const yesterday = getLocalDateKey(new Date(Date.now() - 86400000));
+          if (state.lastStudyDate === yesterday) {
             state.streak += 1;
-            state.lastStudyDate = today;
+          } else if (state.lastStudyDate !== today) {
+            state.streak = 1;
           }
+          state.lastStudyDate = today;
         }
         saveLocalState(true);
         renderRoadmap();
@@ -1972,13 +2153,21 @@ json.dumps({
       const div = document.createElement("div");
       div.className = `ai-msg ${role}`;
       if (role === "bot") {
-        const safe = escapeHtml(text).replace(/\n/g, "<br>");
-        div.innerHTML = `
-          <div>${safe}</div>
-          <div style="margin-top:6px;display:flex;justify-content:flex-end;">
-            <button class="ghost-pill" style="padding:2px 9px;font-size:10.5px;" onclick='addSmartNote(${JSON.stringify(text)})'>+ Save to Notes</button>
-          </div>
-        `;
+        const bodyDiv = document.createElement("div");
+        bodyDiv.innerHTML = escapeHtml(text).replace(/\n/g, "<br>");
+
+        const actionsDiv = document.createElement("div");
+        actionsDiv.style.cssText = "margin-top:6px;display:flex;justify-content:flex-end;";
+
+        const saveBtn = document.createElement("button");
+        saveBtn.className = "ghost-pill";
+        saveBtn.style.cssText = "padding:2px 9px;font-size:10.5px;";
+        saveBtn.textContent = "+ Save to Notes";
+        saveBtn.addEventListener("click", () => addSmartNote(text));
+
+        actionsDiv.appendChild(saveBtn);
+        div.appendChild(bodyDiv);
+        div.appendChild(actionsDiv);
       } else {
         div.textContent = text;
       }
@@ -2013,7 +2202,6 @@ json.dumps({
       const cleanQ = query.replace(/[^\w\s+-]/g, " ").trim();
       const results = [];
 
-      // 1. Live Wikipedia REST Summary Search
       try {
         const wikiSearch = await fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(cleanQ)}&limit=1&namespace=0&format=json&origin=*`);
         const wikiData = await wikiSearch.json();
@@ -2027,7 +2215,6 @@ json.dumps({
         }
       } catch (_) {}
 
-      // 2. Live StackOverflow Search API
       try {
         const soRes = await fetch(`https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=relevance&q=${encodeURIComponent(cleanQ)}&accepted=True&site=stackoverflow&pagesize=2`);
         const soJson = await soRes.json();
@@ -2046,7 +2233,6 @@ json.dumps({
       const lower = q.toLowerCase();
       const userCode = document.getElementById("codeEditor").value.trim();
 
-      // Optional Gemini API synthesis if user supplied a free key
       if (state.geminiKey) {
         try {
           const sysContext = `You are Instinct AI, a concise, encouraging Data Science & GenAI mentor. Active Day ${lesson.day}: ${lesson.topic}. Takeaways: ${lesson.takeaways.join("; ")}. Exercise: ${lesson.exercise}. User editor code: ${userCode || "(empty)"}.`;
@@ -2066,7 +2252,6 @@ json.dumps({
         } catch (_) {}
       }
 
-      // Rich Built-in Curriculum Intelligence + Free Live Web Search
       if (lower.includes("what do i learn") || lower.includes("lesson summary") || lower.includes("explain today")) {
         const bullets = lesson.takeaways.map((t, i) => `${i + 1}. ${t}`).join("\n");
         appendAiMessage("bot", `Day ${lesson.day} (${lesson.topic} — ${lesson.instructor}):\n${bullets}\n\nGoal: ${lesson.exercise}`);
@@ -2119,10 +2304,14 @@ json.dumps({
 
     function downloadTextFile(filename, content) {
       const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
+      a.href = url;
       a.download = filename;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
     function openModal(id) { document.getElementById(id).classList.add("open"); }
