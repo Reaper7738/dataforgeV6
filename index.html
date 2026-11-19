@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="daylight" data-finish="glacier">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>DATAFORGE // INSTINCT OS v6.0 — 6-Month Data Science & GenAI Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <script src="./curriculum.js"></script>
+  <style>
+    /* ==================== iPHONE 18 PRO LIQUID GLASS DESIGN TOKENS ==================== */
+    :root {
+      --spring: cubic-bezier(0.22, 1, 0.36, 1);
+      --radius-outer: 26px;
+      --radius-inner: 18px;
+      --radius-pill: 999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+      /* Default: Daylight Glass */
+      --bg-gradient: radial-gradient(circle at 12% 10%, #e4f0ff 0%, #eef3f9 42%, #dce7f5 100%);
+      --glass-surface: rgba(255, 255, 255, 0.72);
+      --glass-elevated: rgba(255, 255, 255, 0.88);
+      --glass-subtle: rgba(245, 248, 253, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.82);
+      --glass-outline: rgba(15, 23, 42, 0.08);
+      --specular: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 12px 32px -8px rgba(15, 23, 42, 0.08);
+      --pill-bg: rgba(15, 23, 42, 0.05);
+      --pill-active-bg: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #6b7280;
+      --editor-bg: rgba(248, 250, 252, 0.92);
+      --console-bg: #0f172a;
+      --console-text: #e2e8f0;
+      --accent: #0071e3;
+      --accent-soft: rgba(0, 113, 227, 0.12);
+      --accent-glow: rgba(0, 113, 227, 0.28);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    /* Theme 2: Midnight Dark Glass */
+    [data-theme="midnight"] {
+      --bg-gradient: radial-gradient(circle at 15% 12%, #131c2e 0%, #090d16 48%, #05070c 100%);
+      --glass-surface: rgba(22, 28, 42, 0.72);
+      --glass-elevated: rgba(30, 38, 56, 0.88);
+      --glass-subtle: rgba(15, 20, 32, 0.68);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --glass-outline: rgba(255, 255, 255, 0.08);
+      --specular: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 16px 38px -8px rgba(0, 0, 0, 0.55);
+      --pill-bg: rgba(255, 255, 255, 0.07);
+      --pill-active-bg: rgba(255, 255, 255, 0.16);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --editor-bg: rgba(13, 18, 30, 0.9);
+      --console-bg: #060911;
+      --console-text: #e2e8f0;
+    }
+
+    /* Theme 3: Warm Sepia Focus */
+    [data-theme="sepia"] {
+      --bg-gradient: radial-gradient(circle at 15% 10%, #f7efe2 0%, #efe4d2 50%, #e5d6be 100%);
+      --glass-surface: rgba(252, 247, 238, 0.78);
+      --glass-elevated: rgba(255, 251, 245, 0.92);
+      --glass-subtle: rgba(244, 235, 220, 0.72);
+      --glass-border: rgba(255, 252, 245, 0.85);
+      --glass-outline: rgba(92, 69, 45, 0.12);
+      --specular: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 12px 30px -8px rgba(78, 56, 32, 0.10);
+      --pill-bg: rgba(92, 69, 45, 0.07);
+      --pill-active-bg: #fffdf9;
+      --text-primary: #2c2117;
+      --text-secondary: #5a4634;
+      --text-muted: #7d6651;
+      --editor-bg: rgba(250, 244, 234, 0.94);
+      --console-bg: #231b14;
+      --console-text: #f5ebd9;
+    }
+
+    /* iPhone 18 Pro Titanium Finishes */
+    [data-finish="glacier"] {
+      --accent: #0071e3;
+      --accent-soft: rgba(0, 113, 227, 0.13);
+      --accent-glow: rgba(0, 113, 227, 0.30);
+    }
+    [data-finish="silver"] {
+      --accent: #525b6b;
+      --accent-soft: rgba(82, 91, 107, 0.14);
+      --accent-glow: rgba(82, 91, 107, 0.28);
+    }
+    [data-theme="midnight"][data-finish="silver"] {
+      --accent: #a6b0c3;
+      --accent-soft: rgba(166, 176, 195, 0.18);
+      --accent-glow: rgba(166, 176, 195, 0.32);
+    }
+    [data-finish="cherry"] {
+      --accent: #a62639;
+      --accent-soft: rgba(166, 38, 57, 0.13);
+      --accent-glow: rgba(166, 38, 57, 0.30);
+    }
+    [data-theme="midnight"][data-finish="cherry"] {
+      --accent: #e04f64;
+      --accent-soft: rgba(224, 79, 100, 0.18);
+      --accent-glow: rgba(224, 79, 100, 0.32);
+    }
+    [data-finish="obsidian"] {
+      --accent: #1f242d;
+      --accent-soft: rgba(31, 36, 45, 0.13);
+      --accent-glow: rgba(31, 36, 45, 0.25);
+    }
+    [data-theme="midnight"][data-finish="obsidian"] {
+      --accent: #64748b;
+      --accent-soft: rgba(100, 116, 139, 0.22);
+      --accent-glow: rgba(100, 116, 139, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: var(--font-sans);
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      transition: background 0.45s var(--spring), color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Focus Lock Dimming */
+    body.focus-locked .top-capsule-bar,
+    body.focus-locked .bottom-dock {
+      opacity: 0.32;
+      transition: opacity 0.35s ease;
+    }
+    body.focus-locked .top-capsule-bar:hover,
+    body.focus-locked .bottom-dock:hover {
+      opacity: 1;
+    }
+
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      max-width: 1640px;
+      margin: 0 auto;
+      padding: 12px 16px 16px;
+      gap: 12px;
+    }
+
+    /* ==================== LIQUID GLASS SURFACES & CAPSULES ==================== */
+    .liquid-card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(26px) saturate(165%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      border: 1px solid var(--glass-border);
+      outline: 1px solid var(--glass-outline);
+      border-radius: var(--radius-outer);
+      box-shadow: var(--specular);
+      transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring), background 0.35s ease;
+    }
+
+    .capsule-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-outline);
+      border-radius: var(--radius-pill);
+      backdrop-filter: blur(16px);
+    }
+
+    .capsule-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 13px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.28s var(--spring);
+    }
+    .capsule-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .capsule-btn.active {
+      background: var(--pill-active-bg);
+      color: var(--accent);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .primary-pill {
+      border: none;
+      background: var(--accent);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transition: transform 0.22s var(--spring), filter 0.2s ease;
+    }
+    .primary-pill:hover { transform: translateY(-1px); filter: brightness(1.06); }
+    .primary-pill:active { transform: scale(0.97); }
+
+    .ghost-pill {
+      border: 1px solid var(--glass-outline);
+      background: var(--glass-elevated);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.22s var(--spring);
+    }
+    .ghost-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ==================== ZONE 1: TOP CAPSULE BAR ==================== */
+    .top-capsule-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 14px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .app-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--accent), #38bdf8);
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .day-meta {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .day-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .day-title-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 340px;
+    }
+
+    .badge-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .badge-tag.boss { background: rgba(245, 158, 11, 0.16); color: #d97706; }
+    .badge-tag.handson { background: rgba(16, 185, 129, 0.16); color: #059669; }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--pill-bg);
+      border: 1px solid var(--glass-outline);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+    .sync-dot.syncing { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+
+    /* ==================== ZONE 2: SPLIT STUDIO WORKSPACE ==================== */
+    .split-workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+      min-height: 490px;
+      transition: grid-template-columns 0.35s var(--spring);
+    }
+    .split-workspace.wide-video { grid-template-columns: 1.55fr 0.75fr; }
+    .split-workspace.wide-code { grid-template-columns: 0.75fr 1.55fr; }
+
+    .studio-pane {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 480px;
+    }
+
+    .pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--glass-outline);
+      background: var(--glass-subtle);
+    }
+
+    .instructor-chip {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Left Pane: YouTube + URL Loader + Takeaways */
+    .url-loader-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--glass-outline);
+      background: var(--glass-subtle);
+    }
+    .glass-input {
+      flex: 1;
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-outline);
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .glass-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .video-stage {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #090d16;
+      min-height: 310px;
+    }
+    .video-stage iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      border: 0;
+      flex: 1;
+    }
+
+    .lab-brief-stage {
+      flex: 1;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      background: var(--glass-subtle);
+    }
+    .lab-brief-stage h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .lab-brief-stage p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .takeaways-panel {
+      padding: 18px 20px;
+      overflow-y: auto;
+      flex: 1;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .takeaways-panel.active { display: flex; }
+
+    .takeaway-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: var(--radius-inner);
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-outline);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-primary);
+    }
+    .takeaway-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Right Pane: Blank Zero-Dummy-Code Studio */
+    .challenge-drawer {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 14px;
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--glass-outline);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .challenge-drawer.open { display: flex; }
+
+    .dataset-strip {
+      display: none;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 7px 14px;
+      background: var(--glass-subtle);
+      border-bottom: 1px solid var(--glass-outline);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+    .dataset-strip.open { display: flex; }
+
+    .code-textarea {
+      flex: 1;
+      width: 100%;
+      min-height: 210px;
+      padding: 14px 16px;
+      border: none;
+      outline: none;
+      resize: none;
+      background: var(--editor-bg);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      tab-size: 4;
+    }
+
+    .console-box {
+      background: var(--console-bg);
+      color: var(--console-text);
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+      min-height: 115px;
+      max-height: 185px;
+      overflow-y: auto;
+      border-top: 1px solid var(--glass-outline);
+    }
+    .console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .console-plot {
+      max-width: 100%;
+      max-height: 140px;
+      border-radius: 10px;
+      margin-top: 8px;
+      background: #fff;
+    }
+
+    /* ==================== ZONE 3: UNIFIED BOTTOM DOCK (NOTES | AI) ==================== */
+    .bottom-dock {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .dock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 9px 14px;
+      background: var(--glass-subtle);
+      border-bottom: 1px solid var(--glass-outline);
+    }
+    .dock-body {
+      padding: 12px 14px;
+      display: block;
+    }
+    .bottom-dock.minimized .dock-body { display: none; }
+
+    .dock-pane { display: none; }
+    .dock-pane.active { display: flex; flex-direction: column; gap: 10px; }
+
+    /* Smart Notes Grid */
+    .notes-composer {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .notes-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 8px;
+      max-height: 170px;
+      overflow-y: auto;
+    }
+    .note-card {
+      padding: 10px 12px;
+      border-radius: var(--radius-inner);
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-outline);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12.5px;
+    }
+    .note-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* Instinct AI Chat */
+    .ai-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 185px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .ai-msg {
+      padding: 10px 13px;
+      border-radius: var(--radius-inner);
+      font-size: 12.5px;
+      line-height: 1.55;
+      max-width: 92%;
+    }
+    .ai-msg.bot {
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-outline);
+      align-self: flex-start;
+      color: var(--text-primary);
+    }
+    .ai-msg.user {
+      background: var(--accent);
+      color: #ffffff;
+      align-self: flex-end;
+    }
+    .ai-input-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* ==================== SLIDE-OVER ROADMAP DRAWER & MODALS ==================== */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 28, 0.42);
+      backdrop-filter: blur(8px);
+      display: none;
+      z-index: 90;
+    }
+    .drawer-backdrop.open { display: block; }
+
+    .roadmap-drawer {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      bottom: 12px;
+      width: min(410px, calc(100vw - 24px));
+      z-index: 100;
+      transform: translateX(-110%);
+      transition: transform 0.38s var(--spring);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .roadmap-drawer.open { transform: translateX(0); }
+
+    .roadmap-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .day-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 14px;
+      background: var(--glass-elevated);
+      border: 1px solid var(--glass-outline);
+      cursor: pointer;
+      font-size: 12.5px;
+      transition: all 0.2s ease;
+    }
+    .day-row:hover { border-color: var(--accent); }
+    .day-row.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    .day-row.done .day-check {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+    .day-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--text-muted);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* Modals (Login, Themes, Floating Video) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 28, 0.48);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 120;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-sheet {
+      width: min(460px, 100%);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: popIn 0.32s var(--spring);
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .theme-tile {
+      padding: 12px;
+      border-radius: var(--radius-inner);
+      border: 1.5px solid var(--glass-outline);
+      background: var(--glass-elevated);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.22s var(--spring);
+    }
+    .theme-tile.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .finish-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .finish-swatch {
+      flex: 1;
+      min-width: 90px;
+      padding: 8px 10px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--glass-outline);
+      background: var(--glass-elevated);
+      color: var(--text-primary);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .finish-swatch.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .swatch-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Floating Mini-Window Fallback */
+    .floating-pip {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: min(360px, calc(100vw - 36px));
+      z-index: 115;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .floating-pip.open { display: flex; }
+    .floating-pip iframe { width: 100%; height: 205px; border: 0; }
+
+    /* Responsive Mobile Portrait Ergonomics */
+    @media (max-width: 920px) {
+      .split-workspace,
+      .split-workspace.wide-video,
+      .split-workspace.wide-code {
+        grid-template-columns: 1fr;
+      }
+      .studio-pane { min-height: 360px; }
+      .day-title-heading { max-width: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ==================== ZONE 1: TOP LIQUID GLASS CAPSULE BAR ==================== -->
+    <header class="liquid-card top-capsule-bar">
+      <div class="brand-cluster">
+        <div class="app-logo">DF</div>
+        <button class="ghost-pill" onclick="toggleRoadmap(true)" title="Open 168-Day Curriculum">
+          ☰ Roadmap <span id="progressPill" style="color:var(--accent)">0/168</span>
+        </button>
+        <div class="capsule-group">
+          <button class="capsule-btn" onclick="changeDay(-1)" title="Previous Day">‹</button>
+          <span id="dayCounterPill" style="font-size:12px;font-weight:700;padding:0 6px;">Day 1</span>
+          <button class="capsule-btn" onclick="changeDay(1)" title="Next Day">›</button>
+        </div>
+        <div class="day-meta">
+          <div class="day-kicker">
+            <span id="monthWeekLabel">Month 1 • Week 1</span>
+            <span id="dayTypeBadge" class="badge-tag">Learn</span>
+          </div>
+          <h1 id="dayTitleHeading" class="day-title-heading">Set Up Python & Say Hello</h1>
+        </div>
+      </div>
+
+      <div class="top-controls">
+        <!-- Split Layout Switcher -->
+        <div class="capsule-group" id="splitSwitchGroup">
+          <button class="capsule-btn active" data-layout="balanced" onclick="setSplitLayout('balanced', this)">50/50</button>
+          <button class="capsule-btn" data-layout="wide-video" onclick="setSplitLayout('wide-video', this)">Wide Video</button>
+          <button class="capsule-btn" data-layout="wide-code" onclick="setSplitLayout('wide-code', this)">Wide Code</button>
+        </div>
+
+        <!-- 60-Min Focus Timer + Ambient Dimmer -->
+        <div class="stat-pill">
+          <span id="timerDisplay" style="font-family:var(--font-mono);">60:00</span>
+          <button class="capsule-btn" id="timerToggleBtn" onclick="toggleTimer()" style="padding:3px 9px;">▶</button>
+          <button class="capsule-btn" id="focusLockBtn" onclick="toggleFocusLock()" title="Dim peripheral panels" style="padding:3px 9px;">Focus</button>
+        </div>
+
+        <!-- Streak & XP -->
+        <div class="stat-pill">
+          <span>🔥 <strong id="streakVal">1</strong>d</span>
+          <span>⚡ <strong id="xpVal">0</strong> XP</span>
+        </div>
+
+        <!-- Dedicated Themes Tab -->
+        <button class="ghost-pill" onclick="openModal('themesModal')">🎨 Themes</button>
+
+        <!-- GitHub Portfolio Export -->
+        <button class="ghost-pill" onclick="exportPortfolioReadme()">📦 Portfolio</button>
+
+        <!-- Multi-Student Account & Live Sync Pill -->
+        <button class="ghost-pill" onclick="openModal('accountModal')" id="accountPillBtn">
+          <span class="sync-dot" id="syncDot"></span>
+          <span id="activeHandleLabel">@guest</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== ZONE 2: SIDE-BY-SIDE SPLIT STUDIO ==================== -->
+    <main class="split-workspace" id="splitWorkspace">
+      <!-- LEFT PANE: INBUILT YOUTUBE PLAYER & LESSON CONCEPTS -->
+      <section class="liquid-card studio-pane">
+        <div class="pane-header">
+          <div class="capsule-group">
+            <button class="capsule-btn active" id="tabVideoBtn" onclick="switchLeftPane('video')">▶ Video Player</button>
+            <button class="capsule-btn" id="tabTakeawaysBtn" onclick="switchLeftPane('takeaways')">💡 Key Takeaways</button>
+          </div>
+
+          <div class="instructor-chip">
+            <span id="instructorLabel">Corey Schafer</span>
+            <span>•</span>
+            <span id="durationLabel">15m</span>
+          </div>
+
+          <div style="display:flex;gap:6px;">
+            <button class="ghost-pill" onclick="openFloatingPip()" title="Pop out mini player">⧉ Float</button>
+            <a id="ytExternalLink" href="https://www.youtube.com/watch?v=YYXdXT2l-Gg" target="_blank" rel="noopener" class="ghost-pill" style="text-decoration:none;">YouTube ↗</a>
+          </div>
+        </div>
+
+        <!-- Custom YouTube URL Loader -->
+        <div class="url-loader-bar">
+          <input type="text" id="customYtInput" class="glass-input" placeholder="Paste any YouTube tutorial link to watch side-by-side..." />
+          <button class="ghost-pill" onclick="loadCustomYouTube()">Load Video</button>
+          <button class="ghost-pill" onclick="resetDefaultVideo()" title="Restore curated lesson video">Reset</button>
+        </div>
+
+        <!-- Video Embed Stage -->
+        <div id="videoStage" class="video-stage">
+          <iframe
+            id="ytPlayerFrame"
+            src="https://www.youtube.com/embed/YYXdXT2l-Gg?rel=0&modestbranding=1"
+            title="Lesson Video Player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Hands-On / Boss Level Stage (shown on no-video lab days) -->
+        <div id="labBriefStage" class="lab-brief-stage" style="display:none;">
+          <span class="badge-tag handson" style="align-self:flex-start;" id="labStageBadge">HANDS-ON PLAYGROUND</span>
+          <h3 id="labStageTitle">Pure Coding Practice Day</h3>
+          <p id="labStageDesc">Today is a dedicated building day—no passive lecture required. Open the challenge drawer on the right and build directly in the live Python / SQLite studio.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+            <button class="primary-pill" onclick="toggleChallengeDrawer(true)">Open Today's Lab Prompt →</button>
+            <button class="ghost-pill" onclick="askInstinctQuick('Give me a structured plan to tackle today\'s lab exercise')">Ask Instinct for Lab Plan</button>
+          </div>
+        </div>
+
+        <!-- Key Takeaways View -->
+        <div id="takeawaysPanel" class="takeaways-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <strong style="font-size:13.5px;">Core Lesson Concepts</strong>
+            <button class="ghost-pill" onclick="pinTakeawaysToNotes()">+ Pin All to Smart Notes</button>
+          </div>
+          <div id="takeawaysList" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+      </section>
+
+      <!-- RIGHT PANE: BLANK ZERO-DUMMY-CODE PYTHON 3 & SQLITE EDITOR -->
+      <section class="liquid-card studio-pane">
+        <div class="pane-header">
+          <div class="capsule-group">
+            <button class="capsule-btn active" id="langPyBtn" onclick="setEditorLang('python')">🐍 Python 3</button>
+            <button class="capsule-btn" id="langSqlBtn" onclick="setEditorLang('sql')">🗄️ SQLite SQL</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <button class="ghost-pill" onclick="toggleChallengeDrawer()">🎯 Day's Challenge</button>
+            <button class="ghost-pill" onclick="toggleDatasetStrip()">📊 Datasets</button>
+            <button class="ghost-pill" onclick="clearEditor()">Clear</button>
+            <button class="primary-pill" onclick="runUserCode()" id="runCodeBtn">▶ Run</button>
+          </div>
+        </div>
+
+        <!-- On-Demand Day's Challenge Drawer (Collapsed by default so workspace stays uncluttered) -->
+        <div id="challengeDrawer" class="challenge-drawer">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+            <strong style="color:var(--accent);">Today's Exercise (<span id="challengeModeLabel">Core</span>)</strong>
+            <div style="display:flex;gap:6px;">
+              <button class="ghost-pill" id="stretchToggleBtn" onclick="toggleStretchMode()">+30m Stretch</button>
+              <button class="ghost-pill" onclick="showHintInConsole()">💡 Hint</button>
+              <button class="primary-pill" onclick="verifyAndCompleteDay()">✓ Verify & Complete (+25 XP)</button>
+            </div>
+          </div>
+          <div id="exerciseText"></div>
+        </div>
+
+        <!-- Domain-Neutral Preloaded Datasets Strip -->
+        <div id="datasetStrip" class="dataset-strip">
+          <strong>Preloaded CSVs & SQL Tables:</strong>
+          <button class="ghost-pill" style="padding:3px 9px;font-size:11px;" onclick="insertSnippet('import pandas as pd\ndf = pd.read_csv(\'movies.csv\')\nprint(df.head())')">movies.csv</button>
+          <button class="ghost-pill" style="padding:3px 9px;font-size:11px;" onclick="insertSnippet('import pandas as pd\nwdf = pd.read_csv(\'weather.csv\')\nprint(wdf.head())')">weather.csv</button>
+          <button class="ghost-pill" style="padding:3px 9px;font-size:11px;" onclick="insertSnippet('import pandas as pd\nsdf = pd.read_csv(\'sensors.csv\')\nprint(sdf.head())')">sensors.csv</button>
+          <span style="font-size:11px;">SQLite tables: <code>employees</code>, <code>departments</code>, <code>weather_logs</code></span>
+        </div>
+
+        <!-- Completely Blank Zero-Dummy-Code Editor -->
+        <textarea
+          id="codeEditor"
+          class="code-textarea"
+          spellcheck="false"
+          placeholder="Blank workspace ready — code along with the video in real time, or click '🎯 Day's Challenge' above..."></textarea>
+
+        <!-- Execution Console -->
+        <div class="console-box">
+          <div class="console-header">
+            <span id="runtimeStatus">Runtime: Initializing Python 3.11 + SQLite...</span>
+            <div style="display:flex;gap:6px;">
+              <button id="fixErrorBtn" class="capsule-btn" style="display:none;background:rgba(239,68,68,0.2);color:#fca5a5;padding:2px 9px;font-size:11px;" onclick="sendErrorToInstinct()">✨ Explain & Fix Error</button>
+              <button class="capsule-btn" style="color:#94a3b8;padding:2px 8px;font-size:11px;" onclick="clearConsole()">Clear Output</button>
+            </div>
+          </div>
+          <pre id="consoleOutput" style="white-space:pre-wrap;word-break:break-word;">Ready. Press ▶ Run or Ctrl+Enter to execute.</pre>
+          <img id="consolePlotImg" class="console-plot" style="display:none;" alt="Matplotlib Chart Output" />
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== ZONE 3: UNIFIED BOTTOM DOCK (SMART NOTES | INSTINCT AI) ==================== -->
+    <section class="liquid-card bottom-dock" id="bottomDock">
+      <div class="dock-header">
+        <div class="capsule-group">
+          <button class="capsule-btn active" id="dockTabAi" onclick="switchBottomDock('ai')">🧠 Instinct AI Mentor</button>
+          <button class="capsule-btn" id="dockTabNotes" onclick="switchBottomDock('notes')">📝 Smart Notes (<span id="notesCountBadge">0</span>)</button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button class="capsule-btn active" id="liveWebToggleBtn" onclick="toggleLiveWebSearch()" title="Free live search via StackOverflow & Wikipedia APIs">🌐 Live Web Search: ON</button>
+          <button class="ghost-pill" onclick="toggleDockMinimize()" id="dockMinBtn">▾ Collapse</button>
+        </div>
+      </div>
+
+      <div class="dock-body">
+        <!-- INSTINCT AI PANE -->
+        <div id="dockPaneAi" class="dock-pane active">
+          <div class="ai-messages" id="aiMessages"></div>
+          <div class="ai-input-row">
+            <button class="ghost-pill" onclick="askInstinctQuick('What do I learn in today\'s lesson?')">Lesson Summary</button>
+            <button class="ghost-pill" onclick="askInstinctQuick('Explain today\'s core concept simply with a clean example')">Explain Simply</button>
+            <button class="ghost-pill" onclick="askInstinctQuick('Review my current code in the editor')">Review My Code</button>
+            <input type="text" id="aiPromptInput" class="glass-input" placeholder="Ask Instinct anything or search live technical docs..." onkeydown="if(event.key==='Enter') sendInstinctPrompt()" />
+            <button class="primary-pill" onclick="sendInstinctPrompt()">Ask ↑</button>
+          </div>
+        </div>
+
+        <!-- SMART NOTES PANE -->
+        <div id="dockPaneNotes" class="dock-pane">
+          <div class="notes-composer">
+            <input type="text" id="noteInput" class="glass-input" placeholder="Jot a takeaway (auto-tagged #Python, #SQL, #Stats, #ML, #GenAI)..." onkeydown="if(event.key==='Enter') addSmartNote()" />
+            <button class="primary-pill" onclick="addSmartNote()">+ Pin Note</button>
+            <button class="ghost-pill" onclick="autoOrganizeNotes()">✨ Auto-Organize</button>
+            <button class="ghost-pill" onclick="compileWeeklyCheatSheet()">📄 Weekly Cheat Sheet</button>
+          </div>
+          <div class="notes-list" id="notesList"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== SLIDE-OVER 168-DAY ROADMAP DRAWER ==================== -->
+  <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleRoadmap(false)"></div>
+  <aside class="liquid-card roadmap-drawer" id="roadmapDrawer">
+    <div class="pane-header">
+      <div>
+        <strong style="font-size:14px;">168-Day Mastery Roadmap</strong>
+        <div style="font-size:11px;color:var(--text-muted);">5 Learn • 1 Hands-On • 1 Review/Boss</div>
+      </div>
+      <button class="ghost-pill" onclick="toggleRoadmap(false)">✕</button>
+    </div>
+
+    <div style="padding:10px 12px;border-bottom:1px solid var(--glass-outline);display:flex;flex-direction:column;gap:8px;">
+      <input type="text" id="roadmapSearch" class="glass-input" placeholder="Search Python, SQL, RAG, Agents, StatQuest..." oninput="renderRoadmap()" />
+      <div style="display:flex;gap:6px;align-items:center;justify-content:space-between;">
+        <select id="monthFilter" class="glass-input" onchange="renderRoadmap()" style="padding:5px 10px;">
+          <option value="all">All 6 Months (168 Days)</option>
+          <option value="1">Month 1: Python & Visual Stats</option>
+          <option value="2">Month 2: SQL From Scratch</option>
+          <option value="3">Month 3: NumPy & Pandas</option>
+          <option value="4">Month 4: Viz, Stats & Classical ML</option>
+          <option value="5">Month 5: GitHub + LLMs, RAG & Agents</option>
+          <option value="6">Month 6: Portfolio & Job Launch</option>
+        </select>
+        <select id="trackSelector" class="glass-input" onchange="saveTrackChoice(this.value)" style="padding:5px 10px;" title="Optional Months 5-6 Capstone Track">
+          <option value="General Tech & AI">Track: General Tech & AI</option>
+          <option value="Product & Growth Analytics">Track: Product Analytics</option>
+          <option value="Healthcare & BioData">Track: Healthcare & Bio</option>
+          <option value="Supply Chain & Ops">Track: Supply Chain & Ops</option>
+          <option value="Custom Capstone">Track: Custom Capstone</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="roadmap-list" id="roadmapList"></div>
+  </aside>
+
+  <!-- ==================== MODAL 1: MULTI-STUDENT LOGIN & CLOUD SYNC ==================== -->
+  <div class="modal-overlay" id="accountModal">
+    <div class="liquid-card modal-sheet">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h2 style="font-size:17px;font-weight:700;">Student Login & Cross-Device Sync</h2>
+        <button class="ghost-pill" onclick="closeModal('accountModal')">✕</button>
+      </div>
+      <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;">
+        Sign in once with a <strong>Student Handle + 4-Digit PIN</strong> on your PC and phone. Your completed days, XP, Smart Notes, and theme stay synced automatically across every device.
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="font-size:11.5px;font-weight:600;color:var(--text-secondary);">Student Handle</label>
+        <input type="text" id="loginHandleInput" class="glass-input" placeholder="e.g. ishan" />
+
+        <label style="font-size:11.5px;font-weight:600;color:var(--text-secondary);">4-Digit PIN</label>
+        <input type="password" id="loginPinInput" class="glass-input" maxlength="8" placeholder="••••" />
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="primary-pill" style="flex:1;justify-content:center;" onclick="signInStudent()">Sign In & Sync Now</button>
+        <button class="ghost-pill" onclick="forcePullCloud()">↻ Pull Latest</button>
+      </div>
+
+      <div style="border-top:1px solid var(--glass-outline);padding-top:10px;display:flex;flex-direction:column;gap:8px;">
+        <label style="font-size:11.5px;font-weight:600;color:var(--text-secondary);">Optional Gemini API Key (for generative synthesis alongside free Web Search)</label>
+        <input type="password" id="geminiKeyInput" class="glass-input" placeholder="AIza... (optional)" onchange="saveGeminiKey(this.value)" />
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--glass-outline);padding-top:10px;">
+        <span id="syncStatusText" style="font-size:11.5px;color:var(--text-muted);">Status: Local session active</span>
+        <button class="ghost-pill" style="color:var(--danger);" onclick="lockWorkstation()">🔒 Lock / Switch Student</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: iPHONE 18 PRO THEMES & FINISHES ==================== -->
+  <div class="modal-overlay" id="themesModal">
+    <div class="liquid-card modal-sheet">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h2 style="font-size:17px;font-weight:700;">iPhone 18 Pro Appearance & Glass</h2>
+        <button class="ghost-pill" onclick="closeModal('themesModal')">✕</button>
+      </div>
+
+      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);">Liquid Glass Surface Mode</div>
+      <div class="theme-grid" id="themeTiles">
+        <button class="theme-tile" data-theme-opt="daylight" onclick="setTheme('daylight')">
+          <strong style="font-size:13px;display:block;">☀️ Daylight Glass</strong>
+          <span style="font-size:11px;color:var(--text-muted);">Bright macOS/iOS frosted mist</span>
+        </button>
+        <button class="theme-tile" data-theme-opt="midnight" onclick="setTheme('midnight')">
+          <strong style="font-size:13px;display:block;">🌙 Midnight Dark</strong>
+          <span style="font-size:11px;color:var(--text-muted);">Deep obsidian glare-free glass</span>
+        </button>
+        <button class="theme-tile" data-theme-opt="sepia" onclick="setTheme('sepia')">
+          <strong style="font-size:13px;display:block;">📜 Warm Sepia Focus</strong>
+          <span style="font-size:11px;color:var(--text-muted);">Low-strain warm reading tone</span>
+        </button>
+        <button class="theme-tile" data-theme-opt="auto" onclick="setTheme('auto')">
+          <strong style="font-size:13px;display:block;">⚙️ Auto-System</strong>
+          <span style="font-size:11px;color:var(--text-muted);">Matches your device schedule</span>
+        </button>
+      </div>
+
+      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-top:4px;">iPhone 18 Pro Titanium Accent Finish</div>
+      <div class="finish-row" id="finishSwatches">
+        <button class="finish-swatch" data-finish-opt="glacier" onclick="setFinish('glacier')">
+          <span class="swatch-dot" style="background:#0071e3;"></span> Glacier Blue
+        </button>
+        <button class="finish-swatch" data-finish-opt="silver" onclick="setFinish('silver')">
+          <span class="swatch-dot" style="background:#8e96a4;"></span> Silver
+        </button>
+        <button class="finish-swatch" data-finish-opt="cherry" onclick="setFinish('cherry')">
+          <span class="swatch-dot" style="background:#a62639;"></span> Dark Cherry
+        </button>
+        <button class="finish-swatch" data-finish-opt="obsidian" onclick="setFinish('obsidian')">
+          <span class="swatch-dot" style="background:#1f242d;"></span> Obsidian
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FLOATING MINI-WINDOW FALLBACK ==================== -->
+  <div class="liquid-card floating-pip" id="floatingPip">
+    <div class="pane-header" style="padding:7px 12px;">
+      <strong style="font-size:11.5px;">Mini Video Player</strong>
+      <button class="ghost-pill" style="padding:2px 8px;font-size:11px;" onclick="closeFloatingPip()">✕</button>
+    </div>
+    <iframe id="pipFrame" src="" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    /* ==================== APPLICATION STATE & PERSISTENCE ==================== */
+    const CURRICULUM = window.DATAFORGE_CURRICULUM || [];
+    const DATASETS = window.DATAFORGE_DATASETS || {};
+    const STORAGE_KEY = "dataforge_os_v6_state";
+
+    let state = {
+      handle: "",
+      pin: "",
+      currentDay: 1,
+      completedDays: [],
+      xp: 0,
+      streak: 1,
+      lastStudyDate: new Date().toISOString().slice(0, 10),
+      theme: "daylight",
+      finish: "glacier",
+      track: "General Tech & AI",
+      notes: [],
+      geminiKey: "",
+      updatedAt: Date.now()
+    };
+
+    let pyodide = null;
+    let pyodideReady = false;
+    let editorLang = "python";
+    let stretchMode = false;
+    let liveWebSearch = true;
+    let lastErrorText = "";
+    let timerSeconds = 3600;
+    let timerInterval = null;
+    let customVideoId = null;
+
+    /* ==================== INITIALIZATION ==================== */
+    window.addEventListener("DOMContentLoaded", async () => {
+      loadLocalState();
+      applyThemeAndFinish();
+      renderDay(state.currentDay);
+      renderRoadmap();
+      renderNotes();
+      initGreeting();
+
+      if (!state.handle) {
+        openModal("accountModal");
+      } else {
+        document.getElementById("activeHandleLabel").textContent = "@" + state.handle;
+        document.getElementById("loginHandleInput").value = state.handle;
+        document.getElementById("loginPinInput").value = state.pin;
+        await syncFromCloud(true);
+      }
+
+      if (state.geminiKey) {
+        document.getElementById("geminiKeyInput").value = state.geminiKey;
+      }
+
+      initPyodideRuntime();
+
+      // Auto-pull latest cloud state whenever switching back to this tab/device
+      window.addEventListener("focus", () => {
+        if (state.handle && state.pin) syncFromCloud(true);
+      });
+
+      // Ctrl/Cmd + Enter runs code
+      document.getElementById("codeEditor").addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+          e.preventDefault();
+          runUserCode();
+        }
+      });
+    });
+
+    function loadLocalState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = { ...state, ...parsed };
+        }
+      } catch (e) {
+        console.warn("State load fallback", e);
+      }
+      updateTopMetrics();
+    }
+
+    function saveLocalState(pushCloud = true) {
+      state.updatedAt = Date.now();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateTopMetrics();
+      if (pushCloud && state.handle && state.pin) {
+        pushToCloud();
+      }
+    }
+
+    function updateTopMetrics() {
+      document.getElementById("progressPill").textContent = `${state.completedDays.length}/168`;
+      document.getElementById("streakVal").textContent = state.streak;
+      document.getElementById("xpVal").textContent = state.xp;
+      document.getElementById("notesCountBadge").textContent = state.notes.length;
+      document.getElementById("trackSelector").value = state.track || "General Tech & AI";
+    }
+
+    /* ==================== DETERMINISTIC MULTI-STUDENT CLOUD SYNC ==================== */
+    async function computeVaultTopic(handle, pin) {
+      const normalized = `dataforge_v6_vault:${handle.trim().toLowerCase()}:${pin.trim()}`;
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(normalized));
+      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+      return "df6_" + hex.slice(0, 28);
+    }
+
+    function setSyncIndicator(status, label) {
+      const dot = document.getElementById("syncDot");
+      const text = document.getElementById("syncStatusText");
+      if (status === "syncing") {
+        dot.classList.add("syncing");
+      } else {
+        dot.classList.remove("syncing");
+      }
+      if (text) text.textContent = label;
+    }
+
+    async function pushToCloud() {
+      if (!state.handle || !state.pin) return;
+      try {
+        setSyncIndicator("syncing", "Syncing to cloud vault...");
+        const topic = await computeVaultTopic(state.handle, state.pin);
+        const payload = {
+          handle: state.handle,
+          currentDay: state.currentDay,
+          completedDays: state.completedDays,
+          xp: state.xp,
+          streak: state.streak,
+          lastStudyDate: state.lastStudyDate,
+          theme: state.theme,
+          finish: state.finish,
+          track: state.track,
+          notes: state.notes.slice(0, 60),
+          updatedAt: state.updatedAt
+        };
+        await fetch(`https://ntfy.sh/${topic}`, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        setSyncIndicator("ok", `Synced ✓ (@${state.handle})`);
+      } catch (err) {
+        setSyncIndicator("ok", "Saved locally (offline mode)");
+      }
+    }
+
+    async function syncFromCloud(silent = false) {
+      if (!state.handle || !state.pin) return;
+      try {
+        setSyncIndicator("syncing", "Checking cloud vault...");
+        const topic = await computeVaultTopic(state.handle, state.pin);
+        const res = await fetch(`https://ntfy.sh/${topic}/json?poll=1&since=all`);
+        const rawText = await res.text();
+        const lines = rawText.trim().split("\n").filter(Boolean);
+        let latestRemote = null;
+        for (const line of lines) {
+          try {
+            const evt = JSON.parse(line);
+            if (evt.message) {
+              const candidate = JSON.parse(evt.message);
+              if (!latestRemote || (candidate.updatedAt || 0) >= (latestRemote.updatedAt || 0)) {
+                latestRemote = candidate;
+              }
+            }
+          } catch (_) {}
+        }
+
+        if (latestRemote) {
+          // Merge completed days & notes cleanly so progress is never lost
+          const mergedCompleted = Array.from(new Set([...state.completedDays, ...(latestRemote.completedDays || [])])).sort((a, b) => a - b);
+          const noteMap = new Map();
+          [...(latestRemote.notes || []), ...state.notes].forEach(n => noteMap.set(n.id, n));
+          const mergedNotes = Array.from(noteMap.values()).sort((a, b) => b.id - a.id);
+
+          const remoteIsNewer = (latestRemote.updatedAt || 0) > (state.updatedAt || 0);
+          state.completedDays = mergedCompleted;
+          state.notes = mergedNotes;
+          state.xp = Math.max(state.xp, latestRemote.xp || 0);
+          state.streak = Math.max(state.streak, latestRemote.streak || 1);
+
+          if (remoteIsNewer) {
+            state.currentDay = latestRemote.currentDay || state.currentDay;
+            state.theme = latestRemote.theme || state.theme;
+            state.finish = latestRemote.finish || state.finish;
+            state.track = latestRemote.track || state.track;
+          }
+
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          applyThemeAndFinish();
+          updateTopMetrics();
+          renderDay(state.currentDay);
+          renderRoadmap();
+          renderNotes();
+          setSyncIndicator("ok", `Synced ✓ (@${state.handle})`);
+        } else {
+          // First time for this handle+PIN -> initialize vault
+          await pushToCloud();
+        }
+      } catch (err) {
+        if (!silent) setSyncIndicator("ok", "Offline mode — saved on device");
+      }
+    }
+
+    async function signInStudent() {
+      const h = document.getElementById("loginHandleInput").value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
+      const p = document.getElementById("loginPinInput").value.trim();
+      if (!h || p.length < 4) {
+        alert("Please enter a Student Handle and at least a 4-digit PIN.");
+        return;
+      }
+      state.handle = h;
+      state.pin = p;
+      document.getElementById("activeHandleLabel").textContent = "@" + h;
+      saveLocalState(false);
+      await syncFromCloud(false);
+      closeModal("accountModal");
+    }
+
+    async function forcePullCloud() {
+      await syncFromCloud(false);
+    }
+
+    function lockWorkstation() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = {
+        handle: "", pin: "", currentDay: 1, completedDays: [], xp: 0, streak: 1,
+        lastStudyDate: new Date().toISOString().slice(0, 10),
+        theme: "daylight", finish: "glacier", track: "General Tech & AI",
+        notes: [], geminiKey: "", updatedAt: Date.now()
+      };
+      document.getElementById("loginHandleInput").value = "";
+      document.getElementById("loginPinInput").value = "";
+      document.getElementById("activeHandleLabel").textContent = "@guest";
+      applyThemeAndFinish();
+      updateTopMetrics();
+      renderDay(1);
+      renderRoadmap();
+      renderNotes();
+      setSyncIndicator("ok", "Workstation locked & local cache cleared");
+    }
+
+    function saveGeminiKey(val) {
+      state.geminiKey = val.trim();
+      saveLocalState(false);
+    }
+
+    /* ==================== iPHONE 18 PRO THEMES & FINISHES ==================== */
+    function setTheme(themeName) {
+      state.theme = themeName;
+      applyThemeAndFinish();
+      saveLocalState(true);
+    }
+
+    function setFinish(finishName) {
+      state.finish = finishName;
+      applyThemeAndFinish();
+      saveLocalState(true);
+    }
+
+    function applyThemeAndFinish() {
+      let resolvedTheme = state.theme;
+      if (resolvedTheme === "auto") {
+        resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "midnight" : "daylight";
+      }
+      document.documentElement.setAttribute("data-theme", resolvedTheme);
+      document.documentElement.setAttribute("data-finish", state.finish || "glacier");
+
+      document.querySelectorAll("[data-theme-opt]").forEach(el => {
+        el.classList.toggle("selected", el.getAttribute("data-theme-opt") === state.theme);
+      });
+      document.querySelectorAll("[data-finish-opt]").forEach(el => {
+        el.classList.toggle("selected", el.getAttribute("data-finish-opt") === state.finish);
+      });
+    }
+
+    /* ==================== CURRICULUM & DAY NAVIGATION ==================== */
+    function getActiveLesson() {
+      return CURRICULUM.find(d => d.day === state.currentDay) || CURRICULUM[0];
+    }
+
+    function renderDay(dayNum) {
+      if (!CURRICULUM.length) return;
+      state.currentDay = Math.max(1, Math.min(168, dayNum));
+      customVideoId = null;
+      const lesson = getActiveLesson();
+
+      document.getElementById("dayCounterPill").textContent = `Day ${lesson.day}`;
+      document.getElementById("monthWeekLabel").textContent = `Month ${lesson.month} • Week ${lesson.week}`;
+      document.getElementById("dayTitleHeading").textContent = lesson.topic;
+
+      const badge = document.getElementById("dayTypeBadge");
+      badge.textContent = lesson.type;
+      badge.className = "badge-tag" + (lesson.type === "BOSS LEVEL" ? " boss" : (lesson.type === "Hands-On" ? " handson" : ""));
+
+      document.getElementById("instructorLabel").textContent = lesson.instructor;
+      document.getElementById("durationLabel").textContent = lesson.duration;
+
+      // Render Video or Hands-On Lab Stage
+      const videoStage = document.getElementById("videoStage");
+      const labStage = document.getElementById("labBriefStage");
+      const ytFrame = document.getElementById("ytPlayerFrame");
+      const extLink = document.getElementById("ytExternalLink");
+
+      if (lesson.videoId) {
+        videoStage.style.display = "flex";
+        labStage.style.display = "none";
+        const startParam = lesson.start ? `&start=${lesson.start}` : "";
+        ytFrame.src = `https://www.youtube.com/embed/${lesson.videoId}?rel=0&modestbranding=1${startParam}`;
+        extLink.href = `https://www.youtube.com/watch?v=${lesson.videoId}${lesson.start ? "&t=" + lesson.start + "s" : ""}`;
+      } else {
+        videoStage.style.display = "none";
+        labStage.style.display = "flex";
+        document.getElementById("labStageBadge").textContent = lesson.type.toUpperCase();
+        document.getElementById("labStageTitle").textContent = lesson.topic;
+        document.getElementById("labStageDesc").textContent = lesson.exercise;
+        extLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(lesson.topic + " data science tutorial")}`;
+      }
+
+      // Render Key Takeaways
+      const tList = document.getElementById("takeawaysList");
+      tList.innerHTML = (lesson.takeaways || []).map((t, i) => `
+        <div class="takeaway-item">
+          <span class="takeaway-num">${i + 1}</span>
+          <span>${escapeHtml(t)}</span>
+        </div>
+      `).join("");
+
+      // Update Exercise & Language Mode
+      stretchMode = false;
+      document.getElementById("stretchToggleBtn").classList.remove("active");
+      document.getElementById("challengeModeLabel").textContent = "Core";
+      document.getElementById("exerciseText").textContent = lesson.exercise;
+
+      setEditorLang(lesson.lang === "sql" ? "sql" : "python", true);
+      switchLeftPane("video");
+      renderRoadmap();
+    }
+
+    function changeDay(delta) {
+      renderDay(state.currentDay + delta);
+      saveLocalState(true);
+    }
+
+    function switchLeftPane(tab) {
+      const lesson = getActiveLesson();
+      const isVideo = tab === "video";
+      document.getElementById("tabVideoBtn").classList.toggle("active", isVideo);
+      document.getElementById("tabTakeawaysBtn").classList.toggle("active", !isVideo);
+      document.getElementById("takeawaysPanel").classList.toggle("active", !isVideo);
+
+      if (isVideo) {
+        document.getElementById("videoStage").style.display = (lesson.videoId || customVideoId) ? "flex" : "none";
+        document.getElementById("labBriefStage").style.display = (lesson.videoId || customVideoId) ? "none" : "flex";
+      } else {
+        document.getElementById("videoStage").style.display = "none";
+        document.getElementById("labBriefStage").style.display = "none";
+      }
+    }
+
+    /* ==================== YOUTUBE URL LOADER & FLOATING MINI-PLAYER ==================== */
+    function extractYouTubeId(url) {
+      const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      return m ? m[1] : null;
+    }
+
+    function loadCustomYouTube() {
+      const raw = document.getElementById("customYtInput").value.trim();
+      const id = extractYouTubeId(raw);
+      if (!id) {
+        alert("Paste a valid YouTube link (e.g. https://www.youtube.com/watch?v=...)");
+        return;
+      }
+      customVideoId = id;
+      switchLeftPane("video");
+      document.getElementById("videoStage").style.display = "flex";
+      document.getElementById("labBriefStage").style.display = "none";
+      document.getElementById("ytPlayerFrame").src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+      document.getElementById("ytExternalLink").href = `https://www.youtube.com/watch?v=${id}`;
+    }
+
+    function resetDefaultVideo() {
+      document.getElementById("customYtInput").value = "";
+      renderDay(state.currentDay);
+    }
+
+    function openFloatingPip() {
+      const lesson = getActiveLesson();
+      const vid = customVideoId || lesson.videoId;
+      if (!vid) {
+        alert("This is a hands-on lab day without a lecture video—or paste any YouTube URL in the top bar first.");
+        return;
+      }
+      document.getElementById("pipFrame").src = `https://www.youtube.com/embed/${vid}?autoplay=1&rel=0`;
+      document.getElementById("floatingPip").classList.add("open");
+    }
+
+    function closeFloatingPip() {
+      document.getElementById("pipFrame").src = "";
+      document.getElementById("floatingPip").classList.remove("open");
+    }
+
+    /* ==================== ROADMAP DRAWER ==================== */
+    function toggleRoadmap(open) {
+      document.getElementById("roadmapDrawer").classList.toggle("open", open);
+      document.getElementById("drawerBackdrop").classList.toggle("open", open);
+    }
+
+    function saveTrackChoice(val) {
+      state.track = val;
+      saveLocalState(true);
+    }
+
+    function renderRoadmap() {
+      const q = (document.getElementById("roadmapSearch").value || "").toLowerCase();
+      const mFilter = document.getElementById("monthFilter").value;
+      const listEl = document.getElementById("roadmapList");
+
+      const filtered = CURRICULUM.filter(d => {
+        const matchMonth = mFilter === "all" || String(d.month) === mFilter;
+        const matchText = !q || d.topic.toLowerCase().includes(q) || d.instructor.toLowerCase().includes(q) || d.type.toLowerCase().includes(q);
+        return matchMonth && matchText;
+      });
+
+      listEl.innerHTML = filtered.map(d => {
+        const isDone = state.completedDays.includes(d.day);
+        const isActive = d.day === state.currentDay;
+        return `
+          <div class="day-row ${isDone ? "done" : ""} ${isActive ? "active" : ""}" onclick="selectRoadmapDay(${d.day})">
+            <div style="display:flex;align-items:center;gap:9px;min-width:0;">
+              <span class="day-check">${isDone ? "✓" : d.day}</span>
+              <div style="min-width:0;">
+                <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(d.topic)}</div>
+                <div style="font-size:10.5px;color:var(--text-muted);">M${d.month} W${d.week} • ${escapeHtml(d.instructor)}</div>
+              </div>
+            </div>
+            <span class="badge-tag ${d.type === "BOSS LEVEL" ? "boss" : (d.type === "Hands-On" ? "handson" : "")}">${d.type}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function selectRoadmapDay(day) {
+      renderDay(day);
+      toggleRoadmap(false);
+      saveLocalState(true);
+    }
+
+    /* ==================== SPLIT LAYOUT & FOCUS TIMER ==================== */
+    function setSplitLayout(mode, btn) {
+      const ws = document.getElementById("splitWorkspace");
+      ws.classList.remove("wide-video", "wide-code");
+      if (mode !== "balanced") ws.classList.add(mode);
+      document.querySelectorAll("#splitSwitchGroup .capsule-btn").forEach(b => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById("timerToggleBtn");
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = "▶";
+      } else {
+        btn.textContent = "❚❚";
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            const m = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
+            const s = String(timerSeconds % 60).padStart(2, "0");
+            document.getElementById("timerDisplay").textContent = `${m}:${s}`;
+          }
+        }, 1000);
+      }
+    }
+
+    function toggleFocusLock() {
+      const locked = document.body.classList.toggle("focus-locked");
+      document.getElementById("focusLockBtn").classList.toggle("active", locked);
+    }
+
+    /* ==================== ZERO-DUMMY-CODE PYTHON 3 & SQLITE ENGINE ==================== */
+    async function initPyodideRuntime() {
+      const statusEl = document.getElementById("runtimeStatus");
+      try {
+        pyodide = await loadPyodide();
+        await pyodide.loadPackage(["numpy", "pandas", "scipy", "scikit-learn", "matplotlib"]);
+
+        // Write domain-neutral datasets into virtual FS & seed SQLite DB
+        for (const [fname, csvText] of Object.entries(DATASETS)) {
+          pyodide.FS.writeFile(fname, csvText);
+        }
+
+        await pyodide.runPythonAsync(`
+import sqlite3, os, io, base64
+import matplotlib
+matplotlib.use('Agg')
+
+__df_sql_conn = sqlite3.connect(':memory:')
+__cur = __df_sql_conn.cursor()
+__cur.executescript('''
+CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT, department TEXT, salary INTEGER);
+INSERT INTO employees VALUES
+  (1, 'Aarav Sharma', 'Data', 82000),
+  (2, 'Meera Nair', 'Engineering', 94000),
+  (3, 'Kabir Verma', 'Data', 71000),
+  (4, 'Riya Kulkarni', 'Product', 68000),
+  (5, 'Vikram Joshi', 'Engineering', 88000),
+  (6, 'Ananya Rao', 'HR', 54000),
+  (7, 'Rohan Desai', 'Product', 76000);
+
+CREATE TABLE departments (dept_name TEXT PRIMARY KEY, lead_name TEXT, city TEXT);
+INSERT INTO departments VALUES
+  ('Data', 'Dr. Sneha Iyer', 'Bengaluru'),
+  ('Engineering', 'Arjun Mehta', 'Mumbai'),
+  ('Product', 'Neha Kapoor', 'Pune'),
+  ('HR', 'Karan Malhotra', 'Delhi');
+
+CREATE TABLE weather_logs (log_date TEXT, city TEXT, temp_c REAL, condition TEXT);
+INSERT INTO weather_logs VALUES
+  ('2026-03-01', 'Mumbai', 31.2, 'Clear'),
+  ('2026-03-01', 'Bengaluru', 26.4, 'Clear'),
+  ('2026-03-02', 'Mumbai', 32.5, 'Humid'),
+  ('2026-03-02', 'Bengaluru', 25.8, 'Cloudy'),
+  ('2026-04-01', 'Delhi', 29.0, 'Clear'),
+  ('2026-04-02', 'Pune', 30.4, 'Clear');
+''')
+__df_sql_conn.commit()
+        `);
+
+        pyodideReady = true;
+        statusEl.textContent = "Runtime: Python 3.11 + NumPy/Pandas/Sklearn + SQLite Ready ✓";
+      } catch (err) {
+        statusEl.textContent = "Runtime Error: " + err.message;
+      }
+    }
+
+    function setEditorLang(lang, keepBlank = false) {
+      editorLang = lang;
+      document.getElementById("langPyBtn").classList.toggle("active", lang === "python");
+      document.getElementById("langSqlBtn").classList.toggle("active", lang === "sql");
+      const editor = document.getElementById("codeEditor");
+      editor.placeholder = lang === "sql"
+        ? "Blank SQLite SQL editor ready — query employees, departments, or weather_logs..."
+        : "Blank Python 3.11 editor ready — code along with the video in real time...";
+      if (keepBlank) editor.value = "";
+    }
+
+    function toggleChallengeDrawer(forceOpen) {
+      const drawer = document.getElementById("challengeDrawer");
+      drawer.classList.toggle("open", typeof forceOpen === "boolean" ? forceOpen : !drawer.classList.contains("open"));
+    }
+
+    function toggleStretchMode() {
+      const lesson = getActiveLesson();
+      stretchMode = !stretchMode;
+      document.getElementById("stretchToggleBtn").classList.toggle("active", stretchMode);
+      document.getElementById("challengeModeLabel").textContent = stretchMode ? "+30m Stretch" : "Core";
+      document.getElementById("exerciseText").textContent = stretchMode ? (lesson.stretch || lesson.exercise) : lesson.exercise;
+    }
+
+    function toggleDatasetStrip() {
+      document.getElementById("datasetStrip").classList.toggle("open");
+    }
+
+    function insertSnippet(snip) {
+      const ed = document.getElementById("codeEditor");
+      ed.value = ed.value ? ed.value + "\n\n" + snip : snip;
+    }
+
+    function clearEditor() {
+      document.getElementById("codeEditor").value = "";
+    }
+
+    function clearConsole() {
+      document.getElementById("consoleOutput").textContent = "Cleared.";
+      document.getElementById("consolePlotImg").style.display = "none";
+      document.getElementById("fixErrorBtn").style.display = "none";
+    }
+
+    function showHintInConsole() {
+      const lesson = getActiveLesson();
+      document.getElementById("consoleOutput").textContent = "💡 Hint: " + (lesson.hint || "Break the problem into small variables and print intermediate steps.");
+    }
+
+    async function runUserCode(verifyTest = false) {
+      if (!pyodideReady) {
+        document.getElementById("consoleOutput").textContent = "⏳ Loading Python & SQLite WebAssembly runtime (takes ~3 seconds on first load)...";
+        return false;
+      }
+
+      const code = document.getElementById("codeEditor").value;
+      const outEl = document.getElementById("consoleOutput");
+      const plotEl = document.getElementById("consolePlotImg");
+      const fixBtn = document.getElementById("fixErrorBtn");
+      fixBtn.style.display = "none";
+      plotEl.style.display = "none";
+      lastErrorText = "";
+
+      const lesson = getActiveLesson();
+
+      try {
+        pyodide.globals.set("__user_code", code);
+        pyodide.globals.set("__editor_lang", editorLang);
+        pyodide.globals.set("__test_assertion", verifyTest ? (lesson.testCheck || "") : "");
+
+        const rawResult = await pyodide.runPythonAsync(`
+import sys, io, os, json, base64
+
+__stdout = io.StringIO()
+__old_stdout = sys.stdout
+sys.stdout = __stdout
+__env = {"os": os, "sqlite3": sqlite3}
+__test_passed = True
+__test_msg = ""
+
+try:
+    if __editor_lang == "sql":
+        __cur = __df_sql_conn.cursor()
+        __stmts = [s.strip() for s in __user_code.split(";") if s.strip()]
+        for __st in __stmts:
+            __cur.execute(__st)
+            if __cur.description:
+                __cols = [d[0] for d in __cur.description]
+                __rows = __cur.fetchall()
+                print(" | ".join(__cols))
+                print("-" * (len(" | ".join(__cols)) + 4))
+                for __r in __rows:
+                    print(" | ".join(str(__v) for __v in __r))
+                print(f"({len(__rows)} rows)")
+            else:
+                __df_sql_conn.commit()
+                print("OK — statement executed.")
+    else:
+        exec(__user_code, __env)
+
+    __out_str = __stdout.getvalue()
+    if __test_assertion:
+        __test_ctx = {"env": __env, "out": __out_str, "os": os}
+        exec(__test_assertion, __test_ctx)
+except AssertionError as __ae:
+    __test_passed = False
+    __test_msg = str(__ae) or "Unit test assertion failed."
+except Exception as __ex:
+    __test_passed = False
+    __test_msg = f"{type(__ex).__name__}: {__ex}"
+finally:
+    sys.stdout = __old_stdout
+
+__plot_b64 = ""
+for __img_name in ["chart.png", "subplots.png", "output.png"]:
+    if os.path.exists(__img_name):
+        with open(__img_name, "rb") as __f:
+            __plot_b64 = base64.b64encode(__f.read()).decode("ascii")
+        os.remove(__img_name)
+        break
+
+json.dumps({
+    "stdout": __stdout.getvalue(),
+    "passed": __test_passed,
+    "error": __test_msg,
+    "plot": __plot_b64
+})
+        `);
+
+        const parsed = JSON.parse(rawResult);
+        let display = parsed.stdout || "";
+        if (!parsed.passed) {
+          display += (display ? "\n" : "") + "❌ " + parsed.error;
+          lastErrorText = parsed.error;
+          fixBtn.style.display = "inline-flex";
+        } else if (!display) {
+          display = "✓ Executed cleanly (no print output).";
+        }
+
+        outEl.textContent = display;
+        if (parsed.plot) {
+          plotEl.src = "data:image/png;base64," + parsed.plot;
+          plotEl.style.display = "block";
+        }
+        return parsed.passed;
+      } catch (err) {
+        lastErrorText = err.message;
+        outEl.textContent = "❌ " + err.message;
+        fixBtn.style.display = "inline-flex";
+        return false;
+      }
+    }
+
+    async function verifyAndCompleteDay() {
+      const code = document.getElementById("codeEditor").value.trim();
+      if (!code) {
+        toggleChallengeDrawer(true);
+        document.getElementById("consoleOutput").textContent = "Write your solution in the editor first, then click Verify & Complete!";
+        return;
+      }
+      const ok = await runUserCode(true);
+      if (ok) {
+        const day = state.currentDay;
+        if (!state.completedDays.includes(day)) {
+          state.completedDays.push(day);
+          state.xp += 25;
+          const today = new Date().toISOString().slice(0, 10);
+          if (state.lastStudyDate !== today) {
+            state.streak += 1;
+            state.lastStudyDate = today;
+          }
+        }
+        saveLocalState(true);
+        renderRoadmap();
+        document.getElementById("consoleOutput").textContent += "\n\n🎉 Unit Tests Passed! Day " + day + " marked complete (+25 XP).";
+      }
+    }
+
+    /* ==================== BOTTOM DOCK: SMART NOTES & INSTINCT AI ==================== */
+    function switchBottomDock(tab) {
+      document.getElementById("bottomDock").classList.remove("minimized");
+      document.getElementById("dockMinBtn").textContent = "▾ Collapse";
+      document.getElementById("dockTabAi").classList.toggle("active", tab === "ai");
+      document.getElementById("dockTabNotes").classList.toggle("active", tab === "notes");
+      document.getElementById("dockPaneAi").classList.toggle("active", tab === "ai");
+      document.getElementById("dockPaneNotes").classList.toggle("active", tab === "notes");
+    }
+
+    function toggleDockMinimize() {
+      const dock = document.getElementById("bottomDock");
+      const min = dock.classList.toggle("minimized");
+      document.getElementById("dockMinBtn").textContent = min ? "▴ Expand" : "▾ Collapse";
+    }
+
+    function detectTopicTag(text) {
+      const t = text.toLowerCase();
+      if (/\b(rag|llm|agent|token|embedding|vector|prompt)\b/.test(t)) return "#GenAI";
+      if (/\b(sql|select|join|group by|having|cte|window|sqlite)\b/.test(t)) return "#SQL";
+      if (/\b(regression|tree|forest|kmeans|pca|sklearn|auc|overfit)\b/.test(t)) return "#ML";
+      if (/\b(histogram|mean|variance|std|normal|p-value|probability|iqr)\b/.test(t)) return "#Stats";
+      if (/\b(resume|interview|github|portfolio|salary|star)\b/.test(t)) return "#Career";
+      return "#Python";
+    }
+
+    function addSmartNote(customText = null) {
+      const input = document.getElementById("noteInput");
+      const text = (customText || input.value).trim();
+      if (!text) return;
+      const lesson = getActiveLesson();
+      state.notes.unshift({
+        id: Date.now(),
+        day: lesson.day,
+        tag: detectTopicTag(text + " " + lesson.topic),
+        text
+      });
+      if (!customText) input.value = "";
+      saveLocalState(true);
+      renderNotes();
+      switchBottomDock("notes");
+    }
+
+    function pinTakeawaysToNotes() {
+      const lesson = getActiveLesson();
+      addSmartNote(`Day ${lesson.day} (${lesson.topic}): ` + lesson.takeaways.join(" • "));
+    }
+
+    function deleteNote(id) {
+      state.notes = state.notes.filter(n => n.id !== id);
+      saveLocalState(true);
+      renderNotes();
+    }
+
+    function autoOrganizeNotes() {
+      state.notes.forEach(n => {
+        n.tag = detectTopicTag(n.text);
+        n.text = n.text.charAt(0).toUpperCase() + n.text.slice(1);
+      });
+      state.notes.sort((a, b) => a.tag.localeCompare(b.tag) || a.day - b.day);
+      saveLocalState(true);
+      renderNotes();
+    }
+
+    function compileWeeklyCheatSheet() {
+      const lesson = getActiveLesson();
+      const weekStart = (lesson.week - 1) * 7 + 1;
+      const weekEnd = lesson.week * 7;
+      const weekNotes = state.notes.filter(n => n.day >= weekStart && n.day <= weekEnd);
+      const body = weekNotes.length
+        ? weekNotes.map(n => `- [Day ${n.day} | ${n.tag}] ${n.text}`).join("\n")
+        : CURRICULUM.filter(d => d.week === lesson.week).map(d => `- Day ${d.day}: ${d.topic} — ${d.takeaways[0]}`).join("\n");
+      downloadTextFile(`Week_${lesson.week}_CheatSheet.md`, `# Week ${lesson.week} Revision Cheat Sheet\n\n${body}\n`);
+    }
+
+    function renderNotes() {
+      const container = document.getElementById("notesList");
+      if (!state.notes.length) {
+        container.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:8px;">No notes pinned yet. Jot a takeaway above or click "+ Save to Notes" on any Instinct AI answer.</div>`;
+        return;
+      }
+      container.innerHTML = state.notes.map(n => `
+        <div class="note-card">
+          <div class="note-meta">
+            <span>Day ${n.day} • ${escapeHtml(n.tag)}</span>
+            <button style="border:none;background:none;color:var(--text-muted);cursor:pointer;" onclick="deleteNote(${n.id})">✕</button>
+          </div>
+          <div style="color:var(--text-primary);line-height:1.45;">${escapeHtml(n.text)}</div>
+        </div>
+      `).join("");
+    }
+
+    /* ==================== INSTINCT AI + FREE LIVE WEB SEARCH ==================== */
+    function initGreeting() {
+      appendAiMessage("bot", "Synced to your active lesson and blank code editor. Ask me for a lesson breakdown, code review, or live web search answers (StackOverflow & Wikipedia enabled free out of the box).");
+    }
+
+    function toggleLiveWebSearch() {
+      liveWebSearch = !liveWebSearch;
+      const btn = document.getElementById("liveWebToggleBtn");
+      btn.classList.toggle("active", liveWebSearch);
+      btn.textContent = liveWebSearch ? "🌐 Live Web Search: ON" : "🌐 Live Web Search: OFF";
+    }
+
+    function appendAiMessage(role, text) {
+      const box = document.getElementById("aiMessages");
+      const div = document.createElement("div");
+      div.className = `ai-msg ${role}`;
+      if (role === "bot") {
+        const safe = escapeHtml(text).replace(/\n/g, "<br>");
+        div.innerHTML = `
+          <div>${safe}</div>
+          <div style="margin-top:6px;display:flex;justify-content:flex-end;">
+            <button class="ghost-pill" style="padding:2px 9px;font-size:10.5px;" onclick='addSmartNote(${JSON.stringify(text)})'>+ Save to Notes</button>
+          </div>
+        `;
+      } else {
+        div.textContent = text;
+      }
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function askInstinctQuick(q) {
+      switchBottomDock("ai");
+      document.getElementById("aiPromptInput").value = q;
+      sendInstinctPrompt();
+    }
+
+    function sendErrorToInstinct() {
+      switchBottomDock("ai");
+      const code = document.getElementById("codeEditor").value;
+      const q = `Fix this ${editorLang.toUpperCase()} error: ${lastErrorText}\nMy code:\n${code}`;
+      appendAiMessage("user", `Explain & fix error: ${lastErrorText}`);
+      generateInstinctReply(q);
+    }
+
+    async function sendInstinctPrompt() {
+      const input = document.getElementById("aiPromptInput");
+      const q = input.value.trim();
+      if (!q) return;
+      input.value = "";
+      appendAiMessage("user", q);
+      await generateInstinctReply(q);
+    }
+
+    async function fetchFreeLiveWeb(query) {
+      const cleanQ = query.replace(/[^\w\s+-]/g, " ").trim();
+      const results = [];
+
+      // 1. Live Wikipedia REST Summary Search
+      try {
+        const wikiSearch = await fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(cleanQ)}&limit=1&namespace=0&format=json&origin=*`);
+        const wikiData = await wikiSearch.json();
+        if (wikiData && wikiData[1] && wikiData[1][0]) {
+          const title = wikiData[1][0];
+          const sumRes = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+          const sumJson = await sumRes.json();
+          if (sumJson.extract) {
+            results.push(`📚 Wikipedia (${title}): ${sumJson.extract.slice(0, 320)}...`);
+          }
+        }
+      } catch (_) {}
+
+      // 2. Live StackOverflow Search API
+      try {
+        const soRes = await fetch(`https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=relevance&q=${encodeURIComponent(cleanQ)}&accepted=True&site=stackoverflow&pagesize=2`);
+        const soJson = await soRes.json();
+        if (soJson.items && soJson.items.length) {
+          soJson.items.forEach(item => {
+            results.push(`💬 StackOverflow (${item.score}↑): ${item.title} — ${item.link}`);
+          });
+        }
+      } catch (_) {}
+
+      return results.join("\n\n");
+    }
+
+    async function generateInstinctReply(q) {
+      const lesson = getActiveLesson();
+      const lower = q.toLowerCase();
+      const userCode = document.getElementById("codeEditor").value.trim();
+
+      // Optional Gemini API synthesis if user supplied a free key
+      if (state.geminiKey) {
+        try {
+          const sysContext = `You are Instinct AI, a concise, encouraging Data Science & GenAI mentor. Active Day ${lesson.day}: ${lesson.topic}. Takeaways: ${lesson.takeaways.join("; ")}. Exercise: ${lesson.exercise}. User editor code: ${userCode || "(empty)"}.`;
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(state.geminiKey)}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${sysContext}\n\nStudent question: ${q}` }] }]
+            })
+          });
+          const data = await res.json();
+          const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (reply) {
+            appendAiMessage("bot", reply);
+            return;
+          }
+        } catch (_) {}
+      }
+
+      // Rich Built-in Curriculum Intelligence + Free Live Web Search
+      if (lower.includes("what do i learn") || lower.includes("lesson summary") || lower.includes("explain today")) {
+        const bullets = lesson.takeaways.map((t, i) => `${i + 1}. ${t}`).join("\n");
+        appendAiMessage("bot", `Day ${lesson.day} (${lesson.topic} — ${lesson.instructor}):\n${bullets}\n\nGoal: ${lesson.exercise}`);
+        return;
+      }
+
+      if (lower.includes("review my code") || lower.includes("fix this")) {
+        if (!userCode) {
+          appendAiMessage("bot", `Your editor is currently blank! Try writing a first attempt for "${lesson.topic}", or click "🎯 Day's Challenge" -> "💡 Hint" if you want a nudge.`);
+        } else {
+          appendAiMessage("bot", `Code Check for Day ${lesson.day} (${lesson.topic}):\n• Language mode: ${editorLang.toUpperCase()} (${userCode.split("\n").length} lines).\n• Tip: ${lesson.hint}\n• Press ▶ Run to check stdout, or click "✓ Verify & Complete" when ready.`);
+        }
+        return;
+      }
+
+      if (liveWebSearch) {
+        const webHits = await fetchFreeLiveWeb(q);
+        if (webHits) {
+          appendAiMessage("bot", `Live Web Search Results:\n\n${webHits}\n\nContext Note (Day ${lesson.day}): ${lesson.takeaways[0]}`);
+          return;
+        }
+      }
+
+      appendAiMessage("bot", `On Day ${lesson.day} (${lesson.topic}), keep this core rule in mind:\n• ${lesson.takeaways.join("\n• ")}\n\nHint for today's exercise: ${lesson.hint}`);
+    }
+
+    /* ==================== PORTFOLIO EXPORT & UTILITIES ==================== */
+    function exportPortfolioReadme() {
+      const completed = CURRICULUM.filter(d => state.completedDays.includes(d.day));
+      const md = [
+        `# Data Science & Applied GenAI Portfolio — @${state.handle || "Learner"}`,
+        ``,
+        `- **Progress:** ${state.completedDays.length} / 168 Days Completed (${state.xp} XP • ${state.streak}-Day Streak)`,
+        `- **Specialization Track:** ${state.track}`,
+        `- **Core Stack:** Python 3, SQL (SQLite/PostgreSQL), NumPy, Pandas, Statistics, Scikit-Learn, LLMs, RAG & AI Agents`,
+        ``,
+        `## Completed Milestones`,
+        completed.length
+          ? completed.map(d => `- **Day ${d.day} (${d.type}):** ${d.topic}`).join("\n")
+          : `- Started Day 1: Set Up Python & Say Hello`,
+        ``,
+        `## Pinned Study Notes`,
+        state.notes.length
+          ? state.notes.map(n => `- **[Day ${n.day} | ${n.tag}]** ${n.text}`).join("\n")
+          : `- Building daily notes inside DATAFORGE // INSTINCT OS.`
+      ].join("\n");
+
+      downloadTextFile("README.md", md);
+    }
+
+    function downloadTextFile(filename, content) {
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add("open"); }
+    function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
