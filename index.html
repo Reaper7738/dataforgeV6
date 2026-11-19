@@ -1,2096 +1,1086 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="aurora" data-perf="standard">
+<html lang="en" data-theme="obsidian">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DATAFORGE // INSTINCT OS — 168-Day Data Science & AI Studio</title>
-
-  <!-- Fonts & Icons -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>DATAFORGE // INSTINCT OS v6.3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <!-- CodeMirror 5 (Lightweight, Zero-Lag Editor) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
-
-  <!-- 168-Day Verified Curriculum & Datasets -->
-  <script src="./curriculum.js"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* =========================================================================
-       DATAFORGE // INSTINCT OS v6.1 — SINGLE-LAYER LIQUID GLASS & LITE ENGINE
-       ========================================================================= */
-    :root {
-      --bg-canvas: #070b14;
-      --bg-grad-1: rgba(56, 189, 248, 0.16);
-      --bg-grad-2: rgba(168, 85, 247, 0.14);
-      --surface-glass: rgba(15, 23, 42, 0.76);
-      --surface-solid: rgba(17, 25, 44, 0.94);
-      --surface-elevated: rgba(30, 41, 59, 0.72);
-      --surface-input: rgba(10, 15, 28, 0.88);
-      --border-glass: rgba(148, 163, 184, 0.18);
-      --border-strong: rgba(148, 163, 184, 0.30);
+    :root, [data-theme="obsidian"] {
+      --bg-grad: radial-gradient(circle at 15% 15%, #16213e 0%, #090d16 55%, #05070c 100%);
+      --glass-bg: rgba(17, 24, 39, 0.58);
+      --glass-elevated: rgba(30, 41, 59, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.11);
+      --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
       --text-primary: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
+      --text-secondary: #94a3b8;
       --accent: #38bdf8;
-      --accent-2: #818cf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --accent-text: #04101f;
-      --success: #34d399;
-      --success-soft: rgba(52, 211, 153, 0.16);
-      --warning: #fbbf24;
-      --warning-soft: rgba(251, 191, 36, 0.16);
-      --danger: #f87171;
-      --danger-soft: rgba(248, 113, 113, 0.16);
-      --glass-blur: blur(12px);
-      --shadow-shell: 0 10px 30px rgba(2, 6, 23, 0.45);
-      --radius-xl: 20px;
-      --radius-lg: 14px;
-      --radius-md: 10px;
-      --radius-pill: 999px;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --accent-glow: rgba(56, 189, 248, 0.28);
+      --editor-bg: rgba(7, 11, 20, 0.78);
     }
-
-    /* 8 Signature Themes */
-    [data-theme="obsidian"] {
-      --bg-canvas: #09090b;
-      --bg-grad-1: rgba(245, 158, 11, 0.14);
-      --bg-grad-2: rgba(217, 119, 6, 0.10);
-      --surface-glass: rgba(24, 24, 27, 0.80);
-      --surface-solid: rgba(26, 26, 30, 0.96);
-      --surface-elevated: rgba(39, 39, 42, 0.78);
-      --surface-input: rgba(14, 14, 17, 0.92);
-      --border-glass: rgba(245, 158, 11, 0.20);
-      --accent: #f59e0b;
-      --accent-2: #fbbf24;
-      --accent-soft: rgba(245, 158, 11, 0.16);
-      --accent-text: #181002;
+    [data-theme="frost"] {
+      --bg-grad: radial-gradient(circle at 20% 10%, #e0f2fe 0%, #f1f5f9 50%, #e2e8f0 100%);
+      --glass-bg: rgba(255, 255, 255, 0.68);
+      --glass-elevated: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(15, 23, 42, 0.12);
+      --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --accent: #0284c7;
+      --accent-glow: rgba(2, 132, 199, 0.22);
+      --editor-bg: rgba(248, 250, 252, 0.9);
     }
-    [data-theme="matrix"] {
-      --bg-canvas: #030b06;
-      --bg-grad-1: rgba(16, 185, 129, 0.15);
-      --bg-grad-2: rgba(5, 150, 105, 0.12);
-      --surface-glass: rgba(6, 24, 15, 0.82);
-      --surface-solid: rgba(8, 28, 18, 0.96);
-      --surface-elevated: rgba(15, 42, 28, 0.78);
-      --surface-input: rgba(4, 15, 9, 0.92);
-      --border-glass: rgba(52, 211, 153, 0.22);
-      --accent: #10b981;
-      --accent-2: #34d399;
-      --accent-soft: rgba(16, 185, 129, 0.16);
-      --accent-text: #021a10;
-    }
-    [data-theme="nordic"] {
-      --bg-canvas: #0f172a;
-      --bg-grad-1: rgba(125, 211, 252, 0.15);
-      --bg-grad-2: rgba(148, 163, 184, 0.14);
-      --surface-glass: rgba(30, 41, 59, 0.78);
-      --surface-solid: rgba(30, 41, 59, 0.95);
-      --surface-elevated: rgba(51, 65, 85, 0.75);
-      --surface-input: rgba(15, 23, 42, 0.90);
-      --border-glass: rgba(186, 230, 253, 0.20);
-      --accent: #7dd3fc;
-      --accent-2: #bae6fd;
-      --accent-soft: rgba(125, 211, 252, 0.16);
-      --accent-text: #082f49;
-    }
-    [data-theme="solarized"] {
-      --bg-canvas: #002b36;
-      --bg-grad-1: rgba(42, 161, 152, 0.16);
-      --bg-grad-2: rgba(181, 137, 0, 0.12);
-      --surface-glass: rgba(7, 54, 66, 0.82);
-      --surface-solid: rgba(7, 54, 66, 0.96);
-      --surface-elevated: rgba(14, 71, 86, 0.78);
-      --surface-input: rgba(0, 38, 48, 0.92);
-      --border-glass: rgba(147, 161, 161, 0.22);
-      --text-primary: #fdf6e3;
-      --text-secondary: #eee8d5;
-      --text-muted: #93a1a1;
-      --accent: #2aa198;
-      --accent-2: #b58900;
-      --accent-soft: rgba(42, 161, 152, 0.18);
-      --accent-text: #002129;
-    }
-    [data-theme="sakura"] {
-      --bg-canvas: #160b14;
-      --bg-grad-1: rgba(244, 114, 182, 0.16);
-      --bg-grad-2: rgba(192, 132, 252, 0.14);
-      --surface-glass: rgba(36, 18, 33, 0.80);
-      --surface-solid: rgba(38, 19, 35, 0.96);
-      --surface-elevated: rgba(58, 28, 53, 0.76);
-      --surface-input: rgba(20, 9, 18, 0.92);
-      --border-glass: rgba(244, 114, 182, 0.22);
-      --accent: #f472b6;
-      --accent-2: #e879f9;
-      --accent-soft: rgba(244, 114, 182, 0.16);
-      --accent-text: #270718;
+    [data-theme="aurora"] {
+      --bg-grad: radial-gradient(circle at 80% 10%, #2e1065 0%, #0f172a 55%, #090d16 100%);
+      --glass-bg: rgba(24, 18, 43, 0.58);
+      --glass-elevated: rgba(46, 35, 78, 0.62);
+      --glass-border: rgba(192, 132, 252, 0.18);
+      --glass-highlight: inset 0 1px 0 0 rgba(233, 213, 255, 0.18);
+      --text-primary: #faf5ff;
+      --text-secondary: #c4b5fd;
+      --accent: #c084fc;
+      --accent-glow: rgba(192, 132, 252, 0.28);
+      --editor-bg: rgba(13, 9, 26, 0.82);
     }
     [data-theme="emerald"] {
-      --bg-canvas: #061316;
-      --bg-grad-1: rgba(45, 212, 191, 0.15);
-      --bg-grad-2: rgba(59, 130, 246, 0.14);
-      --surface-glass: rgba(13, 33, 38, 0.80);
-      --surface-solid: rgba(14, 36, 42, 0.96);
-      --surface-elevated: rgba(22, 52, 60, 0.76);
-      --surface-input: rgba(7, 20, 24, 0.92);
-      --border-glass: rgba(45, 212, 191, 0.22);
-      --accent: #2dd4bf;
-      --accent-2: #38bdf8;
-      --accent-soft: rgba(45, 212, 191, 0.16);
-      --accent-text: #042f2e;
-    }
-    [data-theme="paper"] {
-      --bg-canvas: #f1f5f9;
-      --bg-grad-1: rgba(37, 99, 235, 0.08);
-      --bg-grad-2: rgba(99, 102, 241, 0.07);
-      --surface-glass: rgba(255, 255, 255, 0.88);
-      --surface-solid: rgba(255, 255, 255, 0.98);
-      --surface-elevated: rgba(241, 245, 249, 0.92);
-      --surface-input: #ffffff;
-      --border-glass: rgba(15, 23, 42, 0.12);
-      --border-strong: rgba(15, 23, 42, 0.20);
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #64748b;
-      --accent: #2563eb;
-      --accent-2: #4f46e5;
-      --accent-soft: rgba(37, 99, 235, 0.10);
-      --accent-text: #ffffff;
-      --shadow-shell: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --bg-grad: radial-gradient(circle at 15% 85%, #064e3b 0%, #071917 55%, #040d0c 100%);
+      --glass-bg: rgba(6, 34, 29, 0.6);
+      --glass-elevated: rgba(12, 53, 45, 0.65);
+      --glass-border: rgba(52, 211, 153, 0.16);
+      --glass-highlight: inset 0 1px 0 0 rgba(167, 243, 208, 0.16);
+      --text-primary: #ecfdf5;
+      --text-secondary: #6ee7b7;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.28);
+      --editor-bg: rgba(4, 20, 17, 0.82);
     }
 
-    /* ZERO-LAG LITE MODE (Auto-enabled on software-rendered / low-spec PCs or toggled manually) */
-    [data-perf="lite"] {
-      --glass-blur: none !important;
-      --surface-glass: var(--surface-solid) !important;
-      --shadow-shell: 0 2px 8px rgba(0, 0, 0, 0.28) !important;
-    }
-    [data-perf="lite"] * {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      height: 100%;
-      font-family: var(--font-sans);
-      background-color: var(--bg-canvas);
-      background-image:
-        radial-gradient(circle at 12% 10%, var(--bg-grad-1), transparent 38%),
-        radial-gradient(circle at 88% 85%, var(--bg-grad-2), transparent 40%);
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-grad);
       color: var(--text-primary);
-      overflow: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Custom Slim Scrollbars */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.25); border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.45); }
-
-    /* =========================================================================
-       APP SHELL LAYOUT
-       ========================================================================= */
-    .app-shell {
-      display: grid;
-      grid-template-rows: 58px 1fr 44px;
       height: 100vh;
-      padding: 10px 14px;
-      gap: 10px;
-    }
-
-    /* Top Capsule Bar (Single-Layer Blur) */
-    .top-capsule-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 0 14px;
-      background: var(--surface-glass);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-pill);
-      box-shadow: var(--shadow-shell);
-      z-index: 20;
-    }
-    .brand-group { display: flex; align-items: center; gap: 10px; }
-    .brand-logo {
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--font-display); font-weight: 800; font-size: 0.92rem;
-      letter-spacing: 0.03em; color: var(--text-primary);
-    }
-    .brand-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-    .pill-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-glass);
-      background: var(--surface-elevated);
-      color: var(--text-primary);
-      font-size: 0.78rem; font-weight: 600;
-      cursor: pointer;
-      transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
-      white-space: nowrap;
-    }
-    .pill-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
-    .pill-btn:active { transform: scale(0.98); }
-    .pill-btn.primary {
-      background: var(--accent);
-      color: var(--accent-text);
-      border-color: transparent;
-      font-weight: 700;
-    }
-    .pill-btn.primary:hover { filter: brightness(1.06); }
-    .pill-btn.success {
-      background: var(--success-soft);
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    .nav-center { display: flex; align-items: center; gap: 8px; }
-    .day-indicator {
-      display: flex; align-items: center; gap: 8px;
-      padding: 5px 14px;
-      border-radius: var(--radius-pill);
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-glass);
-      font-size: 0.8rem; font-weight: 600;
-    }
-    .type-badge {
-      padding: 2px 8px; border-radius: var(--radius-pill);
-      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-      background: var(--accent-soft); color: var(--accent);
-    }
-    .type-badge.handson { background: var(--warning-soft); color: var(--warning); }
-    .type-badge.review { background: var(--success-soft); color: var(--success); }
-
-    .top-actions { display: flex; align-items: center; gap: 8px; }
-    .stat-chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 10px; border-radius: var(--radius-pill);
-      background: var(--surface-elevated); border: 1px solid var(--border-glass);
-      font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
-    }
-
-    /* Main Split Workspace */
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: 12px;
-      min-height: 0;
       overflow: hidden;
-    }
-    .studio-pane {
       display: flex;
       flex-direction: column;
-      background: var(--surface-glass);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-shell);
-      min-height: 0;
-      overflow: hidden;
-      contain: layout paint;
+      transition: background 0.35s ease, color 0.25s ease;
     }
-
-    /* Left Pane: Lesson & Video / Key Takeaways */
-    .pane-header {
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border-glass);
-      flex-shrink: 0;
+    .liquid-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(185%);
+      -webkit-backdrop-filter: blur(24px) saturate(185%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), var(--glass-highlight);
     }
-    .lesson-title-wrap { min-width: 0; flex: 1; }
-    .lesson-meta-line {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.72rem; color: var(--text-muted); margin-bottom: 3px;
+    .liquid-pill {
+      background: var(--glass-elevated);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-highlight);
+      transition: all 0.18s ease;
     }
-    .lesson-title {
-      font-family: var(--font-display);
-      font-size: 1.02rem; font-weight: 700;
-      color: var(--text-primary);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .seg-tabs {
-      display: inline-flex; padding: 3px;
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-pill);
-      gap: 2px; flex-shrink: 0;
-    }
-    .seg-tab {
-      padding: 5px 11px; border: none; border-radius: var(--radius-pill);
-      background: transparent; color: var(--text-muted);
-      font-size: 0.75rem; font-weight: 600; cursor: pointer;
-    }
-    .seg-tab.active {
-      background: var(--accent); color: var(--accent-text); font-weight: 700;
-    }
-
-    .left-scroll {
-      flex: 1; overflow-y: auto; padding: 14px 16px;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-
-    /* Video Stage & Study Focus Bar */
-    .video-stage {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--border-glass);
-      background: #04070d;
-      flex-shrink: 0;
-    }
-    .study-focus-bar {
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      padding: 8px 12px;
-      background: var(--surface-elevated);
-      border-bottom: 1px solid var(--border-glass);
-      font-size: 0.75rem;
-    }
-    .study-focus-text {
-      display: flex; align-items: center; gap: 7px;
-      color: var(--text-primary); font-weight: 600;
-      min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-    .study-focus-text i { color: var(--accent); }
-    .video-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    .mini-link-btn {
-      padding: 3px 8px; border-radius: var(--radius-pill);
-      border: 1px solid var(--border-glass);
-      background: var(--surface-input); color: var(--text-secondary);
-      font-size: 0.7rem; font-weight: 600; text-decoration: none; cursor: pointer;
-    }
-    .mini-link-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-    .iframe-wrap {
-      position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000;
-    }
-    .iframe-wrap iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-    }
-    .lab-banner {
-      padding: 18px;
-      background: linear-gradient(135deg, var(--accent-soft), rgba(129, 140, 248, 0.08));
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-lg);
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-
-    /* Cards inside Left Pane */
-    .info-card {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-lg);
-      padding: 12px 14px;
-    }
-    .card-label {
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
-      color: var(--accent); margin-bottom: 8px;
-    }
-    .takeaway-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .takeaway-list li {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 0.84rem; line-height: 1.5; color: var(--text-secondary);
-    }
-    .takeaway-list li::before {
-      content: "▸"; color: var(--accent); font-weight: 700; margin-top: 1px;
-    }
-    .exercise-text {
-      font-size: 0.86rem; line-height: 1.55; color: var(--text-primary);
-    }
-    .stretch-box {
-      margin-top: 9px; padding: 8px 10px;
-      border-radius: var(--radius-md);
-      background: var(--surface-input);
-      border-left: 3px solid var(--accent-2);
-      font-size: 0.79rem; color: var(--text-secondary); line-height: 1.45;
-    }
-    .hint-box {
-      margin-top: 8px; padding: 8px 10px;
-      border-radius: var(--radius-md);
-      background: var(--warning-soft);
-      border: 1px solid rgba(251, 191, 36, 0.35);
-      font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-primary);
-      display: none;
-    }
-    .hint-box.visible { display: block; }
-
-    /* Personal Scratchpad Notes */
-    .notes-area {
-      width: 100%; min-height: 64px; resize: vertical;
-      background: var(--surface-input);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-md);
-      padding: 8px 10px;
-      color: var(--text-primary); font-family: var(--font-sans); font-size: 0.82rem;
-      outline: none;
-    }
-    .notes-area:focus { border-color: var(--accent); }
-
-    /* Right Pane: Code Lab + Output + Instinct AI Mentor */
-    .editor-toolbar {
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border-glass);
-      flex-shrink: 0;
-    }
-    .lang-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 10px; border-radius: var(--radius-pill);
-      background: var(--accent-soft); color: var(--accent);
-      font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700;
-    }
-    .editor-actions { display: flex; align-items: center; gap: 6px; }
-
-    .editor-container {
-      flex: 1; min-height: 165px; position: relative; overflow: hidden;
-    }
-    .CodeMirror {
-      height: 100% !important;
-      font-family: var(--font-mono) !important;
-      font-size: 13.5px !important;
-      line-height: 1.55 !important;
-      background: var(--surface-input) !important;
-      color: var(--text-primary) !important;
-    }
-    [data-theme="paper"] .CodeMirror {
-      background: #f8fafc !important;
-      color: #0f172a !important;
-    }
-    .CodeMirror-gutters {
-      background: rgba(15, 23, 42, 0.45) !important;
-      border-right: 1px solid var(--border-glass) !important;
-    }
-    [data-theme="paper"] .CodeMirror-gutters {
-      background: #f1f5f9 !important;
-    }
-
-    /* Console & Plot Output Drawer */
-    .console-section {
-      height: 165px;
-      border-top: 1px solid var(--border-glass);
-      display: flex; flex-direction: column;
-      background: var(--surface-input);
-      flex-shrink: 0;
-    }
-    .console-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 5px 12px;
-      border-bottom: 1px solid var(--border-glass);
-      font-size: 0.72rem; font-weight: 700; color: var(--text-muted);
-    }
-    .console-body {
-      flex: 1; overflow-y: auto; padding: 8px 12px;
-      font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.48;
-      white-space: pre-wrap; color: var(--text-secondary);
-    }
-    .console-pass { color: var(--success); font-weight: 700; }
-    .console-fail { color: var(--danger); font-weight: 600; }
-    .plot-preview {
-      max-width: 100%; max-height: 190px; border-radius: 8px;
-      margin-top: 6px; border: 1px solid var(--border-glass); display: block;
-    }
-
-    /* Instinct AI Mentor Panel (Interactive, Non-Repetitive) */
-    .mentor-panel {
-      height: 215px;
-      border-top: 1px solid var(--border-glass);
-      display: flex; flex-direction: column;
-      background: var(--surface-elevated);
-      flex-shrink: 0;
-    }
-    .mentor-header {
-      display: flex; align-items: center; justify-content: space-between; gap: 6px;
-      padding: 6px 12px;
-      border-bottom: 1px solid var(--border-glass);
-      flex-wrap: wrap;
-    }
-    .mentor-brand {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 0.74rem; font-weight: 700; color: var(--accent);
-    }
-    .mentor-chips { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-    .mentor-chip {
-      padding: 3px 9px; border-radius: var(--radius-pill);
-      border: 1px solid var(--border-glass);
-      background: var(--surface-input); color: var(--text-secondary);
-      font-size: 0.7rem; font-weight: 600; cursor: pointer;
-    }
-    .mentor-chip:hover { border-color: var(--accent); color: var(--accent); }
-
-    .mentor-messages {
-      flex: 1; overflow-y: auto; padding: 8px 12px;
-      display: flex; flex-direction: column; gap: 8px;
-      font-size: 0.8rem; line-height: 1.48;
-    }
-    .msg-bubble {
-      padding: 8px 11px; border-radius: 12px; max-width: 94%;
-    }
-    .msg-bubble.ai {
-      background: var(--surface-input);
-      border: 1px solid var(--border-glass);
-      color: var(--text-secondary);
-      align-self: flex-start;
-    }
-    .msg-bubble.user {
-      background: var(--accent-soft);
-      border: 1px solid var(--accent);
-      color: var(--text-primary);
-      align-self: flex-end;
-    }
-    .msg-bubble pre {
-      margin-top: 6px; padding: 7px 9px; border-radius: 8px;
-      background: rgba(0, 0, 0, 0.35);
-      font-family: var(--font-mono); font-size: 0.74rem; overflow-x: auto;
-      color: var(--text-primary);
-    }
-    .insert-code-btn {
-      margin-top: 6px; padding: 3px 9px; border-radius: var(--radius-pill);
-      border: 1px solid var(--accent); background: var(--accent-soft);
-      color: var(--accent); font-size: 0.7rem; font-weight: 700; cursor: pointer;
-    }
-    .insert-code-btn:hover { background: var(--accent); color: var(--accent-text); }
-
-    .mentor-input-row {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 10px;
-      border-top: 1px solid var(--border-glass);
-      background: var(--surface-input);
-    }
-    .mentor-input {
-      flex: 1; background: transparent; border: none; outline: none;
-      color: var(--text-primary); font-family: var(--font-sans); font-size: 0.8rem;
-    }
-
-    /* Bottom Telemetry Dock */
-    .bottom-dock {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 0 16px;
-      background: var(--surface-glass);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-pill);
-      font-size: 0.75rem; color: var(--text-secondary);
-      contain: layout paint;
-    }
-    .progress-track {
-      flex: 1; max-width: 340px; height: 7px;
-      background: var(--surface-input); border-radius: 999px; overflow: hidden;
-      border: 1px solid var(--border-glass);
-    }
-    .progress-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      transition: width 0.25s ease;
-    }
-    .engine-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: var(--font-mono); font-size: 0.72rem;
-    }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warning); }
-    .status-dot.ready { background: var(--success); }
-
-    /* =========================================================================
-       SLIDE-OVER 168-DAY ROADMAP DRAWER & MODALS
-       ========================================================================= */
-    .drawer-backdrop {
-      position: fixed; inset: 0; background: rgba(2, 6, 23, 0.62);
-      display: none; z-index: 50;
-    }
-    .drawer-backdrop.open { display: flex; }
-
-    .roadmap-drawer {
-      width: 410px; max-width: 92vw; height: 100%;
-      background: var(--surface-glass);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border-right: 1px solid var(--border-glass);
-      display: flex; flex-direction: column;
-      padding: 16px; gap: 12px;
-    }
-    .month-pills {
-      display: flex; flex-wrap: wrap; gap: 5px;
-    }
-    .month-pill {
-      padding: 4px 10px; border-radius: var(--radius-pill);
-      border: 1px solid var(--border-glass);
-      background: var(--surface-elevated); color: var(--text-secondary);
-      font-size: 0.72rem; font-weight: 600; cursor: pointer;
-    }
-    .month-pill.active {
-      background: var(--accent); color: var(--accent-text); border-color: transparent;
-    }
-    .roadmap-list {
-      flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;
-      padding-right: 4px;
-    }
-    .day-item {
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      padding: 9px 12px; border-radius: var(--radius-md);
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-glass);
-      cursor: pointer; text-align: left; color: var(--text-primary);
-    }
-    .day-item:hover { border-color: var(--accent); }
-    .day-item.active {
+    .liquid-pill:hover {
       border-color: var(--accent);
-      background: var(--accent-soft);
+      box-shadow: 0 0 14px var(--accent-glow), var(--glass-highlight);
     }
-    .day-item-num {
-      font-family: var(--font-mono); font-size: 0.73rem; font-weight: 700;
-      color: var(--accent); min-width: 52px;
-    }
-    .day-item-title {
-      flex: 1; font-size: 0.8rem; font-weight: 600;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .day-check {
-      width: 18px; height: 18px; border-radius: 50%;
-      border: 1px solid var(--border-strong);
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 0.65rem; color: transparent; flex-shrink: 0;
-    }
-    .day-item.completed .day-check {
-      background: var(--success); border-color: var(--success); color: #03150e;
-    }
-
-    /* Centered Modals (Datasets, Themes & Performance, Settings/API) */
-    .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(2, 6, 23, 0.68);
-      display: none; align-items: center; justify-content: center;
-      padding: 16px; z-index: 60;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal-sheet {
-      width: 620px; max-width: 96vw; max-height: 86vh;
-      background: var(--surface-glass);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-shell);
-      display: flex; flex-direction: column;
-      overflow: hidden;
-    }
-    .modal-head {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 18px; border-bottom: 1px solid var(--border-glass);
-    }
-    .modal-body {
-      padding: 16px 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px;
-    }
-    .theme-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-    }
-    .theme-card {
-      padding: 10px; border-radius: var(--radius-md);
-      border: 1px solid var(--border-glass);
-      background: var(--surface-elevated);
-      color: var(--text-primary); font-size: 0.76rem; font-weight: 600;
-      cursor: pointer; text-align: center;
-    }
-    .theme-card.active { border-color: var(--accent); background: var(--accent-soft); }
-
-    .field-label { font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 5px; display: block; }
-    .text-input, .select-input {
-      width: 100%; padding: 9px 12px; border-radius: var(--radius-md);
-      border: 1px solid var(--border-glass);
-      background: var(--surface-input); color: var(--text-primary);
-      font-size: 16px; outline: none;
-    }
-    .text-input:focus, .select-input:focus { border-color: var(--accent); }
-
-    @media (max-width: 960px) {
-      .workspace-grid { grid-template-columns: 1fr; overflow-y: auto; }
-      body { overflow: auto; }
-      .app-shell { height: auto; min-height: 100vh; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.25); border-radius: 999px; }
+    textarea.code-area {
+      background: var(--editor-bg);
+      color: var(--text-primary);
+      caret-color: var(--accent);
+      tab-size: 4;
     }
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <!-- TOP CAPSULE NAVIGATION BAR -->
-    <header class="top-capsule-bar">
-      <div class="brand-group">
-        <div class="brand-logo"><span class="brand-dot"></span> DATAFORGE <span style="opacity:.55">//</span> INSTINCT OS</div>
-        <button class="pill-btn" id="btn-open-roadmap" title="Browse 168-Day Roadmap">
-          <i class="fa-solid fa-map"></i> Roadmap <span id="roadmap-count-badge" style="opacity:.75">(1/168)</span>
+
+  <!-- TOP LIQUID GLASS HEADER -->
+  <header class="liquid-glass mx-3 mt-2.5 px-4 py-2 rounded-2xl flex items-center justify-between gap-2 shrink-0 z-20">
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full" style="background: var(--accent); box-shadow: 0 0 10px var(--accent);"></span>
+        <span class="font-bold tracking-wider text-sm">DATAFORGE <span class="opacity-50">//</span> INSTINCT OS</span>
+        <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold" style="background: var(--accent-glow); color: var(--accent);">v6.3 GLASS</span>
+      </div>
+      <button onclick="toggleModal('roadmap-modal')" class="liquid-pill px-3 py-1 rounded-xl text-xs font-medium flex items-center gap-1.5">
+        <span>🗺️ Roadmap</span>
+        <span id="header-progress-badge" class="opacity-75">(0/168)</span>
+      </button>
+    </div>
+
+    <!-- DAY NAVIGATION -->
+    <div class="flex items-center gap-2">
+      <button onclick="changeDay(-1)" class="liquid-pill w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold" title="Previous Day">‹</button>
+      <div class="liquid-pill px-4 py-1 rounded-xl flex items-center gap-2 text-xs font-semibold">
+        <span id="day-counter-label">Day 113 / 168</span>
+        <span class="px-2 py-0.5 rounded-md text-[10px] uppercase tracking-wider" style="background: var(--accent); color: #05070c;">LEARN</span>
+      </div>
+      <button onclick="changeDay(1)" class="liquid-pill w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold" title="Next Day">›</button>
+    </div>
+
+    <!-- PROFILE SYNC, THEME & SETTINGS -->
+    <div class="flex items-center gap-2">
+      <span id="streak-pill" class="liquid-pill px-2.5 py-1 rounded-xl text-xs font-semibold">🔥 1d</span>
+      <button onclick="toggleModal('sync-modal')" id="profile-btn" class="liquid-pill px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+        <span>🔐</span>
+        <span id="active-handle-label">Guest • Sync PIN</span>
+      </button>
+      <button onclick="cycleTheme()" class="liquid-pill px-2.5 py-1 rounded-xl text-xs font-medium" title="Switch Liquid Glass Theme">🎨 Glass</button>
+      <button onclick="toggleModal('settings-modal')" class="liquid-pill px-2.5 py-1 rounded-xl text-xs font-medium" title="Gemini API & Engine Settings">⚙️</button>
+    </div>
+  </header>
+
+  <!-- MAIN 50/50 SPLIT WORKSPACE -->
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-3 p-3 min-h-0 overflow-hidden">
+
+    <!-- LEFT PANE: VIDEO + TAKEAWAYS + LAB -->
+    <section class="liquid-glass rounded-2xl p-4 flex flex-col gap-3 min-h-0 overflow-y-auto">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <div id="lesson-meta" class="text-xs font-medium opacity-70">Month 5 • Week 17 • Corey Schafer • 25m</div>
+          <h1 id="lesson-title" class="text-lg font-bold mt-0.5">Git Fundamentals: init, status, add & commit</h1>
+        </div>
+        <div class="liquid-pill p-1 rounded-xl flex text-xs shrink-0">
+          <button id="tab-video-btn" onclick="switchLeftTab('video')" class="px-3 py-1 rounded-lg font-semibold" style="background: var(--accent); color: #05070c;">Video</button>
+          <button id="tab-notes-btn" onclick="switchLeftTab('takeaways')" class="px-3 py-1 rounded-lg font-medium opacity-80">Key Takeaways</button>
+        </div>
+      </div>
+
+      <!-- VIDEO VIEW -->
+      <div id="left-video-view" class="flex flex-col gap-3">
+        <div class="liquid-pill px-3 py-2 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs">
+          <span id="watch-focus-label" class="font-medium opacity-90">🎯 Watch 00:00 – 18:00 • Focus on working directory → staging area → commit snapshots</span>
+          <div class="flex items-center gap-1.5">
+            <button onclick="toggleAltVideo()" id="alt-video-btn" class="liquid-pill px-2.5 py-1 rounded-lg font-semibold">🔄 Alt Video</button>
+            <a id="youtube-external-link" href="https://www.youtube.com/watch?v=HVsySz-h9r4" target="_blank" rel="noopener" class="liquid-pill px-2.5 py-1 rounded-lg font-semibold">YouTube ↗</a>
+          </div>
+        </div>
+
+        <div id="video-wrapper" class="w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black/60 shadow-inner"></div>
+      </div>
+
+      <!-- KEY TAKEAWAYS TAB VIEW -->
+      <div id="left-takeaways-view" class="hidden liquid-pill p-4 rounded-2xl text-sm leading-relaxed space-y-2"></div>
+
+      <!-- CORE TAKEAWAYS CARD -->
+      <div class="liquid-pill p-3.5 rounded-2xl">
+        <div class="text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--accent);">💡 Core Takeaways</div>
+        <ul id="core-takeaways-list" class="text-xs space-y-1.5 opacity-90 list-disc pl-4"></ul>
+      </div>
+
+      <!-- DAILY LAB EXERCISE -->
+      <div class="liquid-pill p-3.5 rounded-2xl">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent);">🧪 Daily Lab Exercise</span>
+          <button onclick="toggleHint()" class="liquid-pill px-2.5 py-0.5 rounded-lg text-[11px] font-semibold">Show Hint</button>
+        </div>
+        <p id="lab-prompt" class="text-xs opacity-90 leading-relaxed"></p>
+        <div id="lab-hint-box" class="hidden mt-2 p-2.5 rounded-xl text-xs bg-black/25 border border-white/10 opacity-90"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANE: LIVE CODE EDITOR + EXECUTION + INSTINCT AI MENTOR -->
+    <section class="flex flex-col gap-3 min-h-0 overflow-hidden">
+
+      <!-- CODE WORKBENCH -->
+      <div class="liquid-glass rounded-2xl p-3.5 flex flex-col flex-[1.2] min-h-0">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div class="flex items-center gap-2">
+            <select id="runtime-select" onchange="switchRuntime()" class="liquid-pill px-2.5 py-1 rounded-xl text-xs font-bold bg-transparent outline-none">
+              <option value="python" class="text-black">🐍 PYTHON 3.11</option>
+              <option value="sql" class="text-black">🗄️ SQLITE ENGINE</option>
+            </select>
+            <span id="draft-status" class="text-[11px] opacity-65">Draft synced</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="resetEditorCode()" class="liquid-pill px-2.5 py-1 rounded-xl text-xs" title="Reset Starter Code">↺</button>
+            <button onclick="runCode()" id="run-btn" class="liquid-pill px-3.5 py-1 rounded-xl text-xs font-bold flex items-center gap-1">▶ Run</button>
+            <button onclick="verifyAndComplete()" class="px-3.5 py-1 rounded-xl text-xs font-bold text-slate-950 shadow-lg" style="background: var(--accent);">✓ Verify & Complete</button>
+          </div>
+        </div>
+
+        <textarea id="code-editor" spellcheck="false" oninput="saveDraft()" class="code-area mono flex-1 w-full rounded-xl p-3 text-xs leading-relaxed border border-white/10 outline-none resize-none"></textarea>
+
+        <!-- EXECUTION OUTPUT -->
+        <div class="mt-2.5 flex flex-col shrink-0">
+          <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider opacity-75 mb-1">
+            <span>Execution Output</span>
+            <button onclick="clearOutput()" class="hover:underline">Clear</button>
+          </div>
+          <pre id="exec-output" class="mono text-xs p-2.5 rounded-xl bg-black/45 border border-white/10 h-20 overflow-y-auto whitespace-pre-wrap opacity-90">Ready. Write your solution and click Run or Verify & Complete.</pre>
+        </div>
+      </div>
+
+      <!-- INSTINCT AI MENTOR -->
+      <div class="liquid-glass rounded-2xl p-3.5 flex flex-col flex-1 min-h-0">
+        <div class="flex flex-wrap items-center justify-between gap-1.5 mb-2 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent);">🧠 Instinct Mentor</span>
+            <span id="ai-mode-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-white/10 opacity-80">Key Required for Live AI</span>
+          </div>
+          <div class="flex flex-wrap gap-1">
+            <button onclick="askMentorPreset('why')" class="liquid-pill px-2 py-0.5 rounded-lg text-[11px] font-medium">Why This Matters</button>
+            <button onclick="askMentorPreset('simple')" class="liquid-pill px-2 py-0.5 rounded-lg text-[11px] font-medium">Explain Simply</button>
+            <button onclick="askMentorPreset('review')" class="liquid-pill px-2 py-0.5 rounded-lg text-[11px] font-medium">Review My Code</button>
+            <button onclick="askMentorPreset('quiz')" class="liquid-pill px-2 py-0.5 rounded-lg text-[11px] font-medium">Quiz Me</button>
+          </div>
+        </div>
+
+        <!-- QUICK INLINE API KEY BAR (SHOWS WHEN NO KEY IS SAVED) -->
+        <div id="inline-key-banner" class="hidden mb-2 p-2 rounded-xl bg-black/35 border border-white/10 flex flex-wrap items-center gap-2 shrink-0">
+          <input id="inline-api-key" type="password" placeholder="Paste your FREE Gemini API key (AIza...) to make Mentor live" class="flex-1 min-w-[180px] bg-transparent text-xs outline-none px-1" />
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="liquid-pill px-2 py-1 rounded-lg text-[11px] font-semibold">Get Free Key ↗</a>
+          <button onclick="saveInlineKey()" class="px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-950" style="background: var(--accent);">Activate Live AI</button>
+        </div>
+
+        <!-- CHAT FEED -->
+        <div id="mentor-chat" class="flex-1 overflow-y-auto space-y-2 pr-1 text-xs leading-relaxed min-h-0"></div>
+
+        <!-- INPUT BAR -->
+        <form onsubmit="handleMentorSubmit(event)" class="mt-2 flex items-center gap-2 shrink-0">
+          <input id="mentor-input" type="text" placeholder="Ask a follow-up, answer a quiz, or ask for a code nudge..." class="liquid-pill flex-1 px-3 py-1.5 rounded-xl text-xs bg-transparent outline-none" />
+          <button type="submit" class="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950" style="background: var(--accent);">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- UNIFIED BOTTOM SMART NOTES DOCK + STATUS BAR -->
+  <footer class="liquid-glass mx-3 mb-2.5 rounded-2xl px-4 py-2 shrink-0 z-20">
+    <div id="smart-notes-drawer" class="hidden pb-3 mb-2 border-b border-white/10">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold" style="color: var(--accent);">📝 Smart Notes Dock</span>
+          <div class="flex gap-1 text-[11px]">
+            <button onclick="filterNotes('ALL')" class="liquid-pill px-2 py-0.5 rounded-md">All</button>
+            <button onclick="filterNotes('#Python')" class="liquid-pill px-2 py-0.5 rounded-md">#Python</button>
+            <button onclick="filterNotes('#SQL')" class="liquid-pill px-2 py-0.5 rounded-md">#SQL</button>
+            <button onclick="filterNotes('#GenAI')" class="liquid-pill px-2 py-0.5 rounded-md">#GenAI</button>
+          </div>
+        </div>
+        <button onclick="compileCheatSheet()" class="liquid-pill px-3 py-1 rounded-xl text-[11px] font-semibold">✨ AI Compile Cheat-Sheet</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+        <div class="flex flex-col gap-1.5">
+          <textarea id="note-input" rows="2" placeholder="Jot an insight (auto-tagged with #Python, #SQL, #GenAI, or current topic)..." class="liquid-pill w-full p-2 rounded-xl text-xs bg-transparent outline-none resize-none"></textarea>
+          <button onclick="addSmartNote()" class="self-end px-3 py-1 rounded-lg text-xs font-bold text-slate-950" style="background: var(--accent);">+ Save Smart Note</button>
+        </div>
+        <div id="notes-list" class="max-h-24 overflow-y-auto space-y-1.5 text-xs"></div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs">
+      <div class="flex items-center gap-3">
+        <span id="footer-completion" class="font-semibold">0 / 168 Completed (0%)</span>
+        <button onclick="toggleSmartNotes()" class="liquid-pill px-3 py-0.5 rounded-lg font-semibold flex items-center gap-1">
+          <span>📝 Smart Notes</span>
+          <span id="notes-count-badge" class="opacity-75">(0)</span>
         </button>
       </div>
-
-      <div class="nav-center">
-        <button class="pill-btn" id="btn-prev-day" title="Previous Day"><i class="fa-solid fa-chevron-left"></i></button>
-        <div class="day-indicator">
-          <span id="nav-day-label">Day 1 / 168</span>
-          <span class="type-badge" id="nav-type-badge">Learn</span>
-        </div>
-        <button class="pill-btn" id="btn-next-day" title="Next Day"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="flex items-center gap-3 opacity-85">
+        <span id="sync-status-text">Local Profile Active</span>
+        <span class="flex items-center gap-1.5 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Pyodide + SQLite Ready</span>
       </div>
-
-      <div class="top-actions">
-        <span class="stat-chip" id="streak-chip" title="Daily Streak"><i class="fa-solid fa-fire" style="color:var(--warning)"></i> <span id="streak-val">1d</span></span>
-        <button class="pill-btn" id="btn-open-datasets" title="Inspect Preloaded CSVs & SQLite Tables"><i class="fa-solid fa-database"></i> Data</button>
-        <button class="pill-btn" id="btn-export-readme" title="Export GitHub Portfolio README.md"><i class="fa-brands fa-github"></i> Portfolio</button>
-        <button class="pill-btn" id="btn-open-themes" title="Themes & Performance Mode"><i class="fa-solid fa-palette"></i></button>
-        <button class="pill-btn" id="btn-open-settings" title="AI Settings & Backup"><i class="fa-solid fa-sliders"></i></button>
-      </div>
-    </header>
-
-    <!-- MAIN SPLIT WORKSPACE -->
-    <main class="workspace-grid">
-      <!-- LEFT PANE: VIDEO / TAKEAWAYS / CHALLENGE / NOTES -->
-      <section class="studio-pane">
-        <div class="pane-header">
-          <div class="lesson-title-wrap">
-            <div class="lesson-meta-line">
-              <span id="lesson-month-week">Month 1 • Week 1</span>
-              <span>•</span>
-              <span id="lesson-instructor">Corey Schafer</span>
-              <span>•</span>
-              <span id="lesson-duration">15m</span>
-            </div>
-            <h1 class="lesson-title" id="lesson-topic">Set Up Python & Print Your First Pipeline Status</h1>
-          </div>
-          <div class="seg-tabs" id="left-view-tabs">
-            <button class="seg-tab active" data-tab="video">Video</button>
-            <button class="seg-tab" data-tab="notes">Key Takeaways</button>
-          </div>
-        </div>
-
-        <div class="left-scroll">
-          <!-- Video Stage (Auto-unloads iframe when hidden or on Lab days) -->
-          <div class="video-stage" id="video-stage-box">
-            <div class="study-focus-bar">
-              <div class="study-focus-text" id="study-focus-text">
-                <i class="fa-solid fa-bullseye"></i>
-                <span id="study-focus-label">Watch 00:00 – 12:30 • Focus on script execution & print()</span>
-              </div>
-              <div class="video-actions">
-                <button class="mini-link-btn" id="btn-alt-video" title="Switch to backup tutorial on the same topic">↻ Alt Video</button>
-                <a class="mini-link-btn" id="btn-yt-external" href="#" target="_blank" rel="noopener">YouTube ↗</a>
-              </div>
-            </div>
-            <div class="iframe-wrap" id="iframe-container">
-              <iframe id="yt-player" src="about:blank" title="Lesson Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-          </div>
-
-          <!-- Lab / Boss Banner (Shown on Hands-On & Review days) -->
-          <div class="lab-banner" id="lab-banner-box" style="display:none;">
-            <div>
-              <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--accent);margin-bottom:4px;" id="lab-banner-tag">Hands-On Practice Lab</div>
-              <div style="font-size:0.9rem;font-weight:700;" id="lab-banner-desc">No lecture today — apply what you learned directly in the studio editor.</div>
-            </div>
-            <i class="fa-solid fa-flask-vial" style="font-size:1.6rem;color:var(--accent);"></i>
-          </div>
-
-          <!-- Key Takeaways Card -->
-          <div class="info-card" id="takeaways-card">
-            <div class="card-label">
-              <span><i class="fa-solid fa-lightbulb"></i> Core Takeaways</span>
-            </div>
-            <ul class="takeaway-list" id="takeaways-list"></ul>
-          </div>
-
-          <!-- Daily Coding Challenge Card -->
-          <div class="info-card">
-            <div class="card-label">
-              <span><i class="fa-solid fa-terminal"></i> Daily Lab Exercise</span>
-              <button class="mini-link-btn" id="btn-toggle-hint">Show Hint</button>
-            </div>
-            <p class="exercise-text" id="exercise-text"></p>
-            <div class="stretch-box" id="stretch-box"></div>
-            <div class="hint-box" id="hint-box"></div>
-          </div>
-
-          <!-- Personal Scratchpad -->
-          <div class="info-card">
-            <div class="card-label">
-              <span><i class="fa-solid fa-pen-to-square"></i> Your Lesson Notes</span>
-              <span id="notes-save-status" style="font-weight:500;text-transform:none;color:var(--text-muted);">Saved locally</span>
-            </div>
-            <textarea class="notes-area" id="lesson-notes-input" placeholder="Jot down your mental model, edge cases, or interview notes for this day..."></textarea>
-          </div>
-        </div>
-      </section>
-
-      <!-- RIGHT PANE: EDITOR + CONSOLE + INTERACTIVE INSTINCT AI MENTOR -->
-      <section class="studio-pane">
-        <div class="editor-toolbar">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="lang-pill" id="editor-lang-pill"><i class="fa-brands fa-python"></i> PYTHON 3.11</span>
-            <span id="draft-status" style="font-size:0.72rem;color:var(--text-muted);">Draft synced</span>
-          </div>
-          <div class="editor-actions">
-            <button class="pill-btn" id="btn-clear-code" title="Clear Editor"><i class="fa-solid fa-eraser"></i></button>
-            <button class="pill-btn" id="btn-run-code" title="Run Code (Ctrl/Cmd + Enter)"><i class="fa-solid fa-play"></i> Run</button>
-            <button class="pill-btn primary" id="btn-verify-day" title="Run Automated Test Suite & Complete Day"><i class="fa-solid fa-check-double"></i> Verify & Complete</button>
-          </div>
-        </div>
-
-        <div class="editor-container">
-          <textarea id="code-editor"></textarea>
-        </div>
-
-        <!-- Output Console -->
-        <div class="console-section">
-          <div class="console-bar">
-            <span><i class="fa-solid fa-square-terminal"></i> EXECUTION OUTPUT</span>
-            <button class="mini-link-btn" id="btn-clear-console">Clear</button>
-          </div>
-          <div class="console-body" id="console-output">Ready. Click Run or Verify & Complete to execute in background Web Worker.</div>
-        </div>
-
-        <!-- Interactive Instinct AI Mentor -->
-        <div class="mentor-panel">
-          <div class="mentor-header">
-            <div class="mentor-brand"><i class="fa-solid fa-sparkles"></i> INSTINCT MENTOR</div>
-            <div class="mentor-chips">
-              <button class="mentor-chip" data-mentor-action="why">Why This Matters</button>
-              <button class="mentor-chip" data-mentor-action="simple">Explain Simply</button>
-              <button class="mentor-chip" data-mentor-action="review">Review My Code</button>
-              <button class="mentor-chip" data-mentor-action="quiz">Quiz Me</button>
-            </div>
-          </div>
-          <div class="mentor-messages" id="mentor-messages"></div>
-          <form class="mentor-input-row" id="mentor-form">
-            <input type="text" class="mentor-input" id="mentor-input" placeholder="Ask a follow-up, answer a quiz question, or ask for a nudge..." autocomplete="off" />
-            <button type="submit" class="pill-btn primary" style="padding:4px 11px;font-size:0.74rem;">Send</button>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <!-- BOTTOM TELEMETRY DOCK -->
-    <footer class="bottom-dock">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-weight:700;color:var(--text-primary);" id="progress-label">0 / 168 Completed (0%)</span>
-        <div class="progress-track"><div class="progress-fill" id="progress-bar-fill"></div></div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span id="perf-badge" style="font-size:0.72rem;color:var(--text-muted);">Glass Mode</span>
-        <span class="engine-badge" id="engine-status">
-          <span class="status-dot" id="engine-dot"></span>
-          <span id="engine-text">Booting Pyodide Worker...</span>
-        </span>
-      </div>
-    </footer>
-  </div>
-
-  <!-- SLIDE-OVER 168-DAY ROADMAP DRAWER -->
-  <div class="drawer-backdrop" id="roadmap-drawer-backdrop">
-    <aside class="roadmap-drawer">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <h2 style="font-family:var(--font-display);font-size:1.05rem;">168-Day Mastery Roadmap</h2>
-        <button class="pill-btn" id="btn-close-roadmap"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <input type="text" class="text-input" id="roadmap-search" placeholder="Filter by topic, SQL, Pandas, RAG, day #..." style="font-size:0.82rem;padding:7px 11px;" />
-      <div class="month-pills" id="month-filter-pills">
-        <button class="month-pill active" data-month="all">All (168)</button>
-        <button class="month-pill" data-month="1">M1: Python</button>
-        <button class="month-pill" data-month="2">M2: SQL</button>
-        <button class="month-pill" data-month="3">M3: Pandas</button>
-        <button class="month-pill" data-month="4">M4: Stats & ML</button>
-        <button class="month-pill" data-month="5">M5: Git & GenAI</button>
-        <button class="month-pill" data-month="6">M6: Capstone</button>
-      </div>
-      <div class="roadmap-list" id="roadmap-list"></div>
-    </aside>
-  </div>
-
-  <!-- DATASETS & SQLITE SCHEMA MODAL -->
-  <div class="modal-backdrop" id="datasets-modal">
-    <div class="modal-sheet">
-      <div class="modal-head">
-        <h3 style="font-family:var(--font-display);font-size:1rem;"><i class="fa-solid fa-database" style="color:var(--accent)"></i> Preloaded Studio Datasets & SQLite Tables</h3>
-        <button class="pill-btn" data-close-modal="datasets-modal"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body" id="datasets-modal-body"></div>
     </div>
-  </div>
+  </footer>
 
-  <!-- THEMES & PERFORMANCE MODE MODAL -->
-  <div class="modal-backdrop" id="themes-modal">
-    <div class="modal-sheet">
-      <div class="modal-head">
-        <h3 style="font-family:var(--font-display);font-size:1rem;"><i class="fa-solid fa-palette" style="color:var(--accent)"></i> Studio Appearance & Performance Mode</h3>
-        <button class="pill-btn" data-close-modal="themes-modal"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
+  <!-- STARTUP ONBOARDING MODAL (SHOWN TO NEW STUDENTS / WHEN NO KEY IS SET) -->
+  <div id="onboarding-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="liquid-glass max-w-lg w-full rounded-3xl p-6 space-y-4">
+      <div class="flex items-start justify-between gap-2">
         <div>
-          <label class="field-label">Graphics & CPU Performance Mode</label>
-          <select class="select-input" id="perf-mode-select">
-            <option value="auto">Auto-Detect (Recommended — Lite Mode on Office/Software GPUs)</option>
-            <option value="standard">Standard Liquid Glass (Single-Layer GPU Blur)</option>
-            <option value="lite">Lite Mode (Zero-Lag CPU — Disables All Backdrop Blur)</option>
-          </select>
-          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:5px;" id="gpu-detect-note">Checking graphics hardware...</p>
+          <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider" style="background: var(--accent-glow); color: var(--accent);">Welcome to DataForge Instinct OS</span>
+          <h2 class="text-lg font-bold mt-1.5">🚀 Student Quick-Start Setup</h2>
         </div>
+        <button onclick="dismissOnboarding()" class="liquid-pill w-7 h-7 rounded-full text-xs" title="Close">✕</button>
+      </div>
+
+      <div class="liquid-pill p-3.5 rounded-2xl space-y-2 text-xs leading-relaxed">
+        <div class="font-bold text-sm" style="color: var(--accent);">🧠 Important: Activate Your Live Instinct Mentor</div>
+        <p><strong>Only if you connect your personal Gemini API key will Instinct Mentor be live</strong> to inspect your Python/SQL code, debug errors line-by-line, and quiz you.</p>
+        <p class="opacity-90">✅ <strong>This key is 100% FREE</strong> from Google AI Studio (no credit card required) and stays saved privately inside your own browser.</p>
+        <div class="pt-1 flex flex-wrap items-center gap-2">
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="liquid-pill px-3 py-1.5 rounded-xl text-xs font-bold">1. Get Free Gemini Key ↗</a>
+          <span class="opacity-70 text-[11px]">Sign in with Google → Click "Create API key" → Copy</span>
+        </div>
+      </div>
+
+      <div class="space-y-3 text-xs">
         <div>
-          <label class="field-label">Color Theme</label>
-          <div class="theme-grid" id="theme-grid">
-            <button class="theme-card" data-theme-val="aurora">Aurora Glass</button>
-            <button class="theme-card" data-theme-val="obsidian">Obsidian Gold</button>
-            <button class="theme-card" data-theme-val="matrix">Cyber Matrix</button>
-            <button class="theme-card" data-theme-val="nordic">Nordic Frost</button>
-            <button class="theme-card" data-theme-val="solarized">Solarized Dusk</button>
-            <button class="theme-card" data-theme-val="sakura">Sakura Mist</button>
-            <button class="theme-card" data-theme-val="emerald">Emerald Lab</button>
-            <button class="theme-card" data-theme-val="paper">Minimal Paper</button>
+          <label class="block font-semibold mb-1">2. Paste Your Free Gemini API Key</label>
+          <input id="onboard-api-key" type="password" placeholder="AIzaSy..." class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block opacity-80 mb-1">Student Handle (Optional)</label>
+            <input id="onboard-handle" type="text" placeholder="e.g. ishan_ds" class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none" />
+          </div>
+          <div>
+            <label class="block opacity-80 mb-1">4-Digit PIN (Optional)</label>
+            <input id="onboard-pin" type="password" maxlength="4" placeholder="••••" class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none tracking-widest" />
           </div>
         </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+        <button onclick="dismissOnboarding()" class="liquid-pill px-4 py-2 rounded-xl text-xs font-medium opacity-80">Skip for now (Mentor stays offline)</button>
+        <button onclick="completeOnboarding()" class="px-5 py-2 rounded-xl text-xs font-bold text-slate-950 shadow-lg" style="background: var(--accent);">Activate Live Mentor & Start</button>
       </div>
     </div>
   </div>
 
-  <!-- AI SETTINGS & BACKUP MODAL -->
-  <div class="modal-backdrop" id="settings-modal">
-    <div class="modal-sheet">
-      <div class="modal-head">
-        <h3 style="font-family:var(--font-display);font-size:1rem;"><i class="fa-solid fa-sliders" style="color:var(--accent)"></i> Instinct AI & Progress Backup</h3>
-        <button class="pill-btn" data-close-modal="settings-modal"><i class="fa-solid fa-xmark"></i></button>
+  <!-- MODAL 1: STUDENT HANDLE & 4-DIGIT PIN SYNC -->
+  <div id="sync-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="liquid-glass max-w-md w-full rounded-3xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold">🔐 Student Handle & 4-Digit PIN Sync</h2>
+        <button onclick="toggleModal('sync-modal')" class="liquid-pill w-7 h-7 rounded-full text-xs">✕</button>
       </div>
-      <div class="modal-body">
+      <p class="text-xs opacity-80 leading-relaxed">Sign in with your Handle + 4-digit PIN to save your progress and Smart Notes under your profile, or copy your Sync Code to move between devices.</p>
+      <div class="space-y-2.5 text-xs">
         <div>
-          <label class="field-label">Optional Gemini API Key (Enhances Instinct Mentor with Live Gemini 2.5 Flash)</label>
-          <input type="password" class="text-input" id="gemini-key-input" placeholder="AIzaSy... (Leave blank for built-in interactive local mentor)" />
+          <label class="block opacity-75 mb-1">Student Handle</label>
+          <input id="sync-handle" type="text" placeholder="e.g. ishan_ds" class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none" />
         </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <input type="checkbox" id="live-search-toggle" />
-          <label for="live-search-toggle" style="font-size:0.82rem;color:var(--text-secondary);">Enable free live StackOverflow & Wikipedia lookup in Mentor</label>
+        <div>
+          <label class="block opacity-75 mb-1">4-Digit PIN</label>
+          <input id="sync-pin" type="password" maxlength="4" pattern="\d{4}" placeholder="••••" class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none tracking-widest" />
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:6px;border-top:1px solid var(--border-glass);">
-          <button class="pill-btn" id="btn-export-json"><i class="fa-solid fa-download"></i> Export Progress JSON</button>
-          <label class="pill-btn" style="cursor:pointer;"><i class="fa-solid fa-upload"></i> Import Progress JSON <input type="file" id="input-import-json" accept=".json" style="display:none;" /></label>
-          <button class="pill-btn" id="btn-load-ml-now"><i class="fa-solid fa-microchip"></i> Preload Full ML Stack</button>
+        <div>
+          <label class="block opacity-75 mb-1">Optional GitHub Gist Token (for automatic cloud sync)</label>
+          <input id="sync-gist-token" type="password" placeholder="ghp_... (leave blank for local profile + Sync Code)" class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none" />
         </div>
+      </div>
+      <div class="flex flex-wrap gap-2 pt-1">
+        <button onclick="connectProfile()" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-950" style="background: var(--accent);">Unlock & Sync Profile</button>
+        <button onclick="copySyncCode()" class="liquid-pill px-3 py-2 rounded-xl text-xs font-semibold">📋 Copy Sync Code</button>
+        <button onclick="importSyncCode()" class="liquid-pill px-3 py-2 rounded-xl text-xs font-semibold">📥 Paste Code</button>
       </div>
     </div>
   </div>
+
+  <!-- MODAL 2: SETTINGS (GEMINI API KEY) -->
+  <div id="settings-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="liquid-glass max-w-md w-full rounded-3xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold">⚙️ Instinct AI & Engine Settings</h2>
+        <button onclick="toggleModal('settings-modal')" class="liquid-pill w-7 h-7 rounded-full text-xs">✕</button>
+      </div>
+      <div class="space-y-2.5 text-xs">
+        <p class="opacity-85">Only when your personal Gemini API key is active will Instinct Mentor respond live. Keys from <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="underline font-semibold" style="color: var(--accent);">Google AI Studio</a> are completely free.</p>
+        <label class="block font-semibold">Your Free Gemini API Key</label>
+        <input id="settings-api-key" type="password" placeholder="AIzaSy..." class="liquid-pill w-full px-3 py-2 rounded-xl bg-transparent outline-none" />
+      </div>
+      <div class="flex justify-between items-center gap-2">
+        <button onclick="removeApiKey()" class="liquid-pill px-3 py-2 rounded-xl text-xs opacity-75">Clear Key</button>
+        <button onclick="saveSettingsKey()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-950" style="background: var(--accent);">Save & Activate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: 168-DAY ROADMAP -->
+  <div id="roadmap-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="liquid-glass max-w-3xl w-full max-h-[80vh] rounded-3xl p-5 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold">🗺️ 168-Day Data Science & GenAI Roadmap</h2>
+        <button onclick="toggleModal('roadmap-modal')" class="liquid-pill w-7 h-7 rounded-full text-xs">✕</button>
+      </div>
+      <div id="roadmap-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 overflow-y-auto pr-1 text-xs"></div>
+    </div>
+  </div>
+
+  <!-- LOAD EXTERNAL curriculum.js IF PRESENT IN REPO -->
+  <script src="curriculum.js" onerror="console.log('Using built-in 168-day curriculum fallback')"></script>
 
   <script>
-    /* =========================================================================
-       DATAFORGE // INSTINCT OS v6.1 — MAIN APPLICATION CONTROLLER
-       ========================================================================= */
-    const CURRICULUM = window.DATAFORGE_CURRICULUM || [];
-    const DATASETS = window.DATAFORGE_DATASETS || {};
-    const STORAGE_KEY = "df_v6_state";
-
-    // Default persistent state (backwards-compatible with v6.0)
-    const defaultState = {
-      currentDay: 1,
-      completedDays: [],
-      drafts: {},
-      notes: {},
-      theme: "aurora",
-      perfMode: "auto",
-      geminiKey: "",
-      liveSearch: false,
-      streak: 1,
-      lastActiveDate: new Date().toISOString().slice(0, 10)
-    };
-
-    let state = loadState();
-    let useAltVideo = false;
-    let activeLeftTab = "video";
-    let roadmapMonthFilter = "all";
-    let roadmapSearchQuery = "";
-    let draftSaveTimer = null;
-    let noteSaveTimer = null;
-
-    // Interactive Mentor Session State (non-repetitive multi-turn memory + active quiz)
-    let mentorHistory = [];
-    let pendingQuiz = null;
-
-    function loadState() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return { ...defaultState };
-        const parsed = JSON.parse(raw);
-        return {
-          ...defaultState,
-          ...parsed,
-          completedDays: Array.isArray(parsed.completedDays) ? parsed.completedDays : [],
-          drafts: parsed.drafts || {},
-          notes: parsed.notes || {}
-        };
-      } catch (e) {
-        return { ...defaultState };
+    // 1. CAPTURE #key= FROM URL HASH FOR 1-CLICK BOOKMARK SETUP
+    (function captureHashKey() {
+      const hash = window.location.hash || '';
+      const match = hash.match(/key=([A-Za-z0-9_\-]+)/);
+      if (match && match[1]) {
+        localStorage.setItem('df_gemini_key', match[1]);
+        history.replaceState(null, '', window.location.pathname + window.location.search);
       }
-    }
+    })();
 
-    function saveStateNow() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch (e) {
-        console.warn("Storage quota warning:", e);
-      }
-    }
-
-    function scheduleDraftSave(dayNum, codeVal) {
-      state.drafts[dayNum] = codeVal;
-      document.getElementById("draft-status").textContent = "Saving...";
-      clearTimeout(draftSaveTimer);
-      draftSaveTimer = setTimeout(() => {
-        saveStateNow();
-        document.getElementById("draft-status").textContent = "Draft synced";
-      }, 1000);
-    }
-
-    window.addEventListener("beforeunload", () => {
-      if (draftSaveTimer) { clearTimeout(draftSaveTimer); saveStateNow(); }
-      if (noteSaveTimer) { clearTimeout(noteSaveTimer); saveStateNow(); }
-    });
-
-    /* =========================================================================
-       HARDWARE GPU DETECTION & ZERO-LAG LITE MODE
-       ========================================================================= */
-    function detectHardwareTier() {
-      try {
-        const canvas = document.createElement("canvas");
-        const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-        if (!gl) return { isSoftware: true, renderer: "No WebGL (CPU Fallback)" };
-        const dbg = gl.getExtension("WEBGL_debug_renderer_info");
-        const renderer = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)) : "Standard WebGL";
-        const isSoftware = /swiftshader|llvmpipe|software|basic render driver|mesa offscreen/i.test(renderer);
-        return { isSoftware, renderer };
-      } catch (e) {
-        return { isSoftware: true, renderer: "Restricted Context" };
-      }
-    }
-
-    const hwInfo = detectHardwareTier();
-
-    function applyThemeAndPerf() {
-      document.documentElement.setAttribute("data-theme", state.theme || "aurora");
-      let effectivePerf = state.perfMode || "auto";
-      if (effectivePerf === "auto") {
-        effectivePerf = hwInfo.isSoftware ? "lite" : "standard";
-      }
-      document.documentElement.setAttribute("data-perf", effectivePerf);
-      document.getElementById("perf-badge").textContent =
-        effectivePerf === "lite" ? "Lite Mode (CPU Zero-Lag)" : "Liquid Glass";
-      document.getElementById("perf-mode-select").value = state.perfMode || "auto";
-      document.getElementById("gpu-detect-note").textContent =
-        `Detected Renderer: ${hwInfo.renderer} → ${hwInfo.isSoftware ? "Lite Mode recommended for 60 FPS" : "Hardware GPU active"}`;
-
-      document.querySelectorAll(".theme-card").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.themeVal === state.theme);
-      });
-    }
-
-    /* =========================================================================
-       CODEMIRROR 5 INITIALIZATION
-       ========================================================================= */
-    const editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-      mode: "python",
-      theme: "dracula",
-      lineNumbers: true,
-      indentUnit: 4,
-      tabSize: 4,
-      autoCloseBrackets: true,
-      matchBrackets: true,
-      viewportMargin: 20,
-      extraKeys: {
-        "Ctrl-Enter": () => executeUserCode(false),
-        "Cmd-Enter": () => executeUserCode(false),
-        "Tab": (cm) => cm.replaceSelection("    ", "end")
-      }
-    });
-
-    editor.on("change", (cm, changeObj) => {
-      if (changeObj.origin !== "setValue") {
-        scheduleDraftSave(state.currentDay, cm.getValue());
-      }
-    });
-
-    /* =========================================================================
-       BACKGROUND WEB WORKER FOR PYODIDE + SQLITE (NON-BLOCKING UI)
-       ========================================================================= */
-    const workerCode = `
-      importScripts("https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js");
-      let pyodide = null;
-      let mlLoaded = false;
-      let mlLoadingPromise = null;
-
-      async function initCore(datasets) {
-        pyodide = await loadPyodide();
-        await pyodide.loadPackage(["sqlite3"]);
-        for (const [fname, content] of Object.entries(datasets)) {
-          pyodide.FS.writeFile(fname, content);
-        }
-        await pyodide.runPythonAsync(\`
-import sqlite3, os, io, sys, base64
-
-__sql_conn = sqlite3.connect(':memory:')
-__sql_cur = __sql_conn.cursor()
-__sql_cur.executescript('''
-CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT, department TEXT, salary INTEGER);
-INSERT INTO employees VALUES
-  (1, 'Aarav Sharma', 'Data', 82000),
-  (2, 'Meera Nair', 'Engineering', 94000),
-  (3, 'Kabir Verma', 'Data', 71000),
-  (4, 'Riya Kulkarni', 'Product', 68000),
-  (5, 'Vikram Joshi', 'Engineering', 88000),
-  (6, 'Ananya Rao', 'HR', 54000),
-  (7, 'Rohan Desai', 'Product', 76000);
-
-CREATE TABLE departments (dept_name TEXT PRIMARY KEY, lead_name TEXT, city TEXT);
-INSERT INTO departments VALUES
-  ('Data', 'Dr. Sneha Iyer', 'Bengaluru'),
-  ('Engineering', 'Arjun Mehta', 'Mumbai'),
-  ('Product', 'Neha Kapoor', 'Pune'),
-  ('HR', 'Karan Malhotra', 'Delhi');
-
-CREATE TABLE weather_logs (log_date TEXT, city TEXT, temp_c REAL, condition TEXT);
-INSERT INTO weather_logs VALUES
-  ('2026-03-01', 'Mumbai', 31.2, 'Clear'),
-  ('2026-03-01', 'Bengaluru', 26.4, 'Clear'),
-  ('2026-03-02', 'Mumbai', 32.5, 'Humid'),
-  ('2026-03-02', 'Bengaluru', 25.8, 'Cloudy'),
-  ('2026-04-01', 'Delhi', 29.0, 'Clear'),
-  ('2026-04-02', 'Pune', 30.4, 'Clear');
-''')
-__sql_conn.commit()
-        \`);
-        self.postMessage({ type: "core-ready" });
-      }
-
-      async function ensureMLStack() {
-        if (mlLoaded) return;
-        if (!mlLoadingPromise) {
-          self.postMessage({ type: "ml-loading" });
-          mlLoadingPromise = (async () => {
-            await pyodide.loadPackage(["numpy", "pandas", "scipy", "scikit-learn", "matplotlib"]);
-            await pyodide.runPythonAsync(\`
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-            \`);
-            mlLoaded = true;
-            self.postMessage({ type: "ml-ready" });
-          })();
-        }
-        await mlLoadingPromise;
-      }
-
-      self.onmessage = async (e) => {
-        const msg = e.data;
-        if (msg.type === "init") {
-          try {
-            await initCore(msg.datasets || {});
-          } catch (err) {
-            self.postMessage({ type: "init-error", error: String(err) });
-          }
-        } else if (msg.type === "preload-ml") {
-          try {
-            if (pyodide) await ensureMLStack();
-          } catch (err) {
-            self.postMessage({ type: "init-error", error: String(err) });
-          }
-        } else if (msg.type === "run") {
-          const { id, code, lang, testCheck, verify } = msg;
-          try {
-            if (!pyodide) throw new Error("Python runtime is still initializing — please wait 2 seconds.");
-            const needsML = /\\b(numpy|np|pandas|pd|scipy|sklearn|matplotlib|plt)\\b/.test(code + " " + (testCheck || ""));
-            if (needsML && !mlLoaded) {
-              await ensureMLStack();
-            }
-
-            pyodide.globals.set("__user_code", code);
-            pyodide.globals.set("__user_lang", lang);
-            pyodide.globals.set("__test_check", verify ? (testCheck || "") : "");
-            pyodide.globals.set("__ml_loaded", mlLoaded);
-
-            const rawRes = await pyodide.runPythonAsync(\`
-import io, sys, os, json, base64, sqlite3
-
-__buf = io.StringIO()
-__old_out = sys.stdout
-sys.stdout = __buf
-__err = None
-__passed = False
-__img_b64 = ""
-
-if os.path.exists("chart.png"):
-    try: os.remove("chart.png")
-    except Exception: pass
-
-try:
-    if __user_lang == "sql":
-        __stmts = [s.strip() for s in __user_code.split(";") if s.strip()]
-        if not __stmts:
-            raise ValueError("Write a SQL statement ending with ; before running.")
-        for __st in __stmts:
-            __sql_cur.execute(__st)
-            if __sql_cur.description:
-                __cols = [d[0] for d in __sql_cur.description]
-                __rows = __sql_cur.fetchall()
-                print(" | ".join(__cols))
-                print("-" * (len(" | ".join(__cols)) + 4))
-                for __r in __rows:
-                    print(" | ".join(str(v) for v in __r))
-                print(f"({len(__rows)} rows)")
-            else:
-                __sql_conn.commit()
-                print("Query executed successfully.")
-        __env = {"sqlite3": sqlite3}
-    else:
-        __env = {"os": os, "sqlite3": sqlite3}
-        exec(__user_code, __env)
-
-    __out_text = __buf.getvalue()
-
-    if __ml_loaded:
-        import matplotlib.pyplot as plt
-        if os.path.exists("chart.png"):
-            with open("chart.png", "rb") as __f:
-                __img_b64 = base64.b64encode(__f.read()).decode("ascii")
-        elif plt.get_fignums():
-            __img_buf = io.BytesIO()
-            plt.savefig(__img_buf, format="png", bbox_inches="tight", dpi=110)
-            __img_b64 = base64.b64encode(__img_buf.getvalue()).decode("ascii")
-        plt.close("all")
-
-    if __test_check:
-        __ctx = {"env": __env, "out": __out_text, "os": os, "sqlite3": sqlite3}
-        if __ml_loaded:
-            import pandas as pd, numpy as np, matplotlib.pyplot as plt
-            __ctx["pd"] = pd
-            __ctx["np"] = np
-            __ctx["plt"] = plt
-        exec(__test_check, __ctx)
-        __passed = True
-except Exception as __ex:
-    __err = f"{type(__ex).__name__}: {__ex}"
-finally:
-    sys.stdout = __old_out
-
-json.dumps({
-    "out": __buf.getvalue(),
-    "err": __err,
-    "passed": __passed,
-    "img": __img_b64
-})
-            \`);
-            const parsed = JSON.parse(rawRes);
-            self.postMessage({ type: "run-result", id, ...parsed });
-          } catch (err) {
-            self.postMessage({ type: "run-result", id, out: "", err: String(err), passed: false, img: "" });
-          }
-        }
-      };
-    `;
-
-    const workerBlob = new Blob([workerCode], { type: "application/javascript" });
-    const pyWorker = new Worker(URL.createObjectURL(workerBlob));
-    let pendingRuns = new Map();
-    let runSeq = 0;
-
-    pyWorker.onmessage = (e) => {
-      const msg = e.data;
-      if (msg.type === "core-ready") {
-        document.getElementById("engine-dot").classList.add("ready");
-        document.getElementById("engine-text").textContent = "Py Core & SQLite Ready";
-        // Preload ML packages quietly during idle time so first Pandas/Sklearn run is instant
-        if ("requestIdleCallback" in window) {
-          requestIdleCallback(() => pyWorker.postMessage({ type: "preload-ml" }), { timeout: 3500 });
-        } else {
-          setTimeout(() => pyWorker.postMessage({ type: "preload-ml" }), 2500);
-        }
-      } else if (msg.type === "ml-loading") {
-        document.getElementById("engine-text").textContent = "Loading Pandas & Sklearn...";
-      } else if (msg.type === "ml-ready") {
-        document.getElementById("engine-dot").classList.add("ready");
-        document.getElementById("engine-text").textContent = "Full ML & SQLite Engine Ready";
-      } else if (msg.type === "init-error") {
-        document.getElementById("engine-text").textContent = "Offline / CDN Restricted";
-      } else if (msg.type === "run-result") {
-        const resolver = pendingRuns.get(msg.id);
-        if (resolver) {
-          pendingRuns.delete(msg.id);
-          resolver(msg);
-        }
+    // 2. CURRICULUM RESOLVER (COMPATIBLE WITH curriculum.js + 168-DAY FALLBACK)
+    const SEED_DAYS = {
+      1: {
+        day: 1, month: 1, week: 1, instructor: "Corey Schafer", duration: "22m",
+        title: "Python Variables, Data Types & Memory Model",
+        videoId: "khKv-8q7YmY", focus: "00:00 – 18:00 • Dynamic typing, immutability & f-strings",
+        takeaways: [
+          "Variables in Python are labels pointing to typed objects in memory.",
+          "Use f-strings (f'{val:.2f}') for clean numeric formatting in analytics reports."
+        ],
+        lab: "Create variables for revenue = 125000, cost = 84500, calculate profit margin %, and print a formatted summary.",
+        hint: "margin = ((revenue - cost) / revenue) * 100",
+        starterPy: "revenue = 125000\ncost = 84500\n# Compute profit and margin %\n"
+      },
+      113: {
+        day: 113, month: 5, week: 17, instructor: "Corey Schafer", duration: "25m",
+        title: "Git Fundamentals: init, status, add & commit",
+        videoId: "HVsySz-h9r4", focus: "00:00 – 18:00 • Focus on working directory → staging area → commit snapshots",
+        takeaways: [
+          "Git tracks line-level snapshots of code and notebooks so you can revert mistakes anytime.",
+          "Write clear, imperative commit messages describing WHY a change was made."
+        ],
+        lab: "Simulate a Git staging & commit tracker in Python: write a function `commit_snapshot(staged_files, message)` that validates non-empty staging and returns a commit hash + summary.",
+        hint: "Use hashlib.sha1(message.encode()).hexdigest()[:7] to generate a realistic short Git commit SHA.",
+        starterPy: "import hashlib\n\ndef commit_snapshot(staged_files, message):\n    if not staged_files:\n        return 'Nothing staged to commit'\n    short_sha = hashlib.sha1(message.encode()).hexdigest()[:7]\n    return f'[{short_sha}] {message} ({len(staged_files)} files)'\n\nprint(commit_snapshot(['eda.py', 'model.py'], 'Add feature engineering pipeline'))\n"
       }
     };
 
-    pyWorker.postMessage({ type: "init", datasets: DATASETS });
+    function buildFullCurriculum() {
+      const ext = window.CURRICULUM || window.curriculum || window.DAYS || window.syllabus;
+      if (Array.isArray(ext) && ext.length > 0) return ext;
 
-    async function executeUserCode(verify = false) {
-      const lesson = getLesson(state.currentDay);
-      if (!lesson) return;
-      const code = editor.getValue();
-      const consoleEl = document.getElementById("console-output");
-      consoleEl.innerHTML = verify ? "Running code & automated verification suite..." : "Executing in background worker...";
+      const topics = [
+        { m: 1, name: "Python Foundations & Data Structures", vid: "rfscVS0vtbw", inst: "freeCodeCamp" },
+        { m: 2, name: "SQL Analytics: JOINs, CTEs & Window Functions", vid: "HXV3zeQKqGY", inst: "freeCodeCamp" },
+        { m: 3, name: "NumPy & Pandas Data Wrangling", vid: "vmEHCJofslg", inst: "Keith Galli" },
+        { m: 4, name: "Statistics, Hypothesis Testing & EDA", vid: "xxpc-HPKN28", inst: "StatQuest" },
+        { m: 5, name: "Machine Learning, Git & MLOps Pipelines", vid: "HVsySz-h9r4", inst: "Corey Schafer" },
+        { m: 6, name: "GenAI, RAG Systems & Autonomous Agents", vid: "sVcwVQRHIc8", inst: "freeCodeCamp" }
+      ];
 
-      const id = ++runSeq;
-      const res = await new Promise((resolve) => {
-        pendingRuns.set(id, resolve);
-        pyWorker.postMessage({
-          type: "run",
-          id,
-          code,
-          lang: lesson.lang,
-          testCheck: lesson.testCheck,
-          verify
+      const list = [];
+      for (let d = 1; d <= 168; d++) {
+        if (SEED_DAYS[d]) {
+          list.push(SEED_DAYS[d]);
+          continue;
+        }
+        const mIdx = Math.min(5, Math.floor((d - 1) / 28));
+        const t = topics[mIdx];
+        const week = Math.ceil(d / 7);
+        list.push({
+          day: d, month: t.m, week, instructor: t.inst, duration: "24m",
+          title: `Day ${d}: ${t.name} — Lab ${((d - 1) % 28) + 1}`,
+          videoId: t.vid,
+          focus: `00:00 – 20:00 • Applied workflow & hands-on implementation for Week ${week}`,
+          takeaways: [
+            `Break ${t.name} problems into reproducible, testable steps.`,
+            `Verify edge cases (nulls, empty inputs, data types) before finalizing output.`
+          ],
+          lab: `Write a clean Python or SQL snippet demonstrating today's core concept for ${t.name}.`,
+          hint: `Start with a small sample dataset, transform it step-by-step, and print the verified result.`,
+          starterPy: `# Day ${d}: ${t.name}\ndata = [12, 18, 25, 31, 40]\nprint("Mean:", sum(data) / len(data))\n`
         });
-      });
-
-      let html = "";
-      if (res.out) {
-        html += escapeHtml(res.out);
       }
-      if (res.err) {
-        html += `\n<span class="console-fail">✖ ${escapeHtml(res.err)}</span>`;
-      } else if (verify && res.passed) {
-        html += `\n<span class="console-pass">✔ ALL VERIFICATION CHECKS PASSED! Day ${lesson.day} marked complete.</span>`;
-        markDayComplete(lesson.day);
-      } else if (!res.out && !res.img) {
-        html += `<span style="color:var(--text-muted)">(Executed cleanly with no stdout output)</span>`;
-      }
-
-      if (res.img) {
-        html += `<img class="plot-preview" src="data:image/png;base64,${res.img}" alt="Matplotlib Output" />`;
-      }
-      consoleEl.innerHTML = html;
+      return list;
     }
 
-    /* =========================================================================
-       LESSON RENDERING & O(1) ROADMAP UPDATES
-       ========================================================================= */
-    function getLesson(dayNum) {
-      return CURRICULUM.find(d => d.day === dayNum) || CURRICULUM[0];
+    const CURRICULUM = buildFullCurriculum();
+
+    // 3. STATE & PROFILE STORAGE (HANDLE + 4-DIGIT PIN)
+    const THEMES = ['obsidian', 'frost', 'aurora', 'emerald'];
+    let state = {
+      currentDay: Number(localStorage.getItem('df_current_day')) || 113,
+      themeIdx: Number(localStorage.getItem('df_theme_idx')) || 0,
+      altVideo: false,
+      handle: localStorage.getItem('df_handle') || 'Guest',
+      pin: localStorage.getItem('df_pin') || '0000',
+      gistToken: localStorage.getItem('df_gist_token') || '',
+      completed: [],
+      notes: [],
+      drafts: {},
+      chatHistory: []
+    };
+
+    function profileStorageKey() {
+      return `df_profile_${state.handle.toLowerCase().trim()}_${state.pin}`;
     }
 
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-    }
-
-    function updateYouTubeFrame(lesson) {
-      const iframe = document.getElementById("yt-player");
-      const videoStage = document.getElementById("video-stage-box");
-      const labBanner = document.getElementById("lab-banner-box");
-
-      if (lesson.type !== "Learn" || !lesson.videoId) {
-        // Unload iframe completely on Hands-On & Review days to save CPU/RAM
-        iframe.src = "about:blank";
-        videoStage.style.display = "none";
-        labBanner.style.display = "flex";
-        document.getElementById("lab-banner-tag").textContent =
-          lesson.type === "Review" ? "Weekly / Monthly Boss Challenge" : "Hands-On Practice Lab";
-        document.getElementById("lab-banner-desc").textContent =
-          lesson.studyFocus || "Apply your skills directly in the studio editor without a lecture.";
-        return;
-      }
-
-      labBanner.style.display = "none";
-      if (activeLeftTab !== "video") {
-        // Unload background video stream while reading Key Takeaways
-        iframe.src = "about:blank";
-        videoStage.style.display = "none";
-        return;
-      }
-
-      videoStage.style.display = "block";
-      const activeId = (useAltVideo && lesson.altVideoId) ? lesson.altVideoId : lesson.videoId;
-      const startSec = useAltVideo ? 0 : (lesson.start || 0);
-      const targetSrc = `https://www.youtube-nocookie.com/embed/${activeId}?start=${startSec}&rel=0&modestbranding=1`;
-      if (iframe.src !== targetSrc) {
-        iframe.src = targetSrc;
-      }
-
-      document.getElementById("study-focus-label").textContent =
-        useAltVideo
-          ? `Backup Tutorial Active • ${lesson.topic}`
-          : (lesson.studyFocus || `Watch tutorial • ${lesson.videoTitle}`);
-      document.getElementById("btn-yt-external").href =
-        `https://www.youtube.com/watch?v=${activeId}${startSec ? `&t=${startSec}s` : ""}`;
-      document.getElementById("btn-alt-video").textContent =
-        useAltVideo ? "↺ Primary Video" : "↻ Alt Video";
-    }
-
-    function renderLesson(dayNum) {
-      const lesson = getLesson(dayNum);
-      if (!lesson) return;
-      state.currentDay = lesson.day;
-      useAltVideo = false;
-      pendingQuiz = null;
-      saveStateNow();
-
-      // Header & Badges
-      document.getElementById("nav-day-label").textContent = `Day ${lesson.day} / ${CURRICULUM.length}`;
-      const badge = document.getElementById("nav-type-badge");
-      badge.textContent = lesson.type;
-      badge.className = "type-badge" +
-        (lesson.type === "Hands-On" ? " handson" : lesson.type === "Review" ? " review" : "");
-
-      document.getElementById("lesson-month-week").textContent = `Month ${lesson.month} • Week ${lesson.week}`;
-      document.getElementById("lesson-instructor").textContent = lesson.instructor;
-      document.getElementById("lesson-duration").textContent = lesson.duration;
-      document.getElementById("lesson-topic").textContent = lesson.topic;
-
-      // Video / Lab Stage
-      updateYouTubeFrame(lesson);
-
-      // Key Takeaways
-      const ul = document.getElementById("takeaways-list");
-      ul.innerHTML = (lesson.takeaways || []).map(t => `<li>${escapeHtml(t)}</li>`).join("");
-
-      // Exercise, Stretch & Hint
-      document.getElementById("exercise-text").textContent = lesson.exercise;
-      document.getElementById("stretch-box").innerHTML =
-        `<strong>Stretch Goal:</strong> ${escapeHtml(lesson.stretch || "Explore edge cases and optimize your solution.")}`;
-      const hintEl = document.getElementById("hint-box");
-      hintEl.textContent = lesson.hint || "Break the problem down into small variables and print intermediate results.";
-      hintEl.classList.remove("visible");
-      document.getElementById("btn-toggle-hint").textContent = "Show Hint";
-
-      // Notes
-      document.getElementById("lesson-notes-input").value = state.notes[lesson.day] || "";
-
-      // Editor Language & Saved Draft
-      const isSql = lesson.lang === "sql";
-      editor.setOption("mode", isSql ? "text/x-sql" : "python");
-      document.getElementById("editor-lang-pill").innerHTML = isSql
-        ? `<i class="fa-solid fa-database"></i> SQLITE 3`
-        : `<i class="fa-brands fa-python"></i> PYTHON 3.11`;
-
-      const savedDraft = state.drafts[lesson.day];
-      editor.setValue(savedDraft !== undefined ? savedDraft : (lesson.starter || ""));
-      document.getElementById("console-output").textContent =
-        `Day ${lesson.day} loaded (${lesson.lang.toUpperCase()}). Write your solution and click Verify & Complete.`;
-
-      // Reset Mentor Welcome for this day
-      mentorHistory = [];
-      const mentorBox = document.getElementById("mentor-messages");
-      mentorBox.innerHTML = "";
-      appendMentorBubble("ai",
-        `Ready for <strong>Day ${lesson.day}: ${escapeHtml(lesson.topic)}</strong>. Pick a quick action above (<em>Why This Matters</em>, <em>Explain Simply</em>, <em>Review My Code</em>, or <em>Quiz Me</em>) or ask any question below.`
-      );
-
-      // O(1) Roadmap Active Highlight
-      document.querySelectorAll(".day-item.active").forEach(el => el.classList.remove("active"));
-      const activeNode = document.querySelector(`.day-item[data-day="${lesson.day}"]`);
-      if (activeNode) activeNode.classList.add("active");
-
-      updateProgressTelemetry();
-    }
-
-    function markDayComplete(dayNum) {
-      if (!state.completedDays.includes(dayNum)) {
-        state.completedDays.push(dayNum);
-        saveStateNow();
-        const node = document.querySelector(`.day-item[data-day="${dayNum}"]`);
-        if (node) node.classList.add("completed");
-        updateProgressTelemetry();
+    function loadProfileData() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(profileStorageKey()) || '{}');
+        state.completed = saved.completed || [];
+        state.notes = saved.notes || [];
+        state.drafts = saved.drafts || {};
+      } catch (e) {
+        state.completed = []; state.notes = []; state.drafts = {};
       }
     }
 
-    function updateProgressTelemetry() {
-      const done = state.completedDays.length;
-      const total = CURRICULUM.length || 168;
-      const pct = Math.round((done / total) * 100);
-      document.getElementById("progress-label").textContent = `${done} / ${total} Completed (${pct}%)`;
-      document.getElementById("progress-bar-fill").style.width = `${pct}%`;
-      document.getElementById("roadmap-count-badge").textContent = `(${done}/${total})`;
-      document.getElementById("streak-val").textContent = `${state.streak || 1}d`;
-    }
+    async function persistProfileData() {
+      const payload = {
+        handle: state.handle,
+        completed: state.completed,
+        notes: state.notes,
+        drafts: state.drafts,
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem(profileStorageKey(), JSON.stringify(payload));
+      updateProgressUI();
 
-    /* =========================================================================
-       ROADMAP DRAWER (RENDERED ONCE PER FILTER CHANGE)
-       ========================================================================= */
-    function renderRoadmapList() {
-      const listEl = document.getElementById("roadmap-list");
-      const q = roadmapSearchQuery.trim().toLowerCase();
-      const filtered = CURRICULUM.filter(item => {
-        if (roadmapMonthFilter !== "all" && String(item.month) !== roadmapMonthFilter) return false;
-        if (q) {
-          const hay = `day ${item.day} ${item.topic} ${item.type} ${item.instructor}`.toLowerCase();
-          if (!hay.includes(q)) return false;
+      if (state.gistToken && state.handle !== 'Guest') {
+        try {
+          await syncWithGitHubGist(payload);
+        } catch (err) {
+          console.warn('Gist sync skipped:', err.message);
         }
-        return true;
-      });
-
-      listEl.innerHTML = filtered.map(item => {
-        const isDone = state.completedDays.includes(item.day);
-        const isAct = item.day === state.currentDay;
-        return `
-          <button class="day-item ${isDone ? "completed" : ""} ${isAct ? "active" : ""}" data-day="${item.day}">
-            <span class="day-item-num">DAY ${String(item.day).padStart(3, "0")}</span>
-            <span class="day-item-title">${escapeHtml(item.topic)}</span>
-            <span class="day-check"><i class="fa-solid fa-check"></i></span>
-          </button>
-        `;
-      }).join("");
+      }
     }
 
-    document.getElementById("roadmap-list").addEventListener("click", (e) => {
-      const btn = e.target.closest(".day-item");
-      if (!btn) return;
-      const d = Number(btn.dataset.day);
-      document.getElementById("roadmap-drawer-backdrop").classList.remove("open");
-      renderLesson(d);
-    });
-
-    /* =========================================================================
-       INTERACTIVE, NON-REPETITIVE INSTINCT AI MENTOR ENGINE
-       ========================================================================= */
-    function appendMentorBubble(role, htmlContent, snippetToInsert = "") {
-      const box = document.getElementById("mentor-messages");
-      const div = document.createElement("div");
-      div.className = `msg-bubble ${role}`;
-      div.innerHTML = htmlContent;
-      if (snippetToInsert) {
-        const btn = document.createElement("button");
-        btn.className = "insert-code-btn";
-        btn.textContent = "Insert Example into Editor";
-        btn.onclick = () => {
-          const cur = editor.getValue().trim();
-          editor.setValue(cur ? `${cur}\n\n${snippetToInsert}` : snippetToInsert);
-          editor.focus();
-        };
-        div.appendChild(btn);
+    async function syncWithGitHubGist(payload) {
+      const filename = `dataforge_${state.handle.toLowerCase()}_${state.pin}.json`;
+      let gistId = localStorage.getItem(`df_gist_id_${filename}`);
+      const headers = {
+        'Authorization': `token ${state.gistToken}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      };
+      if (!gistId) {
+        const listRes = await fetch('https://api.github.com/gists', { headers });
+        const gists = await listRes.json();
+        const found = Array.isArray(gists) && gists.find(g => g.files && g.files[filename]);
+        if (found) {
+          gistId = found.id;
+          localStorage.setItem(`df_gist_id_${filename}`, gistId);
+        }
       }
+      if (gistId) {
+        await fetch(`https://api.github.com/gists/${gistId}`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify({ files: { [filename]: { content: JSON.stringify(payload, null, 2) } } })
+        });
+      } else {
+        const createRes = await fetch('https://api.github.com/gists', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            description: `DataForge Instinct OS Sync (${state.handle})`,
+            public: false,
+            files: { [filename]: { content: JSON.stringify(payload, null, 2) } }
+          })
+        });
+        const created = await createRes.json();
+        if (created.id) localStorage.setItem(`df_gist_id_${filename}`, created.id);
+      }
+      document.getElementById('sync-status-text').textContent = `Cloud Synced (${state.handle})`;
+    }
+
+    // 4. STARTUP ONBOARDING CHECK FOR NEW STUDENTS
+    function checkStartupOnboarding() {
+      const hasKey = Boolean(localStorage.getItem('df_gemini_key'));
+      const seenStartup = localStorage.getItem('df_seen_startup_v63');
+      if (!hasKey && !seenStartup) {
+        document.getElementById('onboarding-modal').classList.remove('hidden');
+      }
+    }
+
+    function dismissOnboarding() {
+      localStorage.setItem('df_seen_startup_v63', '1');
+      document.getElementById('onboarding-modal').classList.add('hidden');
+    }
+
+    function completeOnboarding() {
+      const key = document.getElementById('onboard-api-key').value.trim();
+      const handle = document.getElementById('onboard-handle').value.trim();
+      const pin = document.getElementById('onboard-pin').value.trim();
+
+      if (key) {
+        localStorage.setItem('df_gemini_key', key);
+      }
+      if (handle && pin.length === 4) {
+        state.handle = handle;
+        state.pin = pin;
+        localStorage.setItem('df_handle', handle);
+        localStorage.setItem('df_pin', pin);
+        loadProfileData();
+        persistProfileData();
+      }
+      localStorage.setItem('df_seen_startup_v63', '1');
+      document.getElementById('onboarding-modal').classList.add('hidden');
+      updateMentorKeyUI();
+      updateProgressUI();
+      if (key) {
+        appendMentorMsg('assistant', '⚡ **Your free Gemini API key is active!** Instinct Mentor is now live and connected to your code editor.');
+      }
+    }
+
+    // 5. YOUTUBE PLAYER RENDERER (FIXED ORIGIN + STRICT REFERRER POLICY)
+    function renderVideoPlayer(dayObj) {
+      const wrapper = document.getElementById('video-wrapper');
+      const origin = encodeURIComponent(window.location.origin || 'https://reaper7738.github.io');
+      const vid = dayObj.videoId || 'HVsySz-h9r4';
+      document.getElementById('youtube-external-link').href = `https://www.youtube.com/watch?v=${vid}`;
+
+      let embedSrc = `https://www.youtube.com/embed/${vid}?start=0&rel=0&modestbranding=1&enablejsapi=1&origin=${origin}`;
+      if (state.altVideo) {
+        embedSrc = dayObj.altVideoId
+          ? `https://www.youtube.com/embed/${dayObj.altVideoId}?rel=0&origin=${origin}`
+          : `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(dayObj.title + ' tutorial')}&origin=${origin}`;
+      }
+
+      wrapper.innerHTML = `
+        <iframe
+          id="yt-player-frame"
+          src="${embedSrc}"
+          title="${dayObj.title}"
+          class="w-full h-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>`;
+    }
+
+    function toggleAltVideo() {
+      state.altVideo = !state.altVideo;
+      document.getElementById('alt-video-btn').textContent = state.altVideo ? '↩ Primary Video' : '🔄 Alt Video';
+      renderVideoPlayer(getCurrentDayObj());
+    }
+
+    // 6. DAY RENDERING & NAVIGATION
+    function getCurrentDayObj() {
+      return CURRICULUM.find(d => Number(d.day) === Number(state.currentDay)) || CURRICULUM[0];
+    }
+
+    function loadDay(dayNum) {
+      state.currentDay = Math.max(1, Math.min(168, Number(dayNum)));
+      state.altVideo = false;
+      localStorage.setItem('df_current_day', state.currentDay);
+      const d = getCurrentDayObj();
+
+      document.getElementById('day-counter-label').textContent = `Day ${d.day} / 168`;
+      document.getElementById('lesson-meta').textContent = `Month ${d.month} • Week ${d.week} • ${d.instructor} • ${d.duration}`;
+      document.getElementById('lesson-title').textContent = d.title;
+      document.getElementById('watch-focus-label').textContent = `🎯 Watch ${d.focus}`;
+      document.getElementById('alt-video-btn').textContent = '🔄 Alt Video';
+
+      const takeawaysHtml = (d.takeaways || []).map(t => `<li>${t}</li>`).join('');
+      document.getElementById('core-takeaways-list').innerHTML = takeawaysHtml;
+      document.getElementById('left-takeaways-view').innerHTML = `<h3 class="font-bold text-base mb-2">${d.title}</h3><ul class="list-disc pl-5 space-y-2">${takeawaysHtml}</ul>`;
+
+      document.getElementById('lab-prompt').textContent = d.lab;
+      document.getElementById('lab-hint-box').textContent = `💡 Hint: ${d.hint || 'Break the problem into small steps and print intermediate outputs.'}`;
+      document.getElementById('lab-hint-box').classList.add('hidden');
+
+      const draftKey = `${d.day}_${document.getElementById('runtime-select').value}`;
+      document.getElementById('code-editor').value = state.drafts[draftKey] || d.starterPy || '# Write your code here\n';
+
+      renderVideoPlayer(d);
+      state.chatHistory = [];
+      renderMentorWelcome(d);
+      updateProgressUI();
+    }
+
+    function changeDay(delta) {
+      loadDay(state.currentDay + delta);
+    }
+
+    function switchLeftTab(tab) {
+      const isVid = tab === 'video';
+      document.getElementById('left-video-view').classList.toggle('hidden', !isVid);
+      document.getElementById('left-takeaways-view').classList.toggle('hidden', isVid);
+      document.getElementById('tab-video-btn').style.background = isVid ? 'var(--accent)' : 'transparent';
+      document.getElementById('tab-video-btn').style.color = isVid ? '#05070c' : 'inherit';
+      document.getElementById('tab-notes-btn').style.background = !isVid ? 'var(--accent)' : 'transparent';
+      document.getElementById('tab-notes-btn').style.color = !isVid ? '#05070c' : 'inherit';
+    }
+
+    function toggleHint() {
+      document.getElementById('lab-hint-box').classList.toggle('hidden');
+    }
+
+    // 7. LIVE PYTHON (PYODIDE) & SQLITE EXECUTION ENGINE
+    let pyodideInstance = null;
+    let sqlDbInstance = null;
+
+    async function ensurePyodide() {
+      if (pyodideInstance) return pyodideInstance;
+      const out = document.getElementById('exec-output');
+      out.textContent = '⏳ Initializing Python 3.11 WebAssembly runtime (first run only)...';
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      pyodideInstance = await loadPyodide();
+      return pyodideInstance;
+    }
+
+    async function ensureSqlEngine() {
+      if (sqlDbInstance) return sqlDbInstance;
+      const out = document.getElementById('exec-output');
+      out.textContent = '⏳ Initializing SQLite engine with sample analytics tables (employees, orders)...';
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+      sqlDbInstance = new SQL.Database();
+      sqlDbInstance.run(`
+        CREATE TABLE employees (id INT, name TEXT, dept TEXT, salary INT);
+        INSERT INTO employees VALUES (1,'Aarav','Data Science',145000),(2,'Diya','Analytics',115000),(3,'Kabir','Data Science',160000),(4,'Meera','ML Ops',150000);
+        CREATE TABLE orders (order_id INT, emp_id INT, amount INT, city TEXT);
+        INSERT INTO orders VALUES (101,1,4200,'Mumbai'),(102,2,3100,'Pune'),(103,1,5800,'Navi Mumbai'),(104,3,7400,'Bengaluru');
+      `);
+      return sqlDbInstance;
+    }
+
+    function switchRuntime() {
+      const rt = document.getElementById('runtime-select').value;
+      const d = getCurrentDayObj();
+      const draftKey = `${d.day}_${rt}`;
+      if (state.drafts[draftKey]) {
+        document.getElementById('code-editor').value = state.drafts[draftKey];
+      } else {
+        document.getElementById('code-editor').value = rt === 'sql'
+          ? "-- Available tables: employees(id, name, dept, salary), orders(order_id, emp_id, amount, city)\nSELECT dept, ROUND(AVG(salary), 0) AS avg_salary FROM employees GROUP BY dept;\n"
+          : (d.starterPy || '# Write Python code\n');
+      }
+    }
+
+    async function runCode() {
+      const rt = document.getElementById('runtime-select').value;
+      const code = document.getElementById('code-editor').value;
+      const out = document.getElementById('exec-output');
+      try {
+        if (rt === 'python') {
+          const py = await ensurePyodide();
+          py.runPython(`
+import sys, io
+_buf = io.StringIO()
+sys.stdout = _buf
+sys.stderr = _buf
+`);
+          await py.runPythonAsync(code);
+          const result = py.runPython('_buf.getvalue()');
+          out.textContent = result.trim() ? result : '✓ Executed cleanly (no stdout output).';
+        } else {
+          const db = await ensureSqlEngine();
+          const res = db.exec(code);
+          if (!res.length) {
+            out.textContent = '✓ Query executed (0 rows returned).';
+          } else {
+            out.textContent = res.map(r => [r.columns.join(' | '), '-'.repeat(32), ...r.values.map(v => v.join(' | '))].join('\n')).join('\n\n');
+          }
+        }
+      } catch (err) {
+        out.textContent = `❌ Error:\n${err.message}`;
+      }
+    }
+
+    function saveDraft() {
+      const rt = document.getElementById('runtime-select').value;
+      state.drafts[`${state.currentDay}_${rt}`] = document.getElementById('code-editor').value;
+      document.getElementById('draft-status').textContent = 'Draft saved';
+      persistProfileData();
+    }
+
+    function resetEditorCode() {
+      const rt = document.getElementById('runtime-select').value;
+      delete state.drafts[`${state.currentDay}_${rt}`];
+      switchRuntime();
+    }
+
+    function clearOutput() {
+      document.getElementById('exec-output').textContent = '';
+    }
+
+    function verifyAndComplete() {
+      runCode();
+      if (!state.completed.includes(state.currentDay)) {
+        state.completed.push(state.currentDay);
+        persistProfileData();
+      }
+      appendMentorMsg('assistant', `✅ **Day ${state.currentDay} marked complete!** (${state.completed.length}/168 done). Ready for Day ${Math.min(168, state.currentDay + 1)} or want a quick interview check on today's topic?`);
+    }
+
+    // 8. INSTINCT AI MENTOR (GEMINI 3.8 FLASH + STUDENT'S OWN FREE KEY)
+    function updateMentorKeyUI() {
+      const key = localStorage.getItem('df_gemini_key') || '';
+      const badge = document.getElementById('ai-mode-badge');
+      const banner = document.getElementById('inline-key-banner');
+      if (key) {
+        badge.textContent = '⚡ Gemini Live';
+        badge.style.color = 'var(--accent)';
+        banner.classList.add('hidden');
+      } else {
+        badge.textContent = 'Offline (Add Free Key)';
+        badge.style.color = 'inherit';
+        banner.classList.remove('hidden');
+      }
+    }
+
+    function saveInlineKey() {
+      const val = document.getElementById('inline-api-key').value.trim();
+      if (!val) return;
+      localStorage.setItem('df_gemini_key', val);
+      updateMentorKeyUI();
+      appendMentorMsg('assistant', '⚡ **Your free Gemini API key is connected!** Instinct Mentor is now live and can review your code, explain concepts, and quiz you.');
+    }
+
+    function saveSettingsKey() {
+      const val = document.getElementById('settings-api-key').value.trim();
+      if (val) localStorage.setItem('df_gemini_key', val);
+      updateMentorKeyUI();
+      toggleModal('settings-modal');
+    }
+
+    function removeApiKey() {
+      localStorage.removeItem('df_gemini_key');
+      document.getElementById('settings-api-key').value = '';
+      updateMentorKeyUI();
+    }
+
+    function renderMentorWelcome(d) {
+      const box = document.getElementById('mentor-chat');
+      box.innerHTML = '';
+      const hasKey = Boolean(localStorage.getItem('df_gemini_key'));
+      const intro = hasKey
+        ? `Ready for **Day ${d.day}: ${d.title}**. Click **Review My Code**, **Why This Matters**, **Explain Simply**, or **Quiz Me**—or ask anything below.`
+        : `Ready for **Day ${d.day}: ${d.title}**. Note: **Only when you add your free Google AI Studio key above will Instinct Mentor be live** for real-time code reviews and quizzes.`;
+      appendMentorMsg('assistant', intro);
+    }
+
+    function appendMentorMsg(role, text) {
+      const box = document.getElementById('mentor-chat');
+      const div = document.createElement('div');
+      div.className = role === 'user'
+        ? 'ml-8 p-2.5 rounded-xl bg-white/10 border border-white/10'
+        : 'mr-4 p-2.5 rounded-xl bg-black/30 border border-white/10';
+      div.innerHTML = text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`([^`]+)`/g, '<code class="mono px-1 py-0.5 rounded bg-black/40">$1</code>')
+        .replace(/\n/g, '<br/>');
       box.appendChild(div);
       box.scrollTop = box.scrollHeight;
     }
 
-    function getDomainInsight(lesson) {
-      const m = lesson.month;
-      const prev = CURRICULUM.find(d => d.day === lesson.day - 1);
-      const next = CURRICULUM.find(d => d.day === lesson.day + 1);
-      const bridge = prev && next
-        ? `It builds directly on <em>${escapeHtml(prev.topic)}</em> and sets up <em>${escapeHtml(next.topic)}</em>.`
-        : "";
-
-      const domainMap = {
-        1: {
-          role: "Data Analysts & Python Engineers use this daily to automate raw CSV/JSON ingestion and catch malformed telemetry before it reaches dashboards.",
-          trap: "Common Beginner Trap: Mutating a list while looping over it or forgetting to cast string inputs from CSV/JSON into int/float before doing math.",
-          analogy: "Think of Python data structures like labeled warehouse bins—lists keep ordered sequences, while dictionaries give instant barcode lookup by key.",
-          snippet: lesson.lang === "python"
-            ? "# Quick mental-model check\nsample_metrics = {'rows': 500, 'valid': 485}\nrate = round(sample_metrics['valid'] / sample_metrics['rows'] * 100, 1)\nprint(f'Clean rate: {rate}%')"
-            : ""
-        },
-        2: {
-          role: "In Data Analyst interviews and production BI pipelines, 70%+ of metric definitions live in SQL queries joining fact tables with dimension lookups.",
-          trap: "Common SQL Trap: Using WHERE on an aggregated column (use HAVING after GROUP BY) or forgetting table aliases when joining two tables with shared column names.",
-          analogy: "Think of SQL execution order like a factory assembly line: FROM gathers tables → WHERE filters raw parts → GROUP BY boxes them → HAVING inspects boxes → SELECT labels the output.",
-          snippet: "SELECT department, COUNT(*) AS n, ROUND(AVG(salary), 0) AS avg_sal\nFROM employees\nGROUP BY department\nORDER BY avg_sal DESC;"
-        },
-        3: {
-          role: "Data Scientists spend ~60% of project time wrangling messy tables with Pandas—deduplicating logs, imputing missing values, and engineering leak-free features.",
-          trap: "Common Pandas Trap: Writing df[df['a'] > 1]['b'] = 0 (chained indexing) or forgetting parentheses around conditions: (df['a'] > 1) & (df['b'] == 'X').",
-          analogy: "A Pandas DataFrame is like an Excel spreadsheet backed by C-speed NumPy arrays—vectorized column operations process 100,000 rows in milliseconds without loops.",
-          snippet: "import pandas as pd\ndf = pd.read_csv('movies.csv')\nprint(df.groupby('genre')['rating'].agg(['count', 'mean']).round(2))"
-        },
-        4: {
-          role: "ML Engineers and Product Data Scientists rely on hypothesis testing, clean cross-validation splits, and interpretable baselines before deploying predictive models.",
-          trap: "Common ML Trap: Fitting StandardScaler or imputers on the entire dataset BEFORE train_test_split—which leaks test statistics into training and inflates accuracy.",
-          analogy: "Train/test splitting is like studying with practice problems (train) and taking a sealed final exam (test)—if you peek at the exam while studying, your score isn't real.",
-          snippet: "import numpy as np\nfrom sklearn.linear_model import LinearRegression\nX = np.array([[1], [2], [3], [4]])\ny = np.array([2, 4, 6, 8])\nprint('Pred for 5:', LinearRegression().fit(X, y).predict([[5]])[0])"
-        },
-        5: {
-          role: "Applied AI Engineers combine Git discipline, semantic vector search (RAG), and deterministic tool schemas to ground LLMs in private enterprise data.",
-          trap: "Common GenAI Trap: Letting an LLM execute raw unvalidated SQL or skipping chunk overlap—causing either destructive queries or severed facts at chunk boundaries.",
-          analogy: "RAG works like an open-book exam: instead of expecting the LLM to memorize your private files, a retriever hands it the top 3 relevant pages right before answering.",
-          snippet: "import numpy as np\na, b = np.array([1.0, 0.0]), np.array([0.8, 0.6])\ncos_sim = float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))\nprint('Cosine similarity:', round(cos_sim, 3))"
-        },
-        6: {
-          role: "Hiring managers evaluate portfolio capstones and live interviews on structured problem framing, measurable baseline-vs-final gains, and calm edge-case handling.",
-          trap: "Common Career Trap: Listing tools on a resume without quantified outcomes, or jumping into coding during an interview before clarifying NULLs, ties, and constraints.",
-          analogy: "Treat your portfolio and job search like an ML feedback loop: ship a clean baseline fast, measure where interviews or models stall, and iterate systematically.",
-          snippet: "def kpi_delta(baseline, current):\n    gain = round((current - baseline) / baseline * 100, 1)\n    return f'{baseline} -> {current} (+{gain}%)'\nprint(kpi_delta(0.72, 0.88))"
-        }
+    function askMentorPreset(type) {
+      const prompts = {
+        why: "Why does today's topic actually matter in real Data Analyst / Data Scientist jobs?",
+        simple: "Explain today's core concept simply with a concrete everyday analogy and a tiny example.",
+        review: "Review my current editor code and execution output. Point out bugs, edge cases, or cleaner Pythonic/SQL patterns.",
+        quiz: "Ask me ONE practical interview question on today's lesson and wait for my answer before revealing the solution."
       };
-      return { ...(domainMap[m] || domainMap[1]), bridge };
+      sendMentorQuery(prompts[type]);
     }
 
-    function inspectUserCode(lesson, code) {
-      const trimmed = code.trim();
-      if (!trimmed) {
-        return `Your editor is currently empty! Start by reading the prompt for <strong>Day ${lesson.day}</strong>: <em>${escapeHtml(lesson.exercise)}</em>. Need a nudge? Click <strong>Explain Simply</strong> for a runnable pattern.`;
-      }
-
-      const issues = [];
-      const positives = [];
-
-      // Balanced bracket/quote checks
-      const parens = (trimmed.match(/\(/g) || []).length - (trimmed.match(/\)/g) || []).length;
-      const brackets = (trimmed.match(/\[/g) || []).length - (trimmed.match(/\]/g) || []).length;
-      if (parens !== 0) issues.push(`Unbalanced parentheses <code>()</code> (${parens > 0 ? "missing closing ')'" : "extra ')'"}).`);
-      if (brackets !== 0) issues.push(`Unbalanced square brackets <code>[]</code>.`);
-
-      if (lesson.lang === "sql") {
-        const up = trimmed.toUpperCase();
-        if (!trimmed.endsWith(";")) issues.push("End your SQL statement with a semicolon <code>;</code>.");
-        if (!/\b(SELECT|CREATE|WITH|EXPLAIN)\b/.test(up)) issues.push("Start with a valid SQL keyword like <code>SELECT</code> or <code>WITH</code>.");
-        if (/\bAVG\s*\(|\bCOUNT\s*\(|\bSUM\s*\(/.test(up) && /\bWHERE\b/.test(up) && !/\bGROUP BY\b/.test(up) && !/\bOVER\s*\(/.test(up)) {
-          issues.push("You combined an aggregate function with <code>WHERE</code> without <code>GROUP BY</code> or <code>OVER()</code>.");
-        }
-        if (/\bSELECT\b/.test(up) && /\bFROM\b/.test(up)) positives.push("Valid <code>SELECT ... FROM</code> structure detected.");
-      } else {
-        const lines = trimmed.split("\n");
-        lines.forEach((ln, idx) => {
-          const s = ln.trim();
-          if (/^(def |if |elif |else|for |while |class |try|except|with )/.test(s) && !s.endsWith(":") && !s.includes("#")) {
-            issues.push(`Line ${idx + 1} (<code>${escapeHtml(s)}</code>) appears to be missing a trailing colon <code>:</code>.`);
-          }
-        });
-        if (/import\s+(pandas|numpy|sqlite3|sklearn|csv|json|statistics)/.test(trimmed)) {
-          positives.push("Required library imports are in place.");
-        }
-      }
-
-      // Extract expected variable/column names from testCheck without spoiling the answer
-      const expectedVars = [...new Set(
-        [...(lesson.testCheck || "").matchAll(/env(?:\.get)?\(\s*['"]([a-zA-Z_][a-zA-Z0-9_]*)['"]/g)].map(m => m[1])
-      )];
-      const missingVars = expectedVars.filter(v => !new RegExp(`\\b${v}\\b`).test(trimmed));
-      const foundVars = expectedVars.filter(v => new RegExp(`\\b${v}\\b`).test(trimmed));
-
-      if (foundVars.length) {
-        positives.push(`Found target identifier(s): <code>${foundVars.join(", ")}</code>.`);
-      }
-      if (missingVars.length) {
-        issues.push(`The automated check looks for <code>${missingVars.join(", ")}</code> — make sure you assign that exact name.`);
-      }
-
-      let reply = "";
-      if (positives.length) reply += `<strong>✔ Looking good:</strong> ${positives.join(" ")}<br/>`;
-      if (issues.length) {
-        reply += `<strong>⚠ Next fix:</strong> ${issues.join(" ")}`;
-      } else {
-        reply += `<strong>🚀 Ready to test:</strong> Syntax and target identifiers look solid! Hit <strong>Verify & Complete</strong> to run the full assertion suite.`;
-      }
-      return reply;
-    }
-
-    function generateTopicQuiz(lesson) {
-      const m = lesson.month;
-      const quizzes = {
-        1: {
-          q: `Quick Check on <strong>${escapeHtml(lesson.topic)}</strong>: Suppose <code>vals = [10, 20, 30, 40]</code>. What does <code>vals[-2:]</code> evaluate to in Python?`,
-          keywords: ["30", "40"],
-          explain: "<code>vals[-2:]</code> slices from the second-to-last element to the end, returning <code>[30, 40]</code>."
-        },
-        2: {
-          q: `SQL Check on <strong>${escapeHtml(lesson.topic)}</strong>: Which clause filters aggregated groups <em>after</em> <code>GROUP BY</code> runs—<code>WHERE</code> or <code>HAVING</code>?`,
-          keywords: ["having"],
-          explain: "<code>HAVING</code> filters grouped results after aggregation, whereas <code>WHERE</code> filters raw rows before grouping."
-        },
-        3: {
-          q: `Pandas Check on <strong>${escapeHtml(lesson.topic)}</strong>: Which Pandas indexer selects rows and columns strictly by integer position (0, 1, 2) rather than index labels—<code>.loc</code> or <code>.iloc</code>?`,
-          keywords: ["iloc"],
-          explain: "<code>.iloc</code> is integer-location based, while <code>.loc</code> uses row/column labels."
-        },
-        4: {
-          q: `Stats & ML Check on <strong>${escapeHtml(lesson.topic)}</strong>: Should you fit a <code>StandardScaler</code> <em>before</em> or <em>after</em> splitting into train and test sets?`,
-          keywords: ["after"],
-          explain: "Always fit scalers <strong>after</strong> splitting (on <code>X_train</code> only) so test-set mean and variance never leak into training."
-        },
-        5: {
-          q: `GenAI & Engineering Check on <strong>${escapeHtml(lesson.topic)}</strong>: What <code>temperature</code> value (0.0 or 0.8) should you set when extracting structured JSON or SQL from an LLM?`,
-          keywords: ["0", "0.0", "zero"],
-          explain: "Setting <code>temperature = 0.0</code> makes token selection greedy and deterministic, preventing creative drift in JSON/SQL schemas."
-        },
-        6: {
-          q: `Career & System Design Check on <strong>${escapeHtml(lesson.topic)}</strong>: In a STAR behavioral answer, which letter should take ~60% of your speaking time?`,
-          keywords: ["action", "a"],
-          explain: "<strong>Action (A)</strong> should take ~60% of your answer—detailing the exact technical decisions and trade-offs you executed."
-        }
-      };
-      return quizzes[m] || quizzes[1];
-    }
-
-    async function callGeminiIfConfigured(userPrompt, lesson) {
-      if (!state.geminiKey) return null;
-      try {
-        let extraContext = "";
-        if (state.liveSearch) {
-          const q = encodeURIComponent(lesson.topic);
-          const [wikiRes, soRes] = await Promise.allSettled([
-            fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${q}`).then(r => r.ok ? r.json() : null),
-            fetch(`https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=relevance&q=${q}&site=stackoverflow&pagesize=2`).then(r => r.ok ? r.json() : null)
-          ]);
-          if (wikiRes.value && wikiRes.value.extract) {
-            extraContext += `\nWikipedia Reference: ${wikiRes.value.extract.slice(0, 350)}`;
-          }
-          if (soRes.value && Array.isArray(soRes.value.items) && soRes.value.items.length) {
-            extraContext += `\nStackOverflow Top Threads: ${soRes.value.items.map(i => i.title).join(" | ")}`;
-          }
-        }
-
-        const sysInstruction = `You are Instinct AI, a warm, concise, peer-level Data Science & AI coding mentor.
-Current Lesson: Day ${lesson.day} - ${lesson.topic} (${lesson.lang.toUpperCase()}).
-Exercise: ${lesson.exercise}
-User's Current Editor Code:
-${editor.getValue().slice(0, 1200)}
-${extraContext}
-Rules: Never repeat the lesson's bullet takeaways verbatim. Keep answers under 110 words, practical, and Socratic (guide without giving away the full exercise answer unless asked).`;
-
-        const contents = [
-          ...mentorHistory.slice(-6).map(m => ({ role: m.role === "user" ? "user" : "model", parts: [{ text: m.text }] })),
-          { role: "user", parts: [{ text: userPrompt }] }
-        ];
-
-        const resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(state.geminiKey)}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              systemInstruction: { parts: [{ text: sysInstruction }] },
-              contents
-            })
-          }
-        );
-        if (!resp.ok) return null;
-        const data = await resp.json();
-        return data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-      } catch (e) {
-        return null;
-      }
-    }
-
-    async function handleMentorAction(action, customPrompt = "") {
-      const lesson = getLesson(state.currentDay);
-      const insight = getDomainInsight(lesson);
-
-      if (action === "why") {
-        appendMentorBubble("user", "Why does this matter in real jobs?");
-        const html = `<strong>Real-World Impact:</strong> ${insight.role}<br/><br/><strong>⚠ Watch Out:</strong> ${insight.trap}${insight.bridge ? `<br/><br/><strong>Roadmap Link:</strong> ${insight.bridge}` : ""}`;
-        appendMentorBubble("ai", html);
-        mentorHistory.push({ role: "user", text: "Why does this matter?" }, { role: "ai", text: html });
-        return;
-      }
-
-      if (action === "simple") {
-        appendMentorBubble("user", "Explain this simply with an example");
-        const html = `<strong>Mental Model:</strong> ${insight.analogy}<br/><br/>Try running this mini example to see the pattern in action:<pre>${escapeHtml(insight.snippet)}</pre>`;
-        appendMentorBubble("ai", html, insight.snippet);
-        mentorHistory.push({ role: "user", text: "Explain simply" }, { role: "ai", text: html });
-        return;
-      }
-
-      if (action === "review") {
-        appendMentorBubble("user", "Review my code in the editor");
-        const feedback = inspectUserCode(lesson, editor.getValue());
-        appendMentorBubble("ai", feedback);
-        mentorHistory.push({ role: "user", text: "Review my code" }, { role: "ai", text: feedback });
-        return;
-      }
-
-      if (action === "quiz") {
-        appendMentorBubble("user", "Quiz me on today's concept");
-        pendingQuiz = generateTopicQuiz(lesson);
-        appendMentorBubble("ai", `${pendingQuiz.q}<br/><span style="font-size:0.74rem;color:var(--text-muted)">Type your answer in the chat box below!</span>`);
-        mentorHistory.push({ role: "user", text: "Quiz me" }, { role: "ai", text: pendingQuiz.q });
-        document.getElementById("mentor-input").focus();
-        return;
-      }
-
-      // Free-form user chat message
-      if (!customPrompt.trim()) return;
-      appendMentorBubble("user", escapeHtml(customPrompt));
-      mentorHistory.push({ role: "user", text: customPrompt });
-
-      // Check if answering a pending Quiz Me question
-      if (pendingQuiz) {
-        const ansLow = customPrompt.toLowerCase();
-        const isCorrect = pendingQuiz.keywords.some(k => ansLow.includes(k));
-        const reply = isCorrect
-          ? `<strong>Spot on! 🎉</strong> ${pendingQuiz.explain}`
-          : `<strong>Close!</strong> ${pendingQuiz.explain}`;
-        pendingQuiz = null;
-        appendMentorBubble("ai", reply);
-        mentorHistory.push({ role: "ai", text: reply });
-        return;
-      }
-
-      // Try live Gemini 2.5 Flash if user configured an API key
-      const liveReply = await callGeminiIfConfigured(customPrompt, lesson);
-      if (liveReply) {
-        const formatted = escapeHtml(liveReply).replace(/\n/g, "<br/>");
-        appendMentorBubble("ai", formatted);
-        mentorHistory.push({ role: "ai", text: liveReply });
-        return;
-      }
-
-      // Intelligent contextual local follow-up (never repeats takeaways verbatim)
-      const qLow = customPrompt.toLowerCase();
-      let reply = "";
-      if (/hint|stuck|help|nudge|how/.test(qLow)) {
-        reply = `<strong>Step-by-Step Nudge:</strong><br/>1. Check the required target variable/column in the exercise: <em>${escapeHtml(lesson.exercise)}</em>.<br/>2. Hint: <code>${escapeHtml(lesson.hint)}</code><br/>3. Print intermediate values with <code>print()</code> and click <strong>Run</strong> to inspect.`;
-      } else if (/error|fail|bug|wrong|why/.test(qLow)) {
-        reply = inspectUserCode(lesson, editor.getValue());
-      } else if (/example|code|show|harder/.test(qLow)) {
-        reply = `Here is a clean pattern related to <strong>${escapeHtml(lesson.topic)}</strong>:<pre>${escapeHtml(insight.snippet)}</pre>`;
-        appendMentorBubble("ai", reply, insight.snippet);
-        mentorHistory.push({ role: "ai", text: reply });
-        return;
-      } else {
-        reply = `Good question on <strong>${escapeHtml(lesson.topic)}</strong>. ${insight.analogy} If you'd like me to inspect your current draft or test your understanding, click <strong>Review My Code</strong> or <strong>Quiz Me</strong> above!`;
-      }
-      appendMentorBubble("ai", reply);
-      mentorHistory.push({ role: "ai", text: reply });
-    }
-
-    /* =========================================================================
-       PORTFOLIO README.MD & JSON EXPORT
-       ========================================================================= */
-    function exportGitHubPortfolioReadme() {
-      const done = state.completedDays.length;
-      const total = CURRICULUM.length;
-      const pct = Math.round((done / total) * 100);
-      const completedLessons = CURRICULUM.filter(d => state.completedDays.includes(d.day));
-      const highlights = completedLessons.slice(-10).map(d => `- **Day ${d.day} (${d.type}):** ${d.topic}`).join("\n") || "- Day 1: Python Pipeline Setup (In Progress)";
-
-      const md = `# Data Science, Machine Learning & Applied GenAI Portfolio
-
-**Progress:** ${done} / ${total} Curriculum Labs Completed (${pct}%)  
-**Environment:** DATAFORGE // INSTINCT OS (Python 3.11, SQLite 3, NumPy, Pandas, SciPy, Scikit-Learn, Matplotlib, RAG & Agents)
-
-## Core Technical Stack
-- **Programming & Data Engineering:** Python 3, File/CSV/JSON ETL, OOP Pipelines, Unit Testing, Git/GitHub
-- **Relational Databases & SQL:** Joins, Subqueries, Common Table Expressions (CTEs), Window Functions (\`RANK\`, \`OVER\`, \`PARTITION BY\`), Query Optimization
-- **Data Wrangling & Statistical Analysis:** NumPy Vectorization, Pandas Multi-Index Grouping, Pivot Tables, IQR Outlier Detection, Hypothesis & A/B Testing
-- **Machine Learning & Visualization:** Linear/Logistic Regression, Regularization (Ridge/Lasso), Decision Trees, Random Forests, Gradient Boosting, K-Means, PCA, Scikit-Learn Pipelines
-- **Applied GenAI & Agentic Systems:** Tokenization, Structured JSON Outputs, Cosine Similarity, TF-IDF / Hybrid Retrieval (RAG), ReAct Tool Schemas & Guardrails
-
-## Verified Lab Highlights
-${highlights}
-`;
-      const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "README.md";
-      a.click();
-    }
-
-    function renderDatasetsModal() {
-      const body = document.getElementById("datasets-modal-body");
-      let html = `
-        <div class="info-card">
-          <div class="card-label"><span>Preloaded SQLite 3 Tables (SQL Mode)</span></div>
-          <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
-            • <code>employees(id, name, department, salary)</code> — 7 rows across Data, Engineering, Product, HR<br/>
-            • <code>departments(dept_name, lead_name, city)</code> — 4 regional leads (Bengaluru, Mumbai, Pune, Delhi)<br/>
-            • <code>weather_logs(log_date, city, temp_c, condition)</code> — 6 multi-city observations
-          </p>
-        </div>
-      `;
-      for (const [fname, content] of Object.entries(DATASETS)) {
-        html += `
-          <div class="info-card">
-            <div class="card-label"><span>${escapeHtml(fname)} (Python Working Directory)</span></div>
-            <pre style="font-family:var(--font-mono);font-size:0.74rem;color:var(--text-secondary);overflow-x:auto;">${escapeHtml(content)}</pre>
-          </div>
-        `;
-      }
-      body.innerHTML = html;
-    }
-
-    /* =========================================================================
-       EVENT LISTENERS & INITIALIZATION
-       ========================================================================= */
-    document.getElementById("btn-prev-day").onclick = () => {
-      if (state.currentDay > 1) renderLesson(state.currentDay - 1);
-    };
-    document.getElementById("btn-next-day").onclick = () => {
-      if (state.currentDay < CURRICULUM.length) renderLesson(state.currentDay + 1);
-    };
-
-    document.getElementById("btn-open-roadmap").onclick = () => {
-      renderRoadmapList();
-      document.getElementById("roadmap-drawer-backdrop").classList.add("open");
-    };
-    document.getElementById("btn-close-roadmap").onclick = () => {
-      document.getElementById("roadmap-drawer-backdrop").classList.remove("open");
-    };
-    document.getElementById("roadmap-drawer-backdrop").onclick = (e) => {
-      if (e.target.id === "roadmap-drawer-backdrop") e.target.classList.remove("open");
-    };
-
-    document.getElementById("roadmap-search").oninput = (e) => {
-      roadmapSearchQuery = e.target.value;
-      renderRoadmapList();
-    };
-    document.getElementById("month-filter-pills").onclick = (e) => {
-      const btn = e.target.closest(".month-pill");
-      if (!btn) return;
-      document.querySelectorAll(".month-pill").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      roadmapMonthFilter = btn.dataset.month;
-      renderRoadmapList();
-    };
-
-    document.getElementById("left-view-tabs").onclick = (e) => {
-      const tab = e.target.closest(".seg-tab");
-      if (!tab) return;
-      document.querySelectorAll(".seg-tab").forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      activeLeftTab = tab.dataset.tab;
-      updateYouTubeFrame(getLesson(state.currentDay));
-    };
-
-    document.getElementById("btn-alt-video").onclick = () => {
-      useAltVideo = !useAltVideo;
-      updateYouTubeFrame(getLesson(state.currentDay));
-    };
-
-    document.getElementById("btn-toggle-hint").onclick = () => {
-      const h = document.getElementById("hint-box");
-      const vis = h.classList.toggle("visible");
-      document.getElementById("btn-toggle-hint").textContent = vis ? "Hide Hint" : "Show Hint";
-    };
-
-    document.getElementById("lesson-notes-input").oninput = (e) => {
-      state.notes[state.currentDay] = e.target.value;
-      document.getElementById("notes-save-status").textContent = "Saving...";
-      clearTimeout(noteSaveTimer);
-      noteSaveTimer = setTimeout(() => {
-        saveStateNow();
-        document.getElementById("notes-save-status").textContent = "Saved locally";
-      }, 800);
-    };
-
-    document.getElementById("btn-run-code").onclick = () => executeUserCode(false);
-    document.getElementById("btn-verify-day").onclick = () => executeUserCode(true);
-    document.getElementById("btn-clear-code").onclick = () => {
-      editor.setValue("");
-      scheduleDraftSave(state.currentDay, "");
-      editor.focus();
-    };
-    document.getElementById("btn-clear-console").onclick = () => {
-      document.getElementById("console-output").textContent = "Console cleared.";
-    };
-
-    // Mentor chips & chat form
-    document.querySelector(".mentor-chips").onclick = (e) => {
-      const chip = e.target.closest(".mentor-chip");
-      if (chip) handleMentorAction(chip.dataset.mentorAction);
-    };
-    document.getElementById("mentor-form").onsubmit = (e) => {
+    function handleMentorSubmit(e) {
       e.preventDefault();
-      const inp = document.getElementById("mentor-input");
-      const val = inp.value;
-      inp.value = "";
-      handleMentorAction("chat", val);
-    };
+      const inp = document.getElementById('mentor-input');
+      const q = inp.value.trim();
+      if (!q) return;
+      inp.value = '';
+      sendMentorQuery(q);
+    }
 
-    // Modals
-    document.getElementById("btn-open-datasets").onclick = () => {
-      renderDatasetsModal();
-      document.getElementById("datasets-modal").classList.add("open");
-    };
-    document.getElementById("btn-open-themes").onclick = () => {
-      applyThemeAndPerf();
-      document.getElementById("themes-modal").classList.add("open");
-    };
-    document.getElementById("btn-open-settings").onclick = () => {
-      document.getElementById("gemini-key-input").value = state.geminiKey || "";
-      document.getElementById("live-search-toggle").checked = Boolean(state.liveSearch);
-      document.getElementById("settings-modal").classList.add("open");
-    };
-    document.querySelectorAll("[data-close-modal]").forEach(btn => {
-      btn.onclick = () => document.getElementById(btn.dataset.closeModal).classList.remove("open");
-    });
-    document.querySelectorAll(".modal-backdrop").forEach(bd => {
-      bd.onclick = (e) => { if (e.target === bd) bd.classList.remove("open"); };
-    });
+    async function sendMentorQuery(userText) {
+      appendMentorMsg('user', userText);
+      const d = getCurrentDayObj();
+      const code = document.getElementById('code-editor').value;
+      const output = document.getElementById('exec-output').textContent;
+      const apiKey = localStorage.getItem('df_gemini_key') || '';
 
-    document.getElementById("perf-mode-select").onchange = (e) => {
-      state.perfMode = e.target.value;
-      saveStateNow();
-      applyThemeAndPerf();
-    };
-    document.getElementById("theme-grid").onclick = (e) => {
-      const card = e.target.closest(".theme-card");
-      if (!card) return;
-      state.theme = card.dataset.themeVal;
-      saveStateNow();
-      applyThemeAndPerf();
-    };
-
-    document.getElementById("gemini-key-input").onchange = (e) => {
-      state.geminiKey = e.target.value.trim();
-      saveStateNow();
-    };
-    document.getElementById("live-search-toggle").onchange = (e) => {
-      state.liveSearch = e.target.checked;
-      saveStateNow();
-    };
-    document.getElementById("btn-load-ml-now").onclick = () => {
-      pyWorker.postMessage({ type: "preload-ml" });
-      document.getElementById("settings-modal").classList.remove("open");
-    };
-
-    document.getElementById("btn-export-readme").onclick = exportGitHubPortfolioReadme;
-    document.getElementById("btn-export-json").onclick = () => {
-      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "dataforge_progress_backup.json";
-      a.click();
-    };
-    document.getElementById("input-import-json").onchange = (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          const imported = JSON.parse(reader.result);
-          state = { ...defaultState, ...imported };
-          saveStateNow();
-          applyThemeAndPerf();
-          renderRoadmapList();
-          renderLesson(state.currentDay || 1);
-          document.getElementById("settings-modal").classList.remove("open");
-        } catch (err) {
-          alert("Invalid JSON backup file.");
-        }
-      };
-      reader.readAsText(file);
-    };
-
-    // Streak check & Initial Render
-    (function boot() {
-      const today = new Date().toISOString().slice(0, 10);
-      if (state.lastActiveDate !== today) {
-        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-        state.streak = (state.lastActiveDate === yesterday) ? (state.streak || 1) + 1 : 1;
-        state.lastActiveDate = today;
-        saveStateNow();
+      if (!apiKey) {
+        appendMentorMsg('assistant', `🔒 **Mentor is currently offline.** Paste your **free** Gemini API key from Google AI Studio in the bar above to make Instinct Mentor live!`);
+        return;
       }
-      applyThemeAndPerf();
-      renderRoadmapList();
-      renderLesson(state.currentDay || 1);
-    })();
+
+      const thinkingEl = document.createElement('div');
+      thinkingEl.className = 'text-[11px] opacity-60 italic px-2';
+      thinkingEl.textContent = 'Instinct Mentor is inspecting your workspace...';
+      document.getElementById('mentor-chat').appendChild(thinkingEl);
+
+      const sysInstruction = `You are Instinct Mentor, a sharp, grounded senior Data Scientist & ML Engineer mentoring a student.
+Current Lesson: Day ${d.day}/168 — ${d.title} (Month ${d.month}, Week ${d.week}).
+Lab Task: ${d.lab}
+Active Editor Code:\n\`\`\`\n${code}\n\`\`\`
+Latest Execution Output:\n\`\`\`\n${output}\n\`\`\`
+Rules: Be direct, concise (under 140 words unless reviewing complex code), never give generic fluff, reference the student's exact variables/errors when relevant, and if quizzing, ask ONLY 1 question at a time.`;
+
+      state.chatHistory.push({ role: 'user', parts: [{ text: userText }] });
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(apiKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: sysInstruction }] },
+            contents: state.chatHistory.slice(-8)
+          })
+        });
+        const data = await res.json();
+        thinkingEl.remove();
+        if (data.error) {
+          appendMentorMsg('assistant', `⚠️ Gemini API Error: ${data.error.message}`);
+          return;
+        }
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated.';
+        state.chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+        appendMentorMsg('assistant', reply);
+      } catch (err) {
+        thinkingEl.remove();
+        appendMentorMsg('assistant', `⚠️ Network error: ${err.message}`);
+      }
+    }
+
+    // 9. SMART NOTES DOCK
+    let activeNoteFilter = 'ALL';
+    function toggleSmartNotes() {
+      document.getElementById('smart-notes-drawer').classList.toggle('hidden');
+      renderSmartNotes();
+    }
+
+    function autoDetectTag(text, dayObj) {
+      const explicit = text.match(/#(Python|SQL|GenAI|Stats|ML)/i);
+      if (explicit) return `#${explicit[1]}`;
+      if (dayObj.month === 2) return '#SQL';
+      if (dayObj.month === 6) return '#GenAI';
+      return '#Python';
+    }
+
+    function addSmartNote() {
+      const inp = document.getElementById('note-input');
+      const text = inp.value.trim();
+      if (!text) return;
+      const d = getCurrentDayObj();
+      state.notes.unshift({
+        id: Date.now(),
+        day: d.day,
+        tag: autoDetectTag(text, d),
+        text
+      });
+      inp.value = '';
+      persistProfileData();
+      renderSmartNotes();
+    }
+
+    function filterNotes(tag) {
+      activeNoteFilter = tag;
+      renderSmartNotes();
+    }
+
+    function renderSmartNotes() {
+      const list = document.getElementById('notes-list');
+      document.getElementById('notes-count-badge').textContent = `(${state.notes.length})`;
+      const filtered = activeNoteFilter === 'ALL'
+        ? state.notes
+        : state.notes.filter(n => n.tag.toLowerCase() === activeNoteFilter.toLowerCase());
+      list.innerHTML = filtered.length
+        ? filtered.map(n => `<div class="liquid-pill p-2 rounded-xl flex justify-between gap-2"><span><strong style="color:var(--accent)">${n.tag}</strong> [D${n.day}] ${n.text}</span></div>`).join('')
+        : '<div class="opacity-60 italic">No notes in this filter yet.</div>';
+    }
+
+    function compileCheatSheet() {
+      if (!state.notes.length) {
+        appendMentorMsg('assistant', 'Add 1–2 Smart Notes in the bottom dock first, then click **AI Compile Cheat-Sheet** to synthesize them.');
+        return;
+      }
+      const dump = state.notes.slice(0, 15).map(n => `[Day ${n.day} ${n.tag}] ${n.text}`).join('\n');
+      sendMentorQuery(`Compile these Smart Notes into a crisp, interview-ready revision cheat-sheet:\n${dump}`);
+    }
+
+    // 10. PROFILE SYNC ACTIONS & UI HELPERS
+    function connectProfile() {
+      const h = document.getElementById('sync-handle').value.trim();
+      const p = document.getElementById('sync-pin').value.trim();
+      const tok = document.getElementById('sync-gist-token').value.trim();
+      if (!h || p.length !== 4) {
+        alert('Please enter a Student Handle and a 4-digit PIN.');
+        return;
+      }
+      state.handle = h;
+      state.pin = p;
+      if (tok) {
+        state.gistToken = tok;
+        localStorage.setItem('df_gist_token', tok);
+      }
+      localStorage.setItem('df_handle', h);
+      localStorage.setItem('df_pin', p);
+      loadProfileData();
+      persistProfileData();
+      toggleModal('sync-modal');
+    }
+
+    function copySyncCode() {
+      const code = btoa(unescape(encodeURIComponent(JSON.stringify({
+        handle: state.handle, pin: state.pin, completed: state.completed, notes: state.notes
+      }))));
+      navigator.clipboard.writeText(code);
+      alert('Sync Code copied! Paste it on any other device to restore your progress.');
+    }
+
+    function importSyncCode() {
+      const raw = prompt('Paste your DataForge Sync Code:');
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(decodeURIComponent(escape(atob(raw.trim()))));
+        state.handle = parsed.handle || state.handle;
+        state.pin = parsed.pin || state.pin;
+        state.completed = parsed.completed || [];
+        state.notes = parsed.notes || [];
+        localStorage.setItem('df_handle', state.handle);
+        localStorage.setItem('df_pin', state.pin);
+        persistProfileData();
+        alert(`Restored profile: ${state.handle} (${state.completed.length} days completed)`);
+      } catch (e) {
+        alert('Invalid Sync Code.');
+      }
+    }
+
+    function cycleTheme() {
+      state.themeIdx = (state.themeIdx + 1) % THEMES.length;
+      localStorage.setItem('df_theme_idx', state.themeIdx);
+      document.documentElement.setAttribute('data-theme', THEMES[state.themeIdx]);
+    }
+
+    function toggleModal(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+      if (id === 'roadmap-modal' && !el.classList.contains('hidden')) renderRoadmap();
+      if (id === 'sync-modal') {
+        document.getElementById('sync-handle').value = state.handle === 'Guest' ? '' : state.handle;
+        document.getElementById('sync-pin').value = state.pin === '0000' ? '' : state.pin;
+      }
+      if (id === 'settings-modal') {
+        document.getElementById('settings-api-key').value = localStorage.getItem('df_gemini_key') || '';
+      }
+    }
+
+    function renderRoadmap() {
+      const grid = document.getElementById('roadmap-grid');
+      grid.innerHTML = CURRICULUM.map(d => {
+        const done = state.completed.includes(d.day);
+        return `<button onclick="loadDay(${d.day}); toggleModal('roadmap-modal')" class="liquid-pill p-2.5 rounded-xl text-left flex items-center justify-between gap-2">
+          <span class="truncate"><strong>D${d.day}:</strong> ${d.title}</span>
+          <span>${done ? '✅' : '○'}</span>
+        </button>`;
+      }).join('');
+    }
+
+    function updateProgressUI() {
+      const count = state.completed.length;
+      const pct = Math.round((count / 168) * 100);
+      document.getElementById('header-progress-badge').textContent = `(${count}/168)`;
+      document.getElementById('footer-completion').textContent = `${count} / 168 Completed (${pct}%)`;
+      document.getElementById('active-handle-label').textContent = state.handle === 'Guest' ? 'Guest • Sync PIN' : `${state.handle} • PIN`;
+      document.getElementById('notes-count-badge').textContent = `(${state.notes.length})`;
+    }
+
+    // INIT
+    document.documentElement.setAttribute('data-theme', THEMES[state.themeIdx]);
+    loadProfileData();
+    updateMentorKeyUI();
+    loadDay(state.currentDay);
+    checkStartupOnboarding();
   </script>
 </body>
 </html>
